@@ -203,7 +203,7 @@ return array(
             'pid'   => 'b',
             'title' => '盘点列表',
             'icon'  => 'fa fa-list-ol',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/GoodsCheck/index',
         ),
         'b6'  => array(
             'pid'   => 'b',

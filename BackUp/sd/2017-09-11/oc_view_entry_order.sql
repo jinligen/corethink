@@ -6,3 +6,4 @@ INSERT INTO `oc_view_entry_order` VALUES ('XXX世纪百货', '2017-09-20', 'JD00
 INSERT INTO `oc_view_entry_order` VALUES ('XXX世纪百货', '2017-09-14', 'JD00002', '2号仓', '222.00', '3.00', 'sdfsdf ', '2017-09-10 18:51:56', '1');
 INSERT INTO `oc_view_entry_order` VALUES ('XX供应商', '2017-09-21', 'JD0002', '2号仓', '0.00', '0.00', 'sdfsdfsdf', '2017-09-10 22:13:59', '1');
 INSERT INTO `oc_view_entry_order` VALUES ('XX供应商', '2017-09-14', 'JD0003', '2号仓', '0.00', '0.00', 'sdfsdf', '2017-09-10 22:17:55', '1');
+INSERT INTO `oc_view_entry_order` VALUES ('XXX世纪百货', '2017-09-15', 'JD0004', '2号仓', '1000.00', '999.00', '摘要', '2017-09-11 20:50:59', '1');

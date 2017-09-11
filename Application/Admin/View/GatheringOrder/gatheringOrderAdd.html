@@ -110,12 +110,12 @@
     <div id="div1">
 
         <div class="layui-row" style=" text-align: center">
-            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">产&nbsp;&nbsp;品&nbsp;&nbsp;入&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">收&nbsp;&nbsp;款&nbsp;&nbsp;单</span>
         </div>
 
         <div class="form-head-row">
             <div class="form-item " style="">
-                <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
+                <span class="title" style="">客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;户:</span>
                 <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
                     <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
                     <div class="data-select" style="display: none;width: 100%;">
@@ -130,7 +130,7 @@
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="" v-model="headInfo.entry_order_payment_date"/>
+                        <input type="date" id="date" style="" v-model="headInfo.gathering_order_payment_date"/>
                     </div>
                 </div>
             </div>
@@ -139,8 +139,8 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.entry_order_id"
-                               @change="checkOrderId(headInfo.entry_order_id)"/>
+                        <input type="text" style="" v-model="headInfo.gathering_order_id"
+                               @change="checkOrderId(headInfo.gathering_order_id)"/>
                     </div>
                 </div>
             </div>
@@ -163,25 +163,45 @@
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                <div class="input-content " style=" flex: 9">
-                    <div class="data-select" style=" width: 100%; ">
-                        <input type="text" style="" v-model="headInfo.entry_order_remark"/>
+                <span class="title" style="">单据金额:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.gathering_order_price"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <div class="input-content " style=" flex: 9">
-                    <div class="data-select" style=" width: 100%; ">
-
+                <span class="title" style="">实际收款:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style="" v-model="headInfo.gathering_order_actual_payment"/>
                     </div>
                 </div>
             </div>
-
         </div>
-
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                <div class="input-content " style=" flex: 9">
+                    <div class="data-select" style=" width: 100%; ">
+                        <input type="text" style="" v-model="headInfo.gathering_order_remark"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">&nbsp;</span>
+                <div class="input-content ">
+                    <div class="data-show" style="">&nbsp;</div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">&nbsp;</span>
+                <div class="input-content ">
+                    <div class="data-show" style="">&nbsp;</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="div2">
         <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
@@ -258,28 +278,28 @@
                         <td>
                             <div class="input-content " :style="{ width: thead[5].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_entry_unit_price}}</div>
+                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_unit_price"/>
+                                    <input type="text" v-model="item.goods_out_unit_price"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[6].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_entry_total_quantity}}</div>
+                                <div class="data-show">&nbsp;{{item.goods_out_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_total_quantity"/>
+                                    <input type="text" v-model="item.goods_out_total_quantity"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[7].width + 'px'}">
-                                <div class="data-show">&nbsp;{{item.goods_entry_total_price = item.goods_id == '' ?
-                                    '':item.goods_entry_unit_price * item.goods_entry_total_quantity}}
+                                <div class="data-show">&nbsp;{{item.goods_out_total_price = item.goods_id == '' ?
+                                    '':item.goods_out_unit_price * item.goods_out_total_quantity}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_total_price"/>
+                                    <input type="text" v-model="item.goods_out_total_price"/>
                                 </div>
                             </div>
                         </td>
@@ -390,12 +410,12 @@
     <div class="print-content" style="display: none">
         <div id="print-headinfo">
             <div class="layui-row" style=" text-align: center">
-                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">产&nbsp;&nbsp;品&nbsp;&nbsp;入&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">收&nbsp;&nbsp;款&nbsp;&nbsp;单</span>
             </div>
 
             <div class="form-head-row">
                 <div class="form-item " style="">
-                    <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
+                    <span class="title" style="">客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;户:</span>
                     <div class="input-content ">
                         <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
                     </div>
@@ -404,14 +424,14 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_date}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_payment_date}}</div>
                     </div>
                 </div>
 
                 <div class="form-item " style="">
                     <span class="title" style="">单据编号:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_id}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_id}}</div>
                     </div>
                 </div>
             </div>
@@ -426,13 +446,32 @@
                 </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <span class="title" style="">单据金额:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_remark}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_price}}</div>
                     </div>
                 </div>
 
-
+                <div class="form-item " style="">
+                    <span class="title" style="">实际收款:</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_actual_payment}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_remark}}</div>
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">&nbsp;</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;</div>
+                    </div>
+                </div>
                 <div class="form-item " style="">
                     <span class="title" style="">&nbsp;</span>
                     <div class="input-content ">
@@ -440,7 +479,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
         <div id="print-table">
@@ -497,13 +535,13 @@
                         {{item.goods_actual_unit}}
                     </td>
                     <td>
-                        {{item.goods_entry_unit_price}}
+                        {{item.goods_out_unit_price}}
                     </td>
                     <td>
-                        {{item.goods_entry_total_quantity}}
+                        {{item.goods_out_total_quantity}}
                     </td>
                     <td>
-                        {{item.goods_entry_total_price}}
+                        {{item.goods_out_total_price}}
                     </td>
                     <td>
                         {{item.goods_remark}}
@@ -559,15 +597,15 @@
         isSave :true,
         thead: thead,
         headInfo: {
-            entry_order_type_name:'产品入库单',
+            gathering_order_type_name:'收款单',
             customer_id: '',
             customer_name: '',
-            entry_order_payment_date: '',
-            entry_order_id: '',
+            gathering_order_payment_date: '',
+            gathering_order_id: '',
             storehouse_name: '',
-            entry_order_price: '',
-            entry_order_actual_payment: '',
-            entry_order_remark:''
+            gathering_order_price: '',
+            gathering_order_actual_payment: '',
+            gathering_order_remark:''
         },
         tableInfo: [],
         tableData: []
@@ -613,27 +651,26 @@
             init: function () {
                 this.deleteItem(-1)
             },
-            checkOrderId: function (entry_order_id) {
+            checkOrderId: function (gathering_order_id) {
                 var self = this;
-
                 $.ajax({
-                    url: '/corethink/admin.php?s=/admin/public/checkEntryOrderId',
+                    url: '/corethink/admin.php?s=/admin/public/checkGatheringOrderId',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
-                        entry_order_id: entry_order_id,
+                        gathering_order_id: gathering_order_id,
                     },
                     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
                     beforeSend: function (xhr) {
                     },
                     success: function (data, textStatus, jqXHR) {
                         var data = eval('(' + data + ')');
-                        console.log(data)
+
                         if(data.error == '0000'){
 
                         }else{
-                            layer.msg('单据'+entry_order_id+'已存在！');
-                            self.headInfo.entry_order_id = '';
+                            layer.msg('单据'+gathering_order_id+'已存在！');
+                            self.headInfo.gathering_order_id = '';
                         }
                     },
                     error: function (xhr, textStatus) {
@@ -824,9 +861,9 @@
                         goods_name: '',
                         goods_spec: '',
                         goods_actual_unit: '',
-                        goods_entry_unit_price: '',
-                        goods_entry_total_quantity: '',
-                        goods_entry_total_price: '',
+                        goods_out_unit_price: '',
+                        goods_out_total_quantity: '',
+                        goods_out_total_price: '',
                         goods_remark: '',
 
                         goods_min_unit: '',
@@ -842,17 +879,17 @@
                     }, function(){
                         layer.closeAll();
                     }, function(){
-                        location.href = '/corethink/admin.php?s=/admin/EntryOrder/productEntryOrder'
+                        location.href = '/corethink/admin.php?s=/admin/GatheringOrder/index'
                         layer.closeAll();
                     });
                 }else {
-                    location.href = '/corethink/admin.php?s=/admin/EntryOrder/productEntryOrder'
+                    location.href = '/corethink/admin.php?s=/admin/GatheringOrder/index'
                 }
             },
             save: function () { //保存
                 var self = this;
                 $.ajax({
-                    url: '/corethink/admin.php?s=/admin/EntryOrder/productEntryOrderAdd',
+                    url: '/corethink/admin.php?s=/admin/GatheringOrder/gatheringOrderAdd',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
@@ -865,28 +902,34 @@
                         var flag = true;
 
                         if (self.headInfo.customer_name == '') {
-                            layer.msg('请选择部门');
+                            layer.msg('请选择客户');
                             flag = false;
-                        } else if (self.headInfo.entry_order_payment_date == '') {
+                        } else if (self.headInfo.gathering_order_payment_date == '') {
                             layer.msg('请选择日期');
                             flag = false;
-                        } else if (self.headInfo.entry_order_id == '') {
+                        } else if (self.headInfo.gathering_order_id == '') {
                             layer.msg('请填写单据编号');
                             flag = false;
                         } else if (self.headInfo.storehouse_name == '') {
                             layer.msg('请选择所属仓库');
+                            flag = false;
+                        } else if (self.headInfo.gathering_order_price == '') {
+                            layer.msg('请填写单据金额');
+                            flag = false;
+                        } else if (self.headInfo.gathering_order_actual_payment == '') {
+                            layer.msg('请填写实际收款');
                             flag = false;
                         } else if (self.tableData.length == '') {
                             layer.msg('请选择商品');
                             flag = false;
                         } else {
                             for (var i = 0, leng = self.tableData.length; i < leng; i++) {
-                                if (self.tableData[i].goods_entry_unit_price <= 0) {
+                                if (self.tableData[i].goods_out_unit_price <= 0) {
                                     layer.msg(self.tableData[i].goods_id + '的单价必须大于0');
                                     flag = false;
                                     break;
                                 }
-                                if (self.tableData[i].goods_entry_total_quantity <= 0) {
+                                if (self.tableData[i].goods_out_total_quantity <= 0) {
                                     layer.msg(self.tableData[i].goods_id + '的数量必须大于0');
                                     flag = false;
                                     break;
@@ -955,7 +998,7 @@
                     skin: 'CLYM-style',
                     area: ['500px', '560px'],
                     title: '客户列表',
-                    content: '/corethink/admin.php?s=/admin/public/customerList/type/部门',
+                    content: '/corethink/admin.php?s=/admin/public/customerList/type/客户',
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系
                     },
@@ -979,8 +1022,8 @@
                     type: 2,
                     skin: 'CLYM-style',
                     area: ['800px', '560px'],
-                    title: '商品列表',
-                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/成品',
+                    title: '产品列表',
+                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/产品',
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系
                     },
@@ -1014,9 +1057,9 @@
                                         goods_name: retInfo[i].goods_name,
                                         goods_spec: retInfo[i].goods_spec,
                                         goods_actual_unit: retInfo[i].goods_min_unit,
-                                        goods_entry_unit_price: retInfo[i].goods_cost_price,
-                                        goods_entry_total_quantity: 0,
-                                        goods_entry_total_price: 0,
+                                        goods_out_unit_price: retInfo[i].goods_cost_price,
+                                        goods_out_total_quantity: 0,
+                                        goods_out_total_price: 0,
                                         goods_remark: '',
 
                                     });

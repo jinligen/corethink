@@ -34,6 +34,9 @@ CREATE TABLE `oc_storehouse_payment_order` (
   `goods_is_free` int(2) DEFAULT '0' COMMENT '商品是否为赠品 0-否 1-是',
   `goods_no_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '未核销金额',
   `goods_already_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '已核销金额',
+  `goods_entry_unit_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品调入单价',
+  `goods_entry_total_quantity` decimal(10,2) DEFAULT '0.00' COMMENT '商品调入数量',
+  `goods_entry_total_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品调入金额',
   `goods_return_unit_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货单价',
   `goods_return_total_quantity` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货数量',
   `goods_return_total_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货金额',
@@ -42,5 +45,6 @@ CREATE TABLE `oc_storehouse_payment_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO `oc_storehouse_payment_order` VALUES ('1', '付款单', 'DJ0001', '', '', '十分士大夫', '', '500.00', '0.00', '0.00', '0.00', '0.00', '0.00', '20.00', '2017-09-13', '1', 'KH1001', 'XXX世纪百货', '1号仓', '', 'admin', '超级管理员', '', '456456456', '士大夫', '士大夫', '', '士大夫', '0.00', '0.00', '0', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '2017-09-11 22:08:12', '0000-00-00 00:00:00', '1');

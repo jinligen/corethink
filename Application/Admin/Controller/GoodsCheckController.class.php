@@ -14,7 +14,7 @@ use Common\Util\Think\Page;
  * 入库单控制器
  * @author jry <598821125@qq.com>
  */
-class GatheringOrderController extends AdminController
+class GoodsCheckController extends AdminController
 {
     /**
      * 入库单入口
@@ -23,37 +23,33 @@ class GatheringOrderController extends AdminController
     public function index()
     {
         $map['status'] = array('egt', '1'); // 禁用和正常状态
-        $map['gathering_order_type_name'] = array('like', '%收款单%');
+
 
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
 
-        $d_object = D('GatheringOrder');
+        $d_object = D('GoodsCheck');
 
         $field = 'id,
-                   customer_name,
-                   gathering_order_payment_date,
-                   gathering_order_id,
+                   goods_check_id,
+                   nickname,
                    storehouse_name,
-                   gathering_order_price,
-                   gathering_order_actual_payment,
-                   gathering_order_remark,
+                   goods_check_is_audited, 
                    create_time,
-                   status,
-                   gathering_order_is_audited';
-        $data_list = $d_object->page($p, C('ADMIN_PAGE_ROWS'))->field($field)->where($map)->order('gathering_order_id')->group('gathering_order_id')->select();
-        $page = new Page($d_object->where($map)->field($field)->group('gathering_order_id')->count(), C('ADMIN_PAGE_ROWS'));
+                   status';
+        $data_list = $d_object->page($p, C('ADMIN_PAGE_ROWS'))->field($field)->where($map)->order('goods_check_id')->group('goods_check_id')->select();
+        $page = new Page($d_object->where($map)->field($field)->group('goods_check_id')->count(), C('ADMIN_PAGE_ROWS'));
 
 //        echo var_dump($data_list);
 //        exit;
 
         $add['title'] = '新增';
         $add['class'] = 'btn btn-primary';
-        $add['href'] = U('Admin/GatheringOrder/gatheringOrderAdd');
+        $add['href'] = U('Admin/GoodsCheck/add');
 
 
         $details['title'] = '详情';
         $details['class'] = 'label label-primary';
-        $details['href'] = U('Admin/GatheringOrder/gatheringOrderDetails', array('id' => '__data_id__'));
+        $details['href'] = U('Admin/GoodsCheck/details', array('id' => '__data_id__'));
 
 
         $audite['title'] = '审核';
@@ -68,15 +64,11 @@ class GatheringOrderController extends AdminController
         ->addTopButton('delete')// 添加删除按钮
 
         ->addTableColumn('id', 'ID', '', '', '50%')
-            ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('gathering_order_payment_date', '采购日期')
-            ->addTableColumn('gathering_order_id', '单据编号')
+            ->addTableColumn('goods_check_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
-            ->addTableColumn('gathering_order_price', '单据金额')
-            ->addTableColumn('gathering_order_actual_payment', '实际支付')
-            ->addTableColumn('gathering_order_remark', '摘要')
+            ->addTableColumn('nickname', '创建人')
             ->addTableColumn('create_time', '创建时间')
-            ->addTableColumn('gathering_order_is_audited', '审核状态', 'status')
+            ->addTableColumn('goods_check_is_audited', '审核状态', 'status')
             ->setTableDataList($data_list)// 数据列表
             ->setTableDataPage($page->show())// 数据列表分页
 
@@ -95,7 +87,7 @@ class GatheringOrderController extends AdminController
      * 新增
      * @author jry <598821125@qq.com>
      */
-    public function gatheringOrderAdd()
+    public function add()
     {
         if (IS_POST) {
             $headInfo = ($_POST['headInfo']);
@@ -121,7 +113,7 @@ class GatheringOrderController extends AdminController
 
 
             if (count($dataList)>0) {
-                $d_object = D('GatheringOrder');
+                $d_object = D('GoodsCheck');
                 $id = $d_object->addAll($dataList);
                 if ($id) {
                     echo json_encode('{error:"0000",msg:"操作成功！",data:[]}');
@@ -145,17 +137,17 @@ class GatheringOrderController extends AdminController
      * 详情
      * @author jry <598821125@qq.com>
      */
-    public function gatheringOrderDetails($id=null)
+    public function details($id=null)
     {
 
 
         if (IS_POST) {
 
-            if ($_POST['gathering_order_id']) {
-                $map['gathering_order_id'] = $_POST['gathering_order_id'];
+            if ($_POST['goods_check_id']) {
+                $map['goods_check_id'] = $_POST['goods_check_id'];
 
-                $data['gathering_order_is_audited'] = 1;
-                $d_object = D('GatheringOrder');
+                $data['goods_check_is_audited'] = 1;
+                $d_object = D('GoodsCheck');
 
                 $id = $d_object->where($map)->save($data);
 //                echo json_encode($id);
@@ -171,11 +163,11 @@ class GatheringOrderController extends AdminController
         } else {
             $map['id'] = array('eq',$id);
 
-            $gathering_order = D('storehouse_gathering_order')->where($map)->find();
+            $goods_check = D('storehouse_goods_check')->where($map)->find();
 
-            $map1['gathering_order_id'] =array('eq',$gathering_order['gathering_order_id']);
+            $map1['goods_check_id'] =array('eq',$goods_check['goods_check_id']);
 
-            $list = D('storehouse_gathering_order')->where($map1)->select();
+            $list = D('storehouse_goods_check')->where($map1)->select();
 
             $this->assign('_list',  json_encode($list));
 
@@ -197,14 +189,14 @@ class GatheringOrderController extends AdminController
         }
         $map['id'] = array('in',$ids);
 
-        $d_object = D('GatheringOrder');
-        $gathering_order_ids = implode(',',$d_object->where($map)->getField('gathering_order_id',true));
-        $where['gathering_order_id'] = array('in',$gathering_order_ids);
+        $d_object = D('GoodsCheck');
+        $goods_check_ids = implode(',',$d_object->where($map)->getField('goods_check_id',true));
+        $where['goods_check_id'] = array('in',$goods_check_ids);
 //        $this->error($status);
         switch ($status) {
             case 'audite' :  // 审核条目
 
-                $data['gathering_order_is_audited'] = 1;
+                $data['goods_check_is_audited'] = 1;
                 $count = $d_object->where($where)->save($data);
                 if ($count > 0) {
                     $this->success('操作成功');

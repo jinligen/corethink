@@ -102,8 +102,10 @@ class PublicController extends CommonController
      */
     public function goodsList()
     {
+        $storehouse_name = $_GET['storehouse_name'];
         $goods_type_name = $_GET['goods_type_name'];
         $map['goods_type_name'] = array('like','%'.$goods_type_name.'%');
+        $map['storehouse_name'] = array('like','%'.$storehouse_name.'%');
         $list = D('storehouse_goods')->where($map)->select();
         $this->assign('_list',  json_encode($list));
 //        echo  var_dump(json_encode($list));exit;
@@ -129,7 +131,7 @@ class PublicController extends CommonController
 
 
     /**
-     * 获取部门列表
+     * 
      * @param  integer $id 验证码ID
      * @return boolean 检测结果
      */
@@ -138,7 +140,82 @@ class PublicController extends CommonController
         $entry_order_id = $_POST['entry_order_id'];
         $map['entry_order_id'] = array('eq',$entry_order_id);
         $ret = D('storehouse_entry_order')->where($map)->find();
-        
+
+        if($ret){
+            echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
+        }else{
+            echo json_encode('{error:"0000",msg:"未查到该单据编号的信息",data:[]}');
+        }
+
+    }
+
+    /**
+     *
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function checkOutOrderId(){
+
+        $out_order_id = $_POST['out_order_id'];
+        $map['out_order_id'] = array('eq',$out_order_id);
+        $ret = D('storehouse_out_order')->where($map)->find();
+
+        if($ret){
+            echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
+        }else{
+            echo json_encode('{error:"0000",msg:"未查到该单据编号的信息",data:[]}');
+        }
+
+    }
+
+    /**
+     *
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function checkPaymentOrderId(){
+
+        $payment_order_id = $_POST['payment_order_id'];
+        $map['payment_order_id'] = array('eq',$payment_order_id);
+        $ret = D('storehouse_payment_order')->where($map)->find();
+
+        if($ret){
+            echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
+        }else{
+            echo json_encode('{error:"0000",msg:"未查到该单据编号的信息",data:[]}');
+        }
+
+    }
+
+    /**
+     *
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function checkGatheringOrderId(){
+
+        $gathering_order_id = $_POST['gathering_order_id'];
+        $map['gathering_order_id'] = array('eq',$gathering_order_id);
+        $ret = D('storehouse_gathering_order')->where($map)->find();
+
+        if($ret){
+            echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
+        }else{
+            echo json_encode('{error:"0000",msg:"未查到该单据编号的信息",data:[]}');
+        }
+
+    }
+    /**
+     *
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function checkGoodsCheckId(){
+
+        $goods_check_id = $_POST['goods_check_id'];
+        $map['goods_check_id'] = array('eq',$goods_check_id);
+        $ret = D('storehouse_goods_check')->where($map)->find();
+
         if($ret){
             echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
         }else{

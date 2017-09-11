@@ -34,6 +34,9 @@ CREATE TABLE `oc_storehouse_gathering_order` (
   `goods_is_free` int(2) DEFAULT '0' COMMENT '商品是否为赠品 0-否 1-是',
   `goods_no_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '未核销金额',
   `goods_already_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '已核销金额',
+  `goods_out_unit_price` decimal(10,2) DEFAULT '0.00' COMMENT '销售单价',
+  `goods_out_total_quantity` decimal(10,2) DEFAULT '0.00' COMMENT '销售数量',
+  `goods_out_total_price` decimal(10,2) DEFAULT '0.00' COMMENT '销售金额',
   `goods_return_unit_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货单价',
   `goods_return_total_quantity` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货数量',
   `goods_return_total_price` decimal(10,2) DEFAULT '0.00' COMMENT '商品退货金额',
@@ -42,5 +45,7 @@ CREATE TABLE `oc_storehouse_gathering_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+INSERT INTO `oc_storehouse_gathering_order` VALUES ('1', '收款单', 'DJ0001', '', '', 'sdfsdf', '', '123456.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '', '1', 'KH0002', '玫瑰之家', '3号仓', '', 'admin', '超级管理员', '', '234', 'ewk', 'ee', '', '123', '0.00', '0.00', '0', '0.00', '0.00', '234.00', '23423.00', '5480982.00', '0.00', '0.00', '0.00', '', '2017-09-11 22:33:55', '0000-00-00 00:00:00', '-1');
+INSERT INTO `oc_storehouse_gathering_order` VALUES ('2', '收款单', 'DJ0002', '', '', 'sdfsdf', '', '3123123.00', '0.00', '0.00', '0.00', '0.00', '0.00', '123.00', '2017-09-13', '1', 'KH0002', '玫瑰之家', '2号仓', '', 'admin', '超级管理员', '', '234', 'ewk', 'ee', '', '123', '0.00', '0.00', '0', '0.00', '0.00', '234.00', '3.00', '702.00', '0.00', '0.00', '0.00', '', '2017-09-11 22:37:41', '0000-00-00 00:00:00', '1');

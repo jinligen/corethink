@@ -8,5 +8,7 @@ CREATE TABLE `oc_storehouse_out_order_type` (
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
+INSERT INTO `oc_storehouse_out_order_type` VALUES ('1', '001', '材料出库单', '2017-09-11 21:04:57', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_out_order_type` VALUES ('2', '002', '产品出库单', '2017-09-11 21:05:07', '0000-00-00 00:00:00', '1');
