@@ -1,0 +1,17 @@
+.on-print{
+    display: none;
+}
+
+/*.layui-table-header table thead tr th:nth-child(10),.layui-table-body table tbody tr td:nth-child(10){*/
+    /*display: none;*/
+    /*width: 0;*/
+/*}*/
+
+.layui-table-fixed-l{
+    display: none;
+}
+
+  .layui-table-fixed-r{
+    display: none;
+}
+

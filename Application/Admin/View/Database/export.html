@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
+    <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <style id="style1">
+
+        .nav-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 30px;
+        }
+        tr td div {
+            padding: 3px 5px;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+
+    <div class=" demoTable nav-btn ">
+        <button class="layui-btn layui-btn-small  " @click="goBack()">刷新</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-normal layui-btn-small" @click="backup()">开始备份</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-normal layui-btn-small" @click="backdown()">开始还原</button>
+        &nbsp;
+    </div>
+
+    <div id="div2">
+        <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
+            <div class="layui-table-header" id="fixed-header">
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" >
+                    <thead>
+                        <tr>
+                            <th>
+                                <div :style="{ width: 250 + 'px'}"style="text-align: center">
+                                    表名
+                                </div>
+                            </th>
+                            <th>
+                                <div :style="{ width: 50 + 'px'}"style="text-align: center">
+                                    数据量
+                                </div>
+                            </th>
+                            <th>
+                                <div :style="{ width: 100 + 'px'}"style="text-align: center">
+                                    数据大小
+                                </div>
+                            </th>
+                            <th>
+                                <div :style="{ width: 150 + 'px'}"style="text-align: center">
+                                    创建时间
+                                </div>
+                            </th>
+                            <th>
+                                <div :style="{ width: 200 + 'px'}"style="text-align: center">
+                                    备份时间
+                                </div>
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                </table>
+            </div>
+            <div class="layui-table-body layui-table-main" style="height:450px; " id="scroll">
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+
+                    <tbody>
+                    <tr v-for="(item, index) in tableInfo">
+                        <td>
+                            <div :style="{ width: 250 + 'px'}">
+                                {{item.name}}
+                            </div>
+                        </td>
+                        <td>
+                            <div :style="{ width: 50 + 'px'}">
+                                {{item.rows}}
+                            </div>
+                        </td>
+                        <td>
+                            <div :style="{ width: 100 + 'px'}">
+                                {{item.data_length}}
+                            </div>
+                        </td>
+                        <td>
+                            <div :style="{ width: 150 + 'px'}">
+                                {{item.create_time}}
+                            </div>
+                        </td>
+                        <td>
+                            <div :style="{ width: 200 + 'px'}">
+                                {{item.create_time}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <textarea placeholder="备份开始..." class="layui-textarea" style="height: 300px;border: hidden" id="msg"></textarea>
+</div>
+
+
+</body>
+
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
+<script src="__PUBLIC__/libs/vue/vue.js"></script>
+<!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
+<script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+
+<script>
+
+    var _list =   eval('(' + '{$_list}' + ')');
+
+    var _data = {
+        scrollTop: 0,
+        scrollLeft: 0,
+        tableInfo: _list,
+    };
+
+
+    var vm = new Vue({
+        el: '#page',
+        data: _data,
+        watch: {
+            scrollTop: {
+                handler: function (val, oldVal) {
+                    $('.layui-table-fixed-l .layui-table-body table').css('margin-top', -val + 'px')
+                    $('.layui-table-fixed-r .layui-table-body table').css('margin-top', -val + 'px')
+
+                },
+            },
+        },
+        methods: {
+            init: function () {
+
+            },
+            backup:function () {
+                $('#upload_target').remove()
+                $.ajax({
+                    url: '/corethink/admin.php?s=/admin/database/export',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        test:'test'
+                    },
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    beforeSend: function (xhr) {
+                    },
+                    success: function (data, textStatus, jqXHR) {
+                        var data = eval('(' + data + ')');
+                        console.log(data)
+                        if(data.error == '0000'){
+                            $('#div2').append('<iframe id="upload_target" name="upload_target" src="/corethink/admin.php?s=/admin/database/export" style="display: none"></iframe>')
+                        }else{
+                            layer.msg( data.msg );
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                    complete: function () {
+                        console.log('结束')
+                    }
+                })
+
+            },
+            backdown:function () {
+                $('#upload_target').remove()
+                var tables = []
+                for(var i = 0,leng = _list.length;i<leng;i++){
+                    tables.push(_list[i].name)
+                }
+                var date = '2017-09-11'
+                var prama = {tables:tables,date:date};
+                prama = JSON.stringify(prama);
+                var url = '/corethink/admin.php?s=/admin/database/import/prama/' + prama;
+                url = encodeURI(url);
+                console.log(encodeURI(url))
+                $('#div2').append('<iframe id="upload_target" name="upload_target" src="' +url+ '" style="display: none"></iframe>')
+
+
+            },
+            goBack: function () { //刷新
+                window.location.reload()
+            },
+        }
+    })
+
+    vm.init();
+    $("#scroll").scroll(function () {
+        vm.scrollTop = $(this).scrollTop()
+        vm.scrollLeft = $(this).scrollLeft()
+
+    });
+
+    function processReturn(msg){
+        $('#msg').val($('#msg').val() + '\n' + msg);
+    }
+</script>
+
+</html>

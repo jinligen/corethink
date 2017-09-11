@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
+    <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <style id="style1">
+
+
+        .nav-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .form-head-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-bottom: 5px;
+            padding: 0 20px;
+            font-size: 14px
+        }
+
+        .form-head-row .form-item {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+        }
+
+        .form-head-row .form-item .title {
+            flex: 1;
+
+        }
+
+        .form-head-row .form-item .input-content {
+            position: relative;
+            flex: 2.5;
+        }
+
+        .form-head-row .form-item .input-content .data-show {
+            width: 100%;
+        }
+
+        #table thead tr th, #table tr td {
+            /*padding: 0 !important;*/
+            border: solid 1px black;
+            text-align: center;
+            font-size: 14px
+        }
+
+        tr td div {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        .data-select input, .data-select select {
+            display: block;
+            margin: 0;
+            width: 100%;
+            height: 26px;
+            border: none;
+        }
+
+
+
+        .data-select i {
+            position: absolute;
+            z-index: 11;
+            right: 0px;
+            top: 3px;
+            background-color: #eee;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 20px;
+            line-height: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+
+    <div class=" demoTable nav-btn ">
+        <button class="layui-btn layui-btn-small   " @click="reload()">刷新</button>&nbsp;
+        <button class="layui-btn layui-btn-normal layui-btn-small" @click="save()">保存</button>&nbsp;
+        <button class="layui-btn layui-btn-primary layui-btn-small" @click="print()">打印</button>
+    </div>
+
+    <div id="div1">
+
+        <div class="layui-row" style=" text-align: center">
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline"> 付&nbsp;&nbsp;款&nbsp;&nbsp;单 </span>
+        </div>
+
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="">供&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
+                <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                    <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
+                    <div class="data-select" style="display: none;width: 100%;">
+                        <input type="text" style="" v-model="headInfo.customer_name"/>
+                        <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;" @click="selectCustomerList()">&#xe615;</i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
+                <div class="input-content " >
+                    <div class="data-select" style="width: 100%;">
+                        <input type="date" style="" v-model="headInfo.entry_order_payment_date"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">单据编号:</span>
+                <div class="input-content " >
+                    <div class="data-select" style="width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_id"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="">付款类型:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%;">
+                         <select v-model="headInfo.storehouse_name">
+                             <option value="">请选择</option>
+                             <option value="1号仓">1号仓</option>
+                             <option value="2号仓">2号仓</option>
+                             <option value="3号仓">3号仓</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">结算方式:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">结算账号:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="form-head-row">
+
+            <div class="form-item " style="">
+                <span class="title" style="">单据金额:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">整单折扣:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">折后金额:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="">实付金额:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">摘要:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_price"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-item " style="">
+                <span class="title" style="">&nbsp;</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="div2">
+        <div class="layui-form layui-border-box layui-table-view" style="width:750px; " >
+            <div class="layui-table-header"  id="fixed-header">
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table"    >
+                    <thead  >
+                    <tr>
+                        <th    v-for="(item, index) in thead" >
+                            <div :style="{ width: item.width + 'px'}">
+                                {{item.title}}
+                            </div>
+                        </th>
+
+                        <th class="on-print" >
+                            <div class="layui-table-cell laytable-cell-2-18" align="center"><span>操作</span></div>
+                        </th>
+
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="layui-table-body layui-table-main" style="height:450px; "  id="scroll">
+
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm" >
+
+                    <tbody>
+                    <tr  v-for="(item, index) in tableInfo" >
+                        <td >
+                            <div :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
+                                {{index}}
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)" style="height: 26px">
+                                <div class="data-show" >&nbsp;{{item.goods_id}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_id"/>
+
+                                </div>
+                            </div>
+                        </td>
+
+                        <td >
+                            <div class="input-content " :style="{ width: thead[2].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_name}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_name"  />
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[3].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_spec}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_spec"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[4].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_actual_unit}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_actual_unit"/>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td >
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_entry_unit_price}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_entry_unit_price"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[6].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_entry_total_quantity}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_entry_total_quantity"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[7].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_entry_total_price}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_entry_total_price"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="input-content " :style="{ width: thead[8].width + 'px'}" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show" >&nbsp;{{item.goods_remark}}</div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="text"  v-model="item.goods_remark"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
+                            <div class="layui-table-cell laytable-cell-2-18">
+                                <a class="layui-btn layui-btn-danger layui-btn-mini" @click="deleteItem(index)">删除</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-table-fixed layui-table-fixed-l" >
+                <div class="layui-table-header">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <thead>
+                        <tr>
+                            <th :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
+                                <div class="input-content " style="height: 28px;line-height: 28px"  >
+                                    <div class="data-show" >&nbsp;ID</div>
+                                </div>
+                            </th>
+
+                            <th :style="{ width: thead[1].width  + 'px',textAlign:'left '}">
+                                <div class="input-content " style="height: 28px;line-height: 28px"  >
+                                    <div class="data-show" >商品编号</div>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="layui-table-body" style="height: 435px; ">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <tbody>
+                        <tr v-for="(item, index) in tableInfo" >
+                            <td :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
+                                <div class="input-content " style="height: 26px;"  >
+                                    <div class="data-show" >&nbsp; {{index+1}}</div>
+                                </div>
+                            </td>
+                            <td :style="{ width: thead[1].width  + 'px',textAlign:'center',backgroundColor:'' }" >
+
+                                <div class="input-content " style="height: 26px;" @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                    <div class="data-show" style="">&nbsp;{{item.goods_id}}</div>
+                                    <div class="data-select" style="display: none;width: 100%;">
+                                        <input type="text" style="" v-model="item.goods_id"/>
+
+                                        <i class="layui-icon"  style="font-size: 12px; color: #1E9FFF;"  @click="selectGoodsList()">&#xe615;</i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="layui-table-fixed layui-table-fixed-r" style="right: 0px;">
+                <div class="layui-table-header">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <thead>
+                        <tr>
+                            <th  :style="{ width: 80  + 'px',textAlign:'center'}">
+
+                                <div class="input-content " style="height: 28px;"  >
+                                    <div class="data-show" >操作</div>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="layui-table-mend"></div>
+                </div>
+                <div class="layui-table-body" style="height: 434px; ">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <tbody>
+                        <tr v-for="(item, index) in tableInfo" >
+                            <td :style="{ width: 80  + 'px',textAlign:'center'}">
+                                <div class="layui-table-cell laytable-cell-2-18">
+                                    <a class="layui-btn layui-btn-danger layui-btn-mini" @click="deleteItem(index)">删除</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="print-content" style="display: none">
+        <div id="print-headinfo">
+            <div class="layui-row" style=" text-align: center">
+                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">材&nbsp;&nbsp;料&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+            </div>
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_date}}</div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">单据编号:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_id}}</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="">所属仓库:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">领料用途:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_price}}</div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="print-table">
+        <table border=1 cellSpacing=0 cellPadding=1 width="100%" style="border-collapse:collapse;" bordercolor="#333333" >
+            <thead>
+                <tr>
+                    <td width="5%">
+                        <div align=center><b>序号</b></div>
+                    </td>
+                    <td width="15%">
+                        <div align=center><b>商品编号</b></div>
+                    </td>
+                    <td width="20%">
+                        <div align=center><b>名称</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>规格</b></div>
+                    </td>
+
+                    <td width="10%">
+                        <div align=center><b>单位</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>单价</b></div>
+                    </td>
+
+                    <td width="10%">
+                        <div align=center><b>数量</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>金额</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>备注</b></div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  v-for="(item, index) in tableInfo" >
+                    <td >
+                        {{index + 1}}
+                    </td>
+                    <td >
+                        {{item.goods_id}}
+                    </td>
+                    <td >
+                        {{item.goods_name}}
+                    </td>
+                    <td >
+                        {{item.goods_spec}}
+                    </td>
+                    <td >
+                        {{item.goods_actual_unit}}
+                    </td>
+                    <td >
+                        {{item.goods_entry_unit_price}}
+                    </td>
+                    <td >
+                        {{item.goods_entry_total_quantity}}
+                    </td>
+                    <td >
+                        {{item.goods_entry_total_price}}
+                    </td>
+                    <td >
+                        {{item.goods_remark}}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <!--<tr>-->
+                <!--<td ><b>表格页脚</b></td>-->
+                <!--<td ><b>本页动态合计</b></td>-->
+                <!--<td ><b>&nbsp;</b></td>-->
+                <!--<td tdata="pageNO" format="#" align="left">-->
+                    <!--<p align="center"><b>第<font color="#0000FF">#</font>页</b></p>-->
+                <!--</td>-->
+                <!--<td tdata="pageCount" format="#" align="left">-->
+                    <!--<p align="center"><b>总<font color="#0000FF">##</font>页</b></td>-->
+                <!--<td width="14%" align="right">　</td>-->
+                <!--<td width="19%" tdata="subSum" format="#,##0.00" align="right"><font color="#0000FF">###元</font></td>-->
+            <!--</tr>-->
+            </tfoot>
+        </table>
+    </div>
+    </div>
+
+</div>
+
+
+
+</body>
+
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
+<script src="__PUBLIC__/libs/vue/vue.js"></script>
+<!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
+<script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+
+<script>
+    var LODOP; //声明为全局变量
+
+    var thead = [ //标题栏
+        {title: 'ID', width: 50},
+        {title: '商品编号', width: 100},
+        {title: '名称', width: 100},
+        {title: '规格', width: 100},
+        {title: '实际单位', width: 100},
+        {title: '单价', width: 100},
+        {title: '数量', width: 100},
+        {title: '金额', width: 100},
+        {title: '备注', width: 100}
+
+    ];
+    var _data = {
+        scrollTop:0,
+        scrollLeft:0,
+        thead:thead,
+        headInfo: {
+            customer_name: 'zhangsan',
+            entry_order_payment_date:'2017-05-05',
+            entry_order_id:'DJ2017986542',
+            storehouse_name:'1号仓',
+            entry_order_price:'100.25',
+            entry_order_actual_payment:'100',
+
+        },
+        tableInfo: [],
+        tableData:[]
+    };
+
+
+    var vm = new Vue({
+        el: '#page',
+        data: _data,
+        watch: {
+            scrollTop: {
+                handler: function (val, oldVal) {
+                    $('.layui-table-fixed-l .layui-table-body table').css('margin-top',-val + 'px')
+                    $('.layui-table-fixed-r .layui-table-body table').css('margin-top',-val + 'px')
+
+                },
+            },
+            scrollLeft: {
+                handler: function (val, oldVal) {
+                    $('#fixed-header table').css('margin-left',-val + 'px')
+                },
+            },
+        },
+        methods: {
+            init: function () {
+                this.deleteItem(-1)
+            },
+            dataInputShow: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-select').css('display', 'inline-block');
+                $(ele).children('.data-select').children('input').focus();
+            },
+            dataInputHide: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-show').css('display', 'inline-block');
+            },
+            Arabia_to_Chinese: function (Num) {
+                for (i = Num.length - 1; i >= 0; i--) {
+                    Num = Num.replace(",", "")//替换tomoney()中的“,”
+                    Num = Num.replace(" ", "")//替换tomoney()中的空格
+                }
+                Num = Num.replace("￥", "")//替换掉可能出现的￥字符
+                if (isNaN(Num)) { //验证输入的字符是否为数字
+                    alert("请检查小写金额是否正确");
+                    return;
+                }
+                //字符处理完毕后开始转换，采用前后两部分分别转换
+                part = String(Num).split(".");
+                newchar = "";
+                //小数点前进行转化
+                for (i = part[0].length - 1; i >= 0; i--) {
+                    if (part[0].length > 10) {
+                        alert("位数过大，无法计算");
+                        return "";
+                    }//若数量超过拾亿单位，提示
+                    tmpnewchar = ""
+                    perchar = part[0].charAt(i);
+                    switch (perchar) {
+                        case "0":
+                            tmpnewchar = "零" + tmpnewchar;
+                            break;
+                        case "1":
+                            tmpnewchar = "壹" + tmpnewchar;
+                            break;
+                        case "2":
+                            tmpnewchar = "贰" + tmpnewchar;
+                            break;
+                        case "3":
+                            tmpnewchar = "叁" + tmpnewchar;
+                            break;
+                        case "4":
+                            tmpnewchar = "肆" + tmpnewchar;
+                            break;
+                        case "5":
+                            tmpnewchar = "伍" + tmpnewchar;
+                            break;
+                        case "6":
+                            tmpnewchar = "陆" + tmpnewchar;
+                            break;
+                        case "7":
+                            tmpnewchar = "柒" + tmpnewchar;
+                            break;
+                        case "8":
+                            tmpnewchar = "捌" + tmpnewchar;
+                            break;
+                        case "9":
+                            tmpnewchar = "玖" + tmpnewchar;
+                            break;
+                    }
+                    switch (part[0].length - i - 1) {
+                        case 0:
+                            tmpnewchar = tmpnewchar + "元";
+                            break;
+                        case 1:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "拾";
+                            break;
+                        case 2:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "佰";
+                            break;
+                        case 3:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "仟";
+                            break;
+                        case 4:
+                            tmpnewchar = tmpnewchar + "万";
+                            break;
+                        case 5:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "拾";
+                            break;
+                        case 6:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "佰";
+                            break;
+                        case 7:
+                            if (perchar != 0) tmpnewchar = tmpnewchar + "仟";
+                            break;
+                        case 8:
+                            tmpnewchar = tmpnewchar + "亿";
+                            break;
+                        case 9:
+                            tmpnewchar = tmpnewchar + "拾";
+                            break;
+                    }
+                    newchar = tmpnewchar + newchar;
+                }
+                //小数点之后进行转化
+                if (Num.indexOf(".") != -1) {
+                    if (part[1].length > 2) {
+                        alert("小数点之后只能保留两位,系统将自动截断");
+                        part[1] = part[1].substr(0, 2)
+                    }
+                    for (i = 0; i < part[1].length; i++) {
+                        tmpnewchar = ""
+                        perchar = part[1].charAt(i)
+                        switch (perchar) {
+                            case "0":
+                                tmpnewchar = "零" + tmpnewchar;
+                                break;
+                            case "1":
+                                tmpnewchar = "壹" + tmpnewchar;
+                                break;
+                            case "2":
+                                tmpnewchar = "贰" + tmpnewchar;
+                                break;
+                            case "3":
+                                tmpnewchar = "叁" + tmpnewchar;
+                                break;
+                            case "4":
+                                tmpnewchar = "肆" + tmpnewchar;
+                                break;
+                            case "5":
+                                tmpnewchar = "伍" + tmpnewchar;
+                                break;
+                            case "6":
+                                tmpnewchar = "陆" + tmpnewchar;
+                                break;
+                            case "7":
+                                tmpnewchar = "柒" + tmpnewchar;
+                                break;
+                            case "8":
+                                tmpnewchar = "捌" + tmpnewchar;
+                                break;
+                            case "9":
+                                tmpnewchar = "玖" + tmpnewchar;
+                                break;
+                        }
+                        if (i == 0) tmpnewchar = tmpnewchar + "角";
+                        if (i == 1) tmpnewchar = tmpnewchar + "分";
+                        newchar = newchar + tmpnewchar;
+                    }
+                }
+                //替换所有无用汉字
+                while (newchar.search("零零") != -1)
+                    newchar = newchar.replace("零零", "零");
+                newchar = newchar.replace("零亿", "亿");
+                newchar = newchar.replace("亿万", "亿");
+                newchar = newchar.replace("零万", "万");
+                newchar = newchar.replace("零元", "元");
+                newchar = newchar.replace("零角", "");
+                newchar = newchar.replace("零分", "");
+                if (newchar.charAt(newchar.length - 1) == "元" || newchar.charAt(newchar.length - 1) == "角")
+                    newchar = newchar + "整"
+                return newchar;
+            },
+            deleteItem: function (index) {
+
+                if (index >= 0) {
+                    this.tableInfo.splice(index, 1);
+                }
+                for (var i = 0; i < this.tableInfo.length; i++) {
+                    if (this.tableInfo[i].goods_id === '') {
+                        this.tableInfo.splice(i, 1)
+                    }
+                }
+
+
+                var leng = this.tableInfo.length % 10 === 0 ? (this.tableInfo.length  === 0 ?10:0) : 10 - this.tableInfo.length % 10;
+
+
+                for (var i = 0; i < leng +5; i++) {
+                    this.tableInfo.push({
+                        goods_id: '',
+                        goods_name: '',
+                        goods_spec: '',
+                        goods_actual_unit: '',
+                        goods_entry_unit_price: '',
+                        goods_entry_total_quantity: '',
+                        goods_entry_total_price: '',
+                        goods_remark: '',
+
+                        goods_min_unit:'',
+
+                    })
+                }
+
+            },
+            reload: function () { //刷新
+                location.reload();
+            },
+            save: function () { //保存
+                this.tableInfo.push(
+                    {
+                        goods_id: '001',
+                        goods_name: '001',
+                        goods_spec: '001',
+                        goods_min_unit: '001',
+                        goods_actual_unit: '001',
+                        goods_stock_balance: '001',
+                        goods_actual_stock_balance: '001',
+                        goods_cost_price: '001',
+                        goods_is_free: '001',
+                        goods_entry_unit_price: '001',
+                        goods_entry_total_quantity: '001',
+                        goods_entry_total_price: '001',
+                        goods_return_unit_price: '001',
+                        goods_return_total_quantity: '001',
+                        goods_return_total_price: '001',
+                        goods_remark: '001',
+
+                    }
+                )
+            },
+            print: function () { //打印
+                LODOP = getLodop();
+                LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_分页打印综合表格");
+
+                var strMainStyle = '<link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css"  media="all">'
+                strMainStyle += '<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/main.css">'
+                var strAllStyle = strMainStyle + "<style>" + document.getElementById("style1").innerHTML + "</style>";
+
+                $('.print-content').show()
+                LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
+//                LODOP.SET_PRINT_PAGESIZE(1, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
+
+                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 800, $("#print-table").html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
+                LODOP.ADD_PRINT_HTM(30, 0, 750, 130,  strAllStyle + $('#print-headinfo').html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
+                LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
+                LODOP.SET_PRINT_STYLEA(0, "LinkedItem", 1);
+                $('.print-content').hide()
+                LODOP.PREVIEW();
+            },
+            selectCustomerList: function () {
+                var self = this;
+                var childPageBody;
+                layer.open({
+                    type: 2,
+                    skin: 'CLYM-style',
+                    area: ['500px', '560px'],
+                    title: '客户列表',
+                    content: '/corethink/admin.php?s=/admin/public/customerList',
+                    success: function (layero, index) {
+                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
+                    },
+                    end: function () {
+                        var ret = childPageBody.find('textarea#retData')
+                        var retInfo = ret.val()
+                        if (retInfo != '') {
+                            retInfo = JSON.parse(retInfo)
+                            self.headInfo.customer_name = retInfo.customer_name;
+                        }
+
+                        console.log(retInfo)
+                    }
+                });
+            },
+            selectGoodsList: function () {
+                var self = this;
+                var childPageBody;
+                layer.open({
+                    type: 2,
+                    skin: 'CLYM-style',
+                    area: ['800px', '560px'],
+                    title: '商品列表',
+                    content: '/corethink/admin.php?s=/admin/public/goodsList',
+                    success: function (layero, index) {
+                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
+                    },
+                    end: function () {
+                        var ret = childPageBody.find('textarea#retData')
+                        var retInfo = ret.val()
+                        if (retInfo != '') {
+                            retInfo = JSON.parse(retInfo)
+                            var tableData = [];
+
+                            for (var i = 0; i < self.tableInfo.length; i++) {
+                                if (self.tableInfo[i].goods_id != '') {
+                                    tableData.push(self.tableInfo[i])
+                                }
+                            }
+
+                            for(var i =0,leng=retInfo.length; i<leng ; i++){
+                                var j=0;
+                                var l=self.tableInfo.length;
+
+                                for( ;j<l;j++){
+
+                                    if(self.tableInfo[j].goods_id == retInfo[i].goods_id){
+                                        break;
+                                    }
+                                }
+                                console.log(j)
+                                if(j==l){
+                                    tableData.push({
+                                        goods_id: retInfo[i].goods_id,
+                                        goods_name: retInfo[i].goods_name,
+                                        goods_spec: retInfo[i].goods_spec,
+                                        goods_actual_unit: retInfo[i].goods_min_unit,
+                                        goods_entry_unit_price: retInfo[i].goods_cost_price,
+                                        goods_entry_total_quantity: 0,
+                                        goods_entry_total_price: 0,
+                                        goods_remark: '',
+
+                                    });
+                                }
+                            }
+                            console.log(tableData);
+                            self.tableInfo = tableData;
+                            self.deleteItem(-1);
+                        }
+
+
+                    }
+                });
+            },
+        }
+    })
+
+    vm.init();
+
+    $("#scroll").scroll(function(){
+        vm.scrollTop = $(this).scrollTop()
+        vm.scrollLeft = $(this).scrollLeft()
+
+    });
+</script>
+
+</html>

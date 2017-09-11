@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css"  media="all">
+</head>
+<body>
+<textarea  style="display: none" id="retData"></textarea>
+<div class="layui-btn-group demoTable"style="width: 95%;text-align: right;margin-top: 10px">
+    <span class="layui-btn layui-btn-small " data-type="getCheckData"   onclick="parent.layer.closeAll()" >确定</span>
+</div>
+
+<table id="table" lay-filter="table" style=""></table>
+
+
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
+<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>
+<script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+
+<script>
+
+    var _data =   eval('(' + '{$_list}' + ')');
+
+    for (var i = 0;i<_data.length ;i++){
+        _data[i].id = i + 1;
+
+    }
+    var _cols = [[ //标题栏
+        {checkbox: true,   fixed: true},
+//        {field:'id',title: 'ID', width:50,  fixed: true},
+        {field:'customer_id',title: '客户编号', width:100, fixed: true},
+        {field:'customer_name',title: '名称', width:150, fixed: true},
+        {field:'customer_address',title: '地址', width:200},
+        {field:'customer_phone',title: '联系电话', width:150},
+    ]]
+
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#table'
+            ,data: _data
+            ,height: 500
+            ,cols: _cols
+            ,skin: 'row' //表格风格
+            ,even: true
+            ,id:'table'
+            ,limit: 5000 //每页默认显示的数量
+        });
+
+        $('.layui-table-fixed.layui-table-fixed-l  .layui-table thead tr .layui-table-cell.laytable-cell-checkbox').css('width','48px')
+        $('.layui-table-fixed.layui-table-fixed-l  .layui-table thead tr .layui-unselect.layui-form-checkbox').hide()
+
+        table.on('checkbox(table)', function(obj,i){
+            var table_index = obj.data.LAY_TABLE_INDEX
+
+            for(var i= 0 ,leng = table.cache.table.length;i<leng;i++){
+                delete table.cache.table[i].LAY_CHECKED;
+            }
+
+            $('.layui-table-fixed.layui-table-fixed-l .layui-table tbody tr').each(function (index) {
+                var ele = $(this).children('td').children('.laytable-cell-checkbox').children(' .layui-form-checkbox')
+                if(index != table_index){
+                    ele.removeClass('layui-form-checked')
+                }else{
+                    ele.addClass('layui-form-checked')
+                    var retData =  JSON.stringify(table.cache.table[index])
+                    $('#retData').val(retData)
+                }
+            })
+
+
+        });
+
+    });
+
+
+</script>
+
+</body>
+</html>
