@@ -27,8 +27,18 @@ class DatabaseController extends AdminController
     public function index()
     {
 
-        $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.log';
+        $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.text';
         $file_path = str_replace('/', '\\\\', $file_path);
+
+//
+//        $dataList = [];
+//        for($i=0;$i<60000;$i++){
+//            $dataList[] =array('test'=>'sdfdsf'.$i);
+//        }
+//
+//        $id =  D('test')->addAll($dataList);
+//
+
 
         if(file_exists($file_path)){
             $fp = fopen($file_path,"r");
@@ -97,7 +107,7 @@ class DatabaseController extends AdminController
             $list = array_map('array_change_key_case', $list);
             $count = 0;
 
-            $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.log';
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.text';
             $file_path = str_replace('/', '\\\\', $file_path);
 
             if(file_exists($file_path)){    //如果存在  就读取文件内容
