@@ -11,7 +11,7 @@ namespace Admin\Controller;
 
 use Think\Db;
 use OT\Database;
-
+use Common\Util\Sql;
 /**
  * 数据库备份还原控制器
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
@@ -24,145 +24,33 @@ class DatabaseController extends AdminController
      * @param  String $type import-还原，export-备份
      * @author 麦当苗儿 <zuojiazi@vip.qq.com>
      */
-    public function index($type = null)
+    public function index()
     {
-        switch ($type) {
-            /* 数据还原 */
-            case 'import':
-                //列出备份文件列表
-                $path = realpath(C('DATA_BACKUP_PATH'));
-                $flag = \FilesystemIterator::KEY_AS_FILENAME;
-                $glob = new \FilesystemIterator($path, $flag);
 
-                $list = array();
-                foreach ($glob as $name => $file) {
-                    if (preg_match('/^\d{8,8}-\d{6,6}-\d+\.sql(?:\.gz)?$/', $name)) {
-                        $name = sscanf($name, '%4s%2s%2s-%2s%2s%2s-%d');
+        $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.log';
+        $file_path = str_replace('/', '\\\\', $file_path);
 
-                        $date = "{$name[0]}-{$name[1]}-{$name[2]}";
-                        $time = "{$name[3]}:{$name[4]}:{$name[5]}";
-                        $part = $name[6];
-
-                        if (isset($list["{$date} {$time}"])) {
-                            $info = $list["{$date} {$time}"];
-                            $info['part'] = max($info['part'], $part);
-                            $info['size'] = $info['size'] + $file->getSize();
-                        } else {
-                            $info['part'] = $part;
-                            $info['size'] = $file->getSize();
-                        }
-                        $extension = strtoupper(pathinfo($file->getFilename(), PATHINFO_EXTENSION));
-                        $info['compress'] = ($extension === 'SQL') ? '-' : $extension;
-                        $info['time'] = strtotime("{$date} {$time}");
-
-                        $list["{$date} {$time}"] = $info;
-                    }
-                }
-                $title = '数据还原';
-                break;
-
-            /* 数据备份 */
-            case 'export':
-                $Db = Db::getInstance();
-                $list = $Db->query('SHOW TABLE STATUS');
-                $list = array_map('array_change_key_case', $list);
-                $title = '数据备份';
-                break;
-
-            default:
-                $this->error('参数错误！');
-        }
-
-        //渲染模板
-        $this->assign('meta_title', $title);
-        $this->assign('_list', json_encode($list));
-
-        $this->display($type);
-    }
-
-    /**
-     * 优化表
-     * @param  String $tables 表名
-     * @author 麦当苗儿 <zuojiazi@vip.qq.com>
-     */
-    public function optimize($tables = null)
-    {
-        if ($tables) {
+        if(file_exists($file_path)){
+            $fp = fopen($file_path,"r");
+            $str = fread($fp,filesize($file_path));//指定读取大小，这里把整个文件内容读取出来
+            $list = ($str);
+        }else{
             $Db = Db::getInstance();
-            if (is_array($tables)) {
-                $tables = implode('`,`', $tables);
-                $list = $Db->query("OPTIMIZE TABLE `{$tables}`");
-
-                if ($list) {
-                    $this->success("数据表优化完成！");
-                } else {
-                    $this->error("数据表优化出错请重试！");
-                }
-            } else {
-                $list = $Db->query("OPTIMIZE TABLE `{$tables}`");
-                if ($list) {
-                    $this->success("数据表'{$tables}'优化完成！");
-                } else {
-                    $this->error("数据表'{$tables}'优化出错请重试！");
-                }
+            $list = $Db->query('SHOW TABLE STATUS');
+            $list = array_map('array_change_key_case', $list);
+            foreach ($list as $key=> $value){
+                $list[$key]['backup_time'] = $list[$key]['create_time'];
             }
-        } else {
-            $this->error("请指定要优化的表！");
+            $json_string = json_encode($list);
+            file_put_contents($file_path, $json_string);
+
+            $list = json_encode($list);
         }
+
+        $this->assign('_list', $list);
+//echo var_dump($list);exit;
+        $this->display();
     }
-
-    /**
-     * 修复表
-     * @param  String $tables 表名
-     * @author 麦当苗儿 <zuojiazi@vip.qq.com>
-     */
-    public function repair($tables = null)
-    {
-        if ($tables) {
-            $Db = Db::getInstance();
-            if (is_array($tables)) {
-                $tables = implode('`,`', $tables);
-                $list = $Db->query("REPAIR TABLE `{$tables}`");
-
-                if ($list) {
-                    $this->success("数据表修复完成！");
-                } else {
-                    $this->error("数据表修复出错请重试！");
-                }
-            } else {
-                $list = $Db->query("REPAIR TABLE `{$tables}`");
-                if ($list) {
-                    $this->success("数据表'{$tables}'修复完成！");
-                } else {
-                    $this->error("数据表'{$tables}'修复出错请重试！");
-                }
-            }
-        } else {
-            $this->error("请指定要修复的表！");
-        }
-    }
-
-    /**
-     * 删除备份文件
-     * @param  Integer $time 备份时间
-     * @author 麦当苗儿 <zuojiazi@vip.qq.com>
-     */
-    public function del($time = 0)
-    {
-        if ($time) {
-            $name = date('Ymd-His', $time) . '-*.sql*';
-            $path = realpath(C('DATA_BACKUP_PATH')) . DIRECTORY_SEPARATOR . $name;
-            array_map("unlink", glob($path));
-            if (count(glob($path))) {
-                $this->success('备份文件删除失败，请检查权限！');
-            } else {
-                $this->success('备份文件删除成功！');
-            }
-        } else {
-            $this->error('参数错误！');
-        }
-    }
-
 
     /**
      * 备份数据库
@@ -201,13 +89,32 @@ class DatabaseController extends AdminController
 
         } elseif (IS_GET) { //备份数据
             $this->echoRetrun("备份开始！");
-            $this->echoRetrun($path);
+
+
+
             $Db = Db::getInstance();
             $list = $Db->query('SHOW TABLE STATUS');
             $list = array_map('array_change_key_case', $list);
             $count = 0;
 
-            foreach ($list as $item) {
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.log';
+            $file_path = str_replace('/', '\\\\', $file_path);
+
+            if(file_exists($file_path)){    //如果存在  就读取文件内容
+
+                $json_string = file_get_contents($file_path);
+                $data = json_decode($json_string, true);
+            }else{
+                $data = $list;
+                foreach ($data as $key=> $value){
+                    $data[$key]['backup_time'] = $data[$key]['create_time'];
+                }
+                $json_string = json_encode($data);
+                file_put_contents($file_path, $json_string);
+
+            }
+
+            foreach ($list as $key=>$item) {
 
                 $file = array(
                     'name' => $item['name'],
@@ -220,6 +127,8 @@ class DatabaseController extends AdminController
 
                 if ($backup) {
                     $this->echoRetrun($item['name'] . "备份完成！");
+                    $data[$count]['backup_time'] = date('Y-m-d H:i:s', NOW_TIME);
+
                 } else {
                     $this->echoRetrun($item['name'] . "备份失败！");
                 }
@@ -231,6 +140,11 @@ class DatabaseController extends AdminController
             session('backup_tables', null);
             session('backup_file', null);
             session('backup_config', null);
+
+            $this->deldir($file_path);
+            $json_string = json_encode($data);
+            file_put_contents($file_path, $json_string);
+
 
             $this->echoRetrun("备份结束！");
         }
@@ -258,26 +172,19 @@ class DatabaseController extends AdminController
             $date = $prama['date'];
 
 
-            $path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/' . $date . '/';
-
+            $path       = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/' . $date . '/';
+            $this->echoRetrun($file_path);
+            $sql_object = new Sql();
+            $this->echoRetrun($file_path);
             foreach ($tables as $value){
-                $this->echoRetrun($value);
+
                 $table = $value;
                 $file_path = $path . "{$table}.sql";
-                $this->echoRetrun($file_path);
                 if (file_exists($file_path)) {
-
-                    $fp = fopen($file_path, "r");
-                    $str = fread($fp, filesize($file_path));//指定读取大小，这里把整个文件内容读取出来
-                    $str = str_replace("\r\n", "<br />", $str);
-
-                    $db = Db::getInstance();
-                    $this->echoRetrun(44);
-
-                    $ret = $db->query($str);
-                    $this->echoRetrun(333);
-
-                    if ($ret) {
+                    $this->echoRetrun($file_path);
+                    $sql_status = $sql_object->execute_sql_from_file($file_path);
+                    $this->echoRetrun($sql_status);
+                    if ($sql_status) {
                         $this->echoRetrun($table . '还原成功！');
                     } else {
                         $this->echoRetrun($table . '还原失败！');

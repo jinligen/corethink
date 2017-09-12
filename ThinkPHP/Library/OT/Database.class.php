@@ -10,10 +10,12 @@
 // +----------------------------------------------------------------------
 
 namespace OT;
+
 use Think\Db;
 
 //数据导出模型
-class Database{
+class Database
+{
     /**
      * 文件指针
      * @var resource
@@ -40,12 +42,13 @@ class Database{
 
     /**
      * 数据库备份构造方法
-     * @param array  $file   备份或还原的文件信息
-     * @param array  $config 备份配置信息
-     * @param string $type   执行类型，export - 备份数据， import - 还原数据
+     * @param array $file 备份或还原的文件信息
+     * @param array $config 备份配置信息
+     * @param string $type 执行类型，export - 备份数据， import - 还原数据
      */
-    public function __construct($file, $config, $type = 'export'){
-        $this->file   = $file;
+    public function __construct($file, $config, $type = 'export')
+    {
+        $this->file = $file;
         $this->config = $config;
     }
 
@@ -53,10 +56,11 @@ class Database{
      * 打开一个卷，用于写入数据
      * @param  integer $size 写入数据的大小
      */
-    private function open($size){
-        if($this->fp){
+    private function open($size)
+    {
+        if ($this->fp) {
             $this->size += $size;
-            if($this->size > $this->config['part']){
+            if ($this->size > $this->config['part']) {
                 $this->config['compress'] ? @gzclose($this->fp) : @fclose($this->fp);
                 $this->fp = null;
                 $this->file['part']++;
@@ -66,9 +70,9 @@ class Database{
         } else {
             $backuppath = $this->config['path'];
 
-            $filename   = "{$backuppath}{$this->file['name']}.sql";
+            $filename = "{$backuppath}{$this->file['name']}.sql";
 
-            if($this->config['compress']){
+            if ($this->config['compress']) {
                 $filename = "{$filename}.gz";
                 $this->fp = @gzopen($filename, "a{$this->config['level']}");
             } else {
@@ -84,24 +88,26 @@ class Database{
      * @param  string $sql 要写入的SQL语句
      * @return boolean     true - 写入成功，false - 写入失败！
      */
-    private function write($sql){
+    private function write($sql)
+    {
         $size = strlen($sql);
-        
+
         //由于压缩原因，无法计算出压缩后的长度，这里假设压缩率为50%，
         //一般情况压缩率都会高于50%；
         $size = $this->config['compress'] ? $size / 2 : $size;
-        
-        $this->open($size); 
+
+        $this->open($size);
         return $this->config['compress'] ? @gzwrite($this->fp, $sql) : @fwrite($this->fp, $sql);
     }
 
     /**
      * 备份表结构
-     * @param  string  $table 表名
+     * @param  string $table 表名
      * @param  integer $start 起始行数
      * @return boolean        false - 备份失败
      */
-    public function backup($table){
+    public function backup($table)
+    {
         //创建DB对象
         $db = Db::getInstance();
 
@@ -109,7 +115,7 @@ class Database{
         //备份表结构
         $result = $db->query("SHOW CREATE TABLE `{$table}`");
 
-        $sql  = "\n";
+        $sql = "\n";
 //        $sql .= "-- Think MySQL Data Transfer \n";
 //        $sql .= "-- \n";
 //        $sql .= "-- Host     : " . C('DB_HOST') . "\n";
@@ -128,7 +134,6 @@ class Database{
         $sql .= trim($result[0]['Create Table']) . ";\n\n";
 
 
-
 //        $sql .= "-- -----------------------------\n";
 //        $sql .= "-- Records of `{$table}`\n";
 //        $sql .= "-- -----------------------------\n";
@@ -136,20 +141,20 @@ class Database{
 
         //备份数据记录
         $result = $db->query("SELECT * FROM `{$table}` ");
-
+        $sql1 = '';
         foreach ($result as $row) {
 //                $row = array_map('mysql_real_escape_string', $row);
             $arr = [];
-            foreach ($row as $value){
-                array_push($arr,$value);
+            foreach ($row as $value) {
+                array_push($arr, $value);
             }
 
-            $sql .=  "INSERT INTO `{$table}` VALUES ('" . implode("', '", $arr) . "');\n";
+            $sql1 .= "INSERT INTO `{$table}` VALUES ('" . implode("', '", $arr) . "');\n";
 
 
         }
 
-        if(false === $this->write($sql)){
+        if ($sql1 != '' && false === $this->write($sql.$sql1)) {
             return false;
         }
 
@@ -158,27 +163,28 @@ class Database{
         return true;
     }
 
-    public function import($start){
+    public function import($start)
+    {
         //还原数据
         $db = Db::getInstance();
 
-        if($this->config['compress']){
-            $gz   = gzopen($this->file[1], 'r');
+        if ($this->config['compress']) {
+            $gz = gzopen($this->file[1], 'r');
             $size = 0;
         } else {
             $size = filesize($this->file[1]);
-            $gz   = fopen($this->file[1], 'r');
+            $gz = fopen($this->file[1], 'r');
         }
-        
-        $sql  = '';
-        if($start){
+
+        $sql = '';
+        if ($start) {
             $this->config['compress'] ? gzseek($gz, $start) : fseek($gz, $start);
         }
-        
-        for($i = 0; $i < 1000; $i++){
-            $sql .= $this->config['compress'] ? gzgets($gz) : fgets($gz); 
-            if(preg_match('/.*;$/', trim($sql))){
-                if(false !== $db->query($sql)){
+
+        for ($i = 0; $i < 1000; $i++) {
+            $sql .= $this->config['compress'] ? gzgets($gz) : fgets($gz);
+            if (preg_match('/.*;$/', trim($sql))) {
+                if (false !== $db->query($sql)) {
                     $start += strlen($sql);
                 } else {
                     return false;
@@ -195,7 +201,8 @@ class Database{
     /**
      * 析构方法，用于关闭文件资源
      */
-    public function __destruct(){
+    public function __destruct()
+    {
         $this->config['compress'] ? @gzclose($this->fp) : @fclose($this->fp);
     }
 }

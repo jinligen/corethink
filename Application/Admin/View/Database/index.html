@@ -36,7 +36,7 @@
         &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="backup()">开始备份</button>
         &nbsp;
-        <button class="layui-btn layui-btn-normal layui-btn-small" @click="backdown()">开始还原</button>
+        <button class="layui-btn layui-btn-primary layui-btn-small" @click="backdown()">开始还原</button>
         &nbsp;
     </div>
 
@@ -105,7 +105,7 @@
                         </td>
                         <td>
                             <div :style="{ width: 200 + 'px'}">
-                                {{item.create_time}}
+                                {{item.backup_time}}
                             </div>
                         </td>
                     </tr>
@@ -132,7 +132,7 @@
 <script>
 
     var _list =   eval('(' + '{$_list}' + ')');
-
+    console.log(_list)
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,

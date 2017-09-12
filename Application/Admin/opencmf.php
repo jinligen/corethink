@@ -142,18 +142,10 @@ return array(
         ),
         'a6' => array(
             'pid'   => 'a',
-            'title' => '数据备份',
+            'title' => '数据备份/还原',
             'icon'  => 'fa fa-book',
-            'url'   => 'admin/database/index/type/export',
+            'url'   => 'admin/database/index',
         ),
-
-        'a7' => array(
-            'pid'   => 'a',
-            'title' => '数据还原',
-            'icon'  => 'fa fa-share',
-            'url'   => 'admin/database/index/type/import',
-        ),
-
 
 
 
