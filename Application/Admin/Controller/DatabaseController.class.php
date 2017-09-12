@@ -29,6 +29,8 @@ class DatabaseController extends AdminController
 
         $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.text';
         $file_path = str_replace('/', '\\\\', $file_path);
+        $date_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/date.text';
+        $date_path = str_replace('/', '\\\\', $date_path);
 
 //
 //        $dataList = [];
@@ -41,9 +43,9 @@ class DatabaseController extends AdminController
 
 
         if(file_exists($file_path)){
-            $fp = fopen($file_path,"r");
-            $str = fread($fp,filesize($file_path));//指定读取大小，这里把整个文件内容读取出来
-            $list = ($str);
+            $json_string = file_get_contents($file_path);
+            $list = $json_string;
+            $date = file_get_contents($date_path);
         }else{
             $Db = Db::getInstance();
             $list = $Db->query('SHOW TABLE STATUS');
@@ -53,10 +55,11 @@ class DatabaseController extends AdminController
             }
             $json_string = json_encode($list);
             file_put_contents($file_path, $json_string);
-
+            $date = date('Y-m-d', NOW_TIME);
             $list = json_encode($list);
         }
 
+        $this->assign('_date', $date);
         $this->assign('_list', $list);
 //echo var_dump($list);exit;
         $this->display();
@@ -109,7 +112,10 @@ class DatabaseController extends AdminController
 
             $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.text';
             $file_path = str_replace('/', '\\\\', $file_path);
+            $date_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/date.text';
+            $date_path = str_replace('/', '\\\\', $date_path);
 
+            
             if(file_exists($file_path)){    //如果存在  就读取文件内容
 
                 $json_string = file_get_contents($file_path);
@@ -153,8 +159,8 @@ class DatabaseController extends AdminController
 
             $this->deldir($file_path);
             $json_string = json_encode($data);
-            file_put_contents($file_path, $json_string);
-
+            file_put_contents($file_path, $json_string); 
+            file_put_contents($date_path, json_encode(date('Y-m-d', NOW_TIME)));
 
             $this->echoRetrun("备份结束！");
         }
@@ -183,17 +189,17 @@ class DatabaseController extends AdminController
 
 
             $path       = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/' . $date . '/';
-            $this->echoRetrun($file_path);
+
             $sql_object = new Sql();
-            $this->echoRetrun($file_path);
+
             foreach ($tables as $value){
 
                 $table = $value;
                 $file_path = $path . "{$table}.sql";
                 if (file_exists($file_path)) {
-                    $this->echoRetrun($file_path);
+                    
                     $sql_status = $sql_object->execute_sql_from_file($file_path);
-                    $this->echoRetrun($sql_status);
+                    
                     if ($sql_status) {
                         $this->echoRetrun($table . '还原成功！');
                     } else {

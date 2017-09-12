@@ -219,7 +219,7 @@ return array(
             'pid'   => 'c',
             'title' => '库房即时查询',
             'icon'  => 'fa fa-eye',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/InstantInventory/index',
         ),
         'c2'  => array(
             'pid'   => 'c',

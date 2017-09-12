@@ -132,7 +132,8 @@
 <script>
 
     var _list =   eval('(' + '{$_list}' + ')');
-    console.log(_list)
+    var _date = eval('(' + '{$_date}' + ')');
+
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,
@@ -194,8 +195,8 @@
                 for(var i = 0,leng = _list.length;i<leng;i++){
                     tables.push(_list[i].name)
                 }
-                var date = '2017-09-11'
-                var prama = {tables:tables,date:date};
+
+                var prama = {tables:tables,date:_date};
                 prama = JSON.stringify(prama);
                 var url = '/corethink/admin.php?s=/admin/database/import/prama/' + prama;
                 url = encodeURI(url);

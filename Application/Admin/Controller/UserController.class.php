@@ -33,31 +33,25 @@ class UserController extends AdminController
             $condition,
             '_multi' => true,
         );
-//        echo dump('jjj');
-//        echo $_POST['username'];
-//        exit;
-
+  
         // 获取所有用户
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p             = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $user_object   = D('User');
         $data_list     = $user_object
-            ->page($p, C('ADMIN_PAGE_ROWS'))
+            ->page($p, 1)
             ->where($map)
             ->order('id desc')
             ->select();
         $page = new Page(
             $user_object->where($map)->count(),
-            C('ADMIN_PAGE_ROWS')
+           1
         );
 
         // 使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('用户列表') // 设置页面标题
-            ->setPostUrl(U('admin/user/index')) //设置表单提交地址
-            ->addFormItem('username', 'text', '用户名')
-            ->addFormItem('username', 'text', '用户名')
-            ->addFormItem('username', 'text', '用户名')
+            
 
 
             ->addTopButton('addnew') // 添加新增按钮

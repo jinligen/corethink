@@ -610,16 +610,18 @@ class ListBuilder extends CommonController
      * @param $options 表单options
      * @param $extra 额外自定义项目
      * @param $extra_attr 表单项额外属性
+     * @param $value 表单默认值
      * @return $this
      * @author jry <598821125@qq.com>
      */
-    public function addFormItem($name, $type, $title, $tip, $options = array(), $extra = '', $extra_attr = '')
+    public function addFormItem($name, $type, $title, $tip, $options = array(), $extra = '', $extra_attr = '', $value = '')
     {
         $item['name']    = $name;
         $item['type']    = $type;
         $item['title']   = $title;
         $item['tip']     = $tip;
         $item['options'] = $options;
+        $item['value'] = $value;
         if (is_array($extra)) {
             $item['extra']['class'] = $extra['class'];
             $item['extra']['self']  = $extra['self'];

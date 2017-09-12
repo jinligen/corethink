@@ -1,10 +1,10 @@
 <div class="builder listbuilder-box panel-body">
     {// 数据列表 }
-    <div class="builder-container" style="display:none">
+    <div class="builder-container" style="display:">
         <div class="row">
             <div class="col-xs-12">
-                <form action="{$post_url}" method="post" class="form-horizontal form form-builder">
-                    {$post_url}
+                <div class="form-horizontal form form-builder">
+
                     <div class="col-xs-12 query-items">
                         <volist name="form_items" id="form" key="k">
                             <switch name="form.type">
@@ -138,12 +138,37 @@
                             </switch>
                         </volist>
 
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block  " type="submit" >确定</button>
-                        </div>
+                        <textarea id="param" style="display: none;"> <php> echo json_encode($form_items);</php></textarea>
+
+                        <notempty name="post_url">
+                            <div class="form-group">
+                                <a href="#" class="btn btn-primary btn-block  " id="submit" >确定</a>
+                            </div>
+
+                        </notempty>
                     </div>
 
-                </form>
+                </div>
+                <script>
+                    $("#submit").click(function(e){
+
+
+                        var  _list = JSON.parse($('#param').val());
+                        var param = '';
+                        for(var i=0;i<_list.length;i++){
+                            if(i==0){
+                                param +=  _list[i].name + '/' + _list[i].value;
+                            }else{
+                                param += '/' + _list[i].name + '/' + _list[i].value;
+                            }
+                            console.log(_list[i].name);
+
+                        }
+                        console.log(param);
+                        window.location.href = "/corethink/admin.php?s=/{$post_url}/"+param
+
+                    });
+                </script>
             </div>
         </div>
     </div>
