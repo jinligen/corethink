@@ -28,8 +28,8 @@ class StoreHouseInfoModel extends Model
      */
     protected $_validate = array(
 
-        array('goods_id', 'require', '仓库编号不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('goods_name', 'require', '仓库名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('storehouse_id', 'require', '仓库编号不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('storehouse_name', 'require', '仓库名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
 
     );
 

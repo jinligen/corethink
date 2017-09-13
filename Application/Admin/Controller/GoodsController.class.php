@@ -47,6 +47,9 @@ class GoodsController extends AdminController
             ->addTopButton('delete') // 添加删除按钮
             ->setSearch('商品编号/商品名称', U('index'))
             ->addTableColumn('id', 'ID')
+
+
+            ->addTableColumn('goods_type_name', '类别')
             ->addTableColumn('goods_id', '商品编号')
             ->addTableColumn('goods_name', '商品名称')
             ->addTableColumn('goods_spec', '商品规格')
@@ -78,7 +81,10 @@ class GoodsController extends AdminController
             $user_object = D('Goods');
             $data        = $user_object->create();
             if ($data) {
-
+                $goods_rates = $data["goods_rates"];
+                $goods_rates = preg_replace('/\//i','/',$goods_rates);
+                $goods_rates = preg_replace('/，/i',',',$goods_rates);
+                $data["goods_rates"] =  $goods_rates;
                 $data["username"] = session('user_auth')["username"];
                 $data["nickname"] = session('user_auth')["nickname"];
                 $id = $user_object->add($data);
@@ -98,12 +104,13 @@ class GoodsController extends AdminController
             $builder->setMetaTitle('新增') //设置页面标题
                 ->setPostUrl(U('add')) //设置表单提交地址
 
+                ->addFormItem('goods_type_name', 'radio', '类别', '',array('原材料'=>'原材料','产品'=>'产品'),'','')
                 ->addFormItem('goods_id', 'text', '商品编码', '','','','')
                 ->addFormItem('goods_name', 'text', '商品名称', '','','','')
                 ->addFormItem('goods_spec', 'text', '商品规格', '')
                 ->addFormItem('goods_min_unit', 'text', '商品最小计量单位', '')
 
-                ->addFormItem('goods_rates', 'text', '换算率集合', '')
+                ->addFormItem('goods_rates', 'text', '换算率集合', '<span style="color:red;font-size: 14px">注:/后面表示单位，/前面表示本单位是最小单位的倍数 如：最小单位是kg  "500/件"则表示一件有500kg  多个单位用英文逗号","隔开</span>')
                 ->addFormItem('goods_stock_balance', 'text', '商品库存量', '')
                 ->addFormItem('goods_cost_price', 'text', '商品成本价', '')
                 ->addFormItem('goods_market_price', 'text', '商品销售价', '')
@@ -125,8 +132,13 @@ class GoodsController extends AdminController
             $d_object = D('Goods');
             $data        = $d_object->create();
             if ($data) {
+                $goods_rates = $data["goods_rates"];
+                $goods_rates = preg_replace('/\//i','/',$goods_rates);
+                $goods_rates = preg_replace('/，/i',',',$goods_rates);
+
+                $data["goods_rates"] =  $goods_rates;
                 $result = $d_object
-                    ->field('id,goods_id,goods_name,goods_spec,goods_min_unit,goods_rates,goods_stock_balance,goods_cost_price,goods_market_price,storehouse_name,update_time')
+                    ->field('id,goods_id,goods_name,goods_spec,goods_min_unit,goods_rates,goods_rates,goods_stock_balance,goods_cost_price,goods_market_price,storehouse_name,update_time')
                     ->save($data);
                 if ($result) {
                     $this->success('更新成功', U('index'));
@@ -145,12 +157,13 @@ class GoodsController extends AdminController
             $builder->setMetaTitle('编辑') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
+                ->addFormItem('goods_type_name', 'radio', '类别', '',array('原材料'=>'原材料','产品'=>'产品'),'','')
                 ->addFormItem('goods_id', 'text', '商品编码', '','','','')
                 ->addFormItem('goods_name', 'text', '商品名称', '','','','')
                 ->addFormItem('goods_spec', 'text', '商品规格', '')
                 ->addFormItem('goods_min_unit', 'text', '商品最小计量单位', '')
 
-                ->addFormItem('goods_rates', 'text', '换算率集合', '')
+                ->addFormItem('goods_rates', 'text', '换算率集合', '<span style="color:red;font-size: 14px">注:/后面表示单位，/前面表示本单位是最小单位的倍数 如：最小单位是kg  "500/件"则表示一件有500kg  多个单位用英文逗号","隔开</span>')
                 ->addFormItem('goods_stock_balance', 'text', '商品库存量', '')
                 ->addFormItem('goods_cost_price', 'price', '商品成本价', '')
                 ->addFormItem('goods_market_price', 'price', '商品销售价', '')

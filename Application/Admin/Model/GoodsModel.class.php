@@ -28,7 +28,10 @@ class GoodsModel extends Model
      */
     protected $_validate = array(
 
+        array('goods_type_name', 'require', '请选择类别', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('goods_id', 'require', '商品编码不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('goods_id', '', '商品编码被占用', self::MUST_VALIDATE, 'unique', self::MODEL_BOTH),
+
         array('goods_name', 'require', '商品名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('goods_spec', 'require', '商品规格不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('goods_min_unit', 'require', '商品最小计量单位不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),

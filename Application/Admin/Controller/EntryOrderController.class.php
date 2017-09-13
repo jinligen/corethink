@@ -211,6 +211,7 @@ class EntryOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $this->assign('entry_order_type_name', '采购入库单'); //页面标题
             $this->display();
         }
 
@@ -259,6 +260,7 @@ class EntryOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $this->assign('entry_order_type_name', '产品入库单'); //页面标题
             $this->display();
         }
     }
@@ -274,6 +276,7 @@ class EntryOrderController extends AdminController
 
         if (IS_POST) {
 
+            
             if ($_POST['entry_order_id']) {
                 $map['entry_order_id'] = $_POST['entry_order_id'];
 

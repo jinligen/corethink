@@ -130,7 +130,7 @@
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="" v-model="headInfo.entry_order_payment_date"/>
+                        <input type="date" id="date" style="" v-model="headInfo.entry_order_date"/>
                     </div>
                 </div>
             </div>
@@ -161,6 +161,27 @@
                     </div>
                 </div>
             </div>
+            <div class="form-item " style="">
+                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style=" width: 80px;display: inline-block;text-align: center" v-model="headInfo.entry_order_tax_rate"/>%
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span>
+                <div class="input-content ">
+                    <span style="display: none">{{headInfo.entry_order_including_tax_price=parseFloat(headInfo.entry_order_price*headInfo.entry_order_tax_rate/100).toFixed(2)}}</span>
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style="" v-model="headInfo.entry_order_including_tax_price"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-head-row">
 
             <div class="form-item " style="">
                 <span class="title" style="">单据金额:</span>
@@ -172,13 +193,27 @@
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">实际支付:</span>
+                <span class="title" style="">应付金额:</span>
+                <div class="input-content ">
+                    <span style="display: none">{{headInfo.entry_order_account_payable=parseFloat(headInfo.entry_order_price - headInfo.entry_order_including_tax_price).toFixed(2)}}</span>
+
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_account_payable"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">本次支付:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
                         <input type="number" style="" v-model="headInfo.entry_order_actual_payment"/>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
         <div class="form-head-row">
             <div class="form-item " style="">
@@ -189,18 +224,24 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-item " style="">
                 <span class="title" style="">&nbsp;</span>
                 <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;</div>
+                    <div class="data-select" style=" width: 100%;">
+                    </div>
                 </div>
             </div>
             <div class="form-item " style="">
                 <span class="title" style="">&nbsp;</span>
                 <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;</div>
+                    <div class="data-select" style=" width: 100%;">
+                    </div>
                 </div>
             </div>
+
+
+
         </div>
     </div>
     <div id="div2">
@@ -248,58 +289,67 @@
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[2].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[2].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_name}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_name" readonly/>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[3].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[3].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_spec}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_spec"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_actual_unit}}</div>
+                                 @click="selectUnit($event,index)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_actual_unit=item.goods_actual_unit!=''?item.goods_actual_unit:item.goods_min_unit}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_actual_unit"/>
+                                    <select class="unit" @change="unitChang($event,index)">
+
+
+                                    </select>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_entry_unit_price}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_unit_price"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
                             <div class="input-content " :style="{ width: thead[6].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
                                 <div class="data-show">&nbsp;{{item.goods_entry_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_total_quantity"/>
+                                    <input type="number" v-model="item.goods_entry_total_quantity"
+                                           @change="quantityChang(index)"/>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[7].width + 'px'}">
-                                <div class="data-show">&nbsp;{{item.goods_entry_total_price = item.goods_id == '' ?
-                                    '':item.goods_entry_unit_price * item.goods_entry_total_quantity}}
+                            <div class="input-content " :style="{ width: thead[6].width + 'px'}">
+                                <div class="data-show">&nbsp;{{(item.goods_weight=item.goods_id!=''?item.goods_weight:'')+item.goods_min_unit}}</div>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
+                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_entry_unit_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_entry_total_price"/>
+                                    <input type="number" v-model="item.goods_entry_unit_price"
+                                           @change="unitPriceChang(index)"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-content " :style="{ width: thead[7].width + 'px'}"
+                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_entry_total_price}}
+                                </div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="number" v-model="item.goods_entry_total_price"
+                                           @change="totalPriceChang(index)"/>
                                 </div>
                             </div>
                         </td>
@@ -424,7 +474,7 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_date}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_date}}</div>
                     </div>
                 </div>
 
@@ -585,8 +635,9 @@
         {title: '名称', width: 100},
         {title: '规格', width: 100},
         {title: '实际单位', width: 100},
-        {title: '单价', width: 100},
         {title: '数量', width: 100},
+        {title: '重量', width: 100},
+        {title: '单价', width: 100},
         {title: '金额', width: 100},
         {title: '备注', width: 100}
 
@@ -594,18 +645,21 @@
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,
-        isSave :true,
+        isSave: true,
         thead: thead,
         headInfo: {
-            entry_order_type_name:'采购入库单',
+            entry_order_type_name: '{$entry_order_type_name}',
             customer_id: '',
             customer_name: '',
-            entry_order_payment_date: '',
+            entry_order_date: '',
             entry_order_id: '',
             storehouse_name: '',
             entry_order_price: '',
             entry_order_actual_payment: '',
-            entry_order_remark:''
+            entry_order_remark: '',
+            entry_order_tax_rate:0,
+            entry_order_including_tax_price:0,
+            entry_order_account_payable:0
         },
         tableInfo: [],
         tableData: []
@@ -626,11 +680,14 @@
                 handler: function (val, oldVal) {
                     this.isSave = false;
                     this.tableData = [];
+                    var entry_order_price = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
                         if (val[i].goods_id != '') {
                             this.tableData.push(val[i]);
+                            entry_order_price += parseFloat(val[i].goods_entry_total_price);
                         }
                     }
+                    this.headInfo.entry_order_price = entry_order_price;
                 },
                 deep: true
             },
@@ -666,10 +723,10 @@
                     success: function (data, textStatus, jqXHR) {
                         var data = eval('(' + data + ')');
 
-                        if(data.error == '0000'){
+                        if (data.error == '0000') {
 
-                        }else{
-                            layer.msg('单据'+entry_order_id+'已存在！');
+                        } else {
+                            layer.msg('单据' + entry_order_id + '已存在！');
                             self.headInfo.entry_order_id = '';
                         }
                     },
@@ -873,16 +930,16 @@
 
             },
             goBack: function () { //刷新
-                if(!this.isSave){
+                if (!this.isSave) {
                     layer.confirm('单据还未保存，确定关闭吗？', {
-                        btn: ['取消','确定'] //按钮
-                    }, function(){
+                        btn: ['取消', '确定'] //按钮
+                    }, function () {
                         layer.closeAll();
-                    }, function(){
+                    }, function () {
                         location.href = '/corethink/admin.php?s=/admin/EntryOrder/purchaseEntryOrder'
                         layer.closeAll();
                     });
-                }else {
+                } else {
                     location.href = '/corethink/admin.php?s=/admin/EntryOrder/purchaseEntryOrder'
                 }
             },
@@ -893,8 +950,8 @@
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
-                        headInfo:  (self.headInfo),
-                        tableInfo:  (self.tableData),
+                        headInfo: (self.headInfo),
+                        tableInfo: (self.tableData),
 
                     },
                     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
@@ -904,7 +961,7 @@
                         if (self.headInfo.customer_name == '') {
                             layer.msg('请选择供应商');
                             flag = false;
-                        } else if (self.headInfo.entry_order_payment_date == '') {
+                        } else if (self.headInfo.entry_order_date == '') {
                             layer.msg('请选择日期');
                             flag = false;
                         } else if (self.headInfo.entry_order_id == '') {
@@ -943,10 +1000,10 @@
                     success: function (data, textStatus, jqXHR) {
                         var data = eval('(' + data + ')');
 
-                        if(data.error == '0000'){
+                        if (data.error == '0000') {
                             layer.msg('保存成功');
                             self.isSave = true;
-                        }else{
+                        } else {
                             layer.msg('保存失败');
                         }
 
@@ -964,7 +1021,7 @@
 
             },
             print: function () { //打印
-                if(!this.isSave){
+                if (!this.isSave) {
                     layer.msg('单据为保存');
                     return;
                 }
@@ -1060,6 +1117,9 @@
                                         goods_entry_unit_price: retInfo[i].goods_cost_price,
                                         goods_entry_total_quantity: 0,
                                         goods_entry_total_price: 0,
+                                        goods_rates: retInfo[i].goods_rates,
+                                        goods_min_unit: retInfo[i].goods_min_unit,
+                                        goods_weight: 0,
                                         goods_remark: '',
 
                                     });
@@ -1073,6 +1133,88 @@
 
                     }
                 });
+            },
+            selectUnit: function (event, index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-select').css('display', 'inline-block');
+                $(ele).children('.data-select').children('input').focus();
+                goods_rates = this.tableInfo[index].goods_rates;
+                goods_rates = goods_rates.split(',');
+
+                var option = '<option value="">请选择</option>';
+                var t;
+                for (var i = 0; i < goods_rates.length; i++) {
+                    if (goods_rates[i] != '') {
+                        t = (goods_rates[i]).split('/')
+                        option += '<option value="' + goods_rates[i] + '">' + t[1] + '</option>'
+                    }
+                }
+                $(ele).children('.data-select').children('.unit').children('option').remove();
+                $(ele).children('.data-select').children('.unit').append(option);
+            },
+            unitChang: function (event,index) {
+
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+
+                var item = this.tableInfo[index];
+                var ele = event.currentTarget;
+
+                var goods_actual_unit =  $(ele).val().split('/')[1];
+                var unit_quantity=  $(ele).val().split('/')[0];
+                this.tableInfo[index].goods_actual_unit = goods_actual_unit;
+
+                var goods_weight = goods_actual_unit == item.goods_min_unit ? item.goods_entry_total_quantity : unit_quantity * item.goods_entry_total_quantity;
+                this.tableInfo[index].goods_weight = item.goods_entry_total_quantity > 0 ? goods_weight : 0;
+
+            },
+            quantityChang: function (index) {
+
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+
+                var item = this.tableInfo[index];
+                this.tableInfo[index].goods_entry_total_price = parseFloat(item.goods_entry_total_quantity > 0 && item.goods_entry_unit_price > 0 ? item.goods_entry_unit_price * item.goods_entry_total_quantity : 0).toFixed(2);
+
+
+               var goods_rates = (item.goods_rates).split(',');
+               var unit_quantity = 0;
+                for(var i =0 ;i<goods_rates.length;i++){
+                    if (goods_rates[i].split('/')[1] == item.goods_actual_unit) {
+                        unit_quantity =  goods_rates[i].split('/')[0];
+                        console.log(goods_rates[i].split('/')[1]);
+                        console.log(unit_quantity);
+
+                        break;
+                    }
+                }
+                this.tableInfo[index].goods_weight = item.goods_actual_unit == item.goods_min_unit ? item.goods_entry_total_quantity : unit_quantity  * item.goods_entry_total_quantity;
+
+            },
+            unitPriceChang: function (index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var item = this.tableInfo[index];
+                this.tableInfo[index].goods_entry_total_price = parseFloat(item.goods_entry_total_quantity > 0 && item.goods_entry_unit_price > 0 ? item.goods_entry_unit_price * item.goods_entry_total_quantity : 0).toFixed(2);
+
+
+            },
+            totalPriceChang: function (index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var item = this.tableInfo[index];
+
+                this.tableInfo[index].goods_entry_unit_price = parseFloat(item.goods_entry_total_quantity > 0 && item.goods_entry_total_price > 0 ? item.goods_entry_total_price / item.goods_entry_total_quantity : 0).toFixed(2);
+
+
             },
         }
     })
