@@ -29,7 +29,7 @@ class CustomerController extends AdminController
             if($_POST['type']=='export'){
                 $list = $d_object->field('types,customer_id,customer_name,customer_type,customer_address,customer_phone,create_time')->select();
                 $filename = '客户列表';
-                $head = array("分类,客户编号","客户名称","客户类别","地址","电话","创建时间");
+                $head = array("分类","客户编号","客户名称","客户类别","地址","电话","创建时间");
                 if($list){
                     D('Module')->export($list,$filename,$head);
                 }
@@ -53,7 +53,7 @@ class CustomerController extends AdminController
 
         $attr['title'] = '模板下载';
         $attr['class'] = 'btn btn-success';
-//        $attr['href']  = '/corethink/Uploads/yglb.xlsx';
+        $attr['href']  = '/corethink/Uploads/khlb.xls';
         // 使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('列表') // 设置页面标题

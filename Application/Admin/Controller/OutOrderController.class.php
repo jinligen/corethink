@@ -38,7 +38,7 @@ class OutOrderController extends AdminController
 
         $field = 'id,
                    customer_name,
-                   out_order_payment_date,
+                   out_order_date,
                    out_order_id,
                    storehouse_name,
                    out_order_price,
@@ -76,7 +76,7 @@ class OutOrderController extends AdminController
 
         ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('out_order_payment_date', '采购日期')
+            ->addTableColumn('out_order_date', '采购日期')
             ->addTableColumn('out_order_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
             ->addTableColumn('out_order_price', '单据金额')
@@ -110,7 +110,7 @@ class OutOrderController extends AdminController
 
         $field = 'id,
                    customer_name,
-                   out_order_payment_date,
+                   out_order_date,
                    out_order_id,
                    storehouse_name,
                    out_order_price,
@@ -148,7 +148,7 @@ class OutOrderController extends AdminController
 
         ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('out_order_payment_date', '日期')
+            ->addTableColumn('out_order_date', '日期')
             ->addTableColumn('out_order_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
             ->addTableColumn('out_order_remark', '摘要')
@@ -178,6 +178,13 @@ class OutOrderController extends AdminController
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
 
+            $map['out_order_id'] = array('eq',$headInfo['out_order_id']);
+            $id = D('OutOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"已保存！",data:[]}');
+                exit;
+            }
+
             $dataList = [];
 
 
@@ -211,6 +218,7 @@ class OutOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $this->assign('out_order_type_name', '销售出库单'); //页面标题
             $this->display();
         }
 
@@ -225,7 +233,12 @@ class OutOrderController extends AdminController
         if (IS_POST) {
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
-
+            $map['out_order_id'] = array('eq',$headInfo['out_order_id']);
+            $id = D('OutOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"已保存！",data:[]}');
+                exit;
+            }
             $dataList = [];
 
 
@@ -259,6 +272,8 @@ class OutOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+
+            $this->assign('out_order_type_name', '材料出库单'); //页面标题
             $this->display();
         }
     }
@@ -275,6 +290,16 @@ class OutOrderController extends AdminController
         if (IS_POST) {
 
             if ($_POST['out_order_id']) {
+
+                $where['out_order_id'] = array('eq',$_POST['out_order_id']);
+                $where['out_order_is_audited'] = array('eq','1');
+                $id = D('OutOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"已审核！",data:[]}');
+                    exit;
+                }
+
+
                 $map['out_order_id'] = $_POST['out_order_id'];
 
                 $data['out_order_is_audited'] = 1;
@@ -316,6 +341,15 @@ class OutOrderController extends AdminController
         if (IS_POST) {
 
             if ($_POST['out_order_id']) {
+                
+                $where['out_order_id'] = array('eq',$_POST['out_order_id']);
+                $where['out_order_is_audited'] = array('eq','1');
+                $id = D('OutOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"已审核！",data:[]}');
+                    exit;
+                }
+
                 $map['out_order_id'] = $_POST['out_order_id'];
 
                 $data['out_order_is_audited'] = 1;

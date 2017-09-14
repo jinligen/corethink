@@ -128,6 +128,21 @@ class PublicController extends CommonController
         $this->display();
     }
 
+    /**
+     * 获取应付列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function paymentList()
+    {
+
+        $type = $_GET['customer_id'];
+        $map['customer_id'] = array('like','%'.$type.'%');
+        $list = D('storehouse_entry_order_view')->where($map)->select();
+
+        $this->assign('_list', json_encode($list));
+        $this->display();
+    }
 
 
     /**
@@ -167,6 +182,8 @@ class PublicController extends CommonController
         }
 
     }
+
+   
 
     /**
      *

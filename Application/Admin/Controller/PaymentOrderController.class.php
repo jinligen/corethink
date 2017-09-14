@@ -23,28 +23,31 @@ class PaymentOrderController extends AdminController
     public function index()
     {
         $map['status'] = array('egt', '1'); // 禁用和正常状态
-        $map['payment_order_type_name'] = array('like', '%付款单%');
+//        $map['payment_order_type_name'] = array('like', '%付款单%');
 
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
 
         $d_object = D('PaymentOrder');
 
         $field = 'id,
-                   customer_name,
-                   payment_order_payment_date,
                    payment_order_id,
-                   storehouse_name,
+                   payment_order_type_name,
                    payment_order_price,
+                   payment_order_deposit_rate,
+                   payment_order_deposit_after_price,
+                   payment_order_should_payment_price,
                    payment_order_actual_payment,
-                   payment_order_remark,
+                   payment_order_remark, 
                    create_time,
                    status,
                    payment_order_is_audited';
         $data_list = $d_object->page($p, C('ADMIN_PAGE_ROWS'))->field($field)->where($map)->order('payment_order_id')->group('payment_order_id')->select();
+
+//        echo var_dump($d_object->getLastSql());
+//        exit;
         $page = new Page($d_object->where($map)->field($field)->group('payment_order_id')->count(), C('ADMIN_PAGE_ROWS'));
 
-//        echo var_dump($data_list);
-//        exit;
+
 
         $add['title'] = '新增';
         $add['class'] = 'btn btn-primary';
@@ -67,12 +70,14 @@ class PaymentOrderController extends AdminController
         ->addTopButton('audite')// 添加审核按钮
         ->addTopButton('delete')// 添加删除按钮
 
+
         ->addTableColumn('id', 'ID', '', '', '50%')
-            ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('payment_order_payment_date', '采购日期')
             ->addTableColumn('payment_order_id', '单据编号')
-            ->addTableColumn('storehouse_name', '所在仓库')
+            ->addTableColumn('payment_order_type_name', '日期')
             ->addTableColumn('payment_order_price', '单据金额')
+            ->addTableColumn('payment_order_deposit_rate', '折扣率')
+            ->addTableColumn('payment_order_deposit_after_price', '折扣额')
+            ->addTableColumn('payment_order_should_payment_price', '应付账款')
             ->addTableColumn('payment_order_actual_payment', '实际支付')
             ->addTableColumn('payment_order_remark', '摘要')
             ->addTableColumn('create_time', '创建时间')

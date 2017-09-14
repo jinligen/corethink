@@ -38,8 +38,8 @@ class InstantInventoryController extends AdminController
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('商品列表') // 设置页面标题
 
-        ->setPostUrl(('admin/InstantInventory/index')) //设置表单提交地址
-        ->addFormItem('storehouse_name', 'text', '用户名', '', '', '', '', $_GET['storehouse_name']?$_GET['storehouse_name']:'')
+//        ->setPostUrl(('admin/InstantInventory/index')) //设置表单提交地址
+//        ->addFormItem('storehouse_name', 'text', '用户名', '', '', '', '', $_GET['storehouse_name']?$_GET['storehouse_name']:'')
 
 
             ->addTopButton('addnew') // 添加新增按钮

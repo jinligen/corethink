@@ -177,7 +177,12 @@ class EntryOrderController extends AdminController
         if (IS_POST) {
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
-
+            $map['entry_order_id'] = array('eq',$headInfo['entry_order_id']);
+            $id = D('EntryOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"已保存！",data:[]}');
+                exit;
+            }
             $dataList = [];
 
 
@@ -195,6 +200,7 @@ class EntryOrderController extends AdminController
 
                 $dataList[] = $arr;
             }
+
 
 
             if (count($dataList)>0) {
@@ -226,6 +232,12 @@ class EntryOrderController extends AdminController
         if (IS_POST) {
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
+            $map['entry_order_id'] = array('eq',$headInfo['entry_order_id']);
+            $id = D('EntryOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"已保存！",data:[]}');
+                exit;
+            }
 
             $dataList = [];
 
@@ -278,6 +290,18 @@ class EntryOrderController extends AdminController
 
             
             if ($_POST['entry_order_id']) {
+
+
+                $where['entry_order_id'] = array('eq',$_POST['entry_order_id']);
+                $where['entry_order_is_audited'] = array('eq','1');
+                $id = D('EntryOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"已审核！",data:[]}');
+                    exit;
+                }
+
+
+
                 $map['entry_order_id'] = $_POST['entry_order_id'];
 
                 $data['entry_order_is_audited'] = 1;
@@ -319,7 +343,20 @@ class EntryOrderController extends AdminController
         if (IS_POST) {
 
             if ($_POST['entry_order_id']) {
+
+                $where['entry_order_id'] = array('eq',$_POST['entry_order_id']);
+                $where['entry_order_is_audited'] = array('eq','1');
+                $id = D('EntryOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"已审核！",data:[]}');
+                    exit;
+                }
+
+
+
                 $map['entry_order_id'] = $_POST['entry_order_id'];
+
+
 
                 $data['entry_order_is_audited'] = 1;
                 $d_object = D('EntryOrder');

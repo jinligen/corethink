@@ -115,7 +115,7 @@
 
         <div class="form-head-row">
             <div class="form-item " style="">
-                <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
+                <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
                 <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
                     <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
                     <div class="data-select" style="display: none;width: 100%;">
@@ -130,7 +130,7 @@
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="" v-model="headInfo.out_order_payment_date"/>
+                        <input type="date" id="date" style="" v-model="headInfo.out_order_date"/>
                     </div>
                 </div>
             </div>
@@ -161,22 +161,19 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-item " style="">
                 <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                <div class="input-content " style=" flex: 9">
+                <div class="input-content " style=" ">
                     <div class="data-select" style=" width: 100%; ">
-                        <input type="text" style="" v-model="headInfo.out_order_remark"/>
+                        <input type="text" style="width: 100%;" v-model="headInfo.out_order_remark"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-item " style="">
                 <span class="title" style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <div class="input-content " style=" flex: 9">
-                    <div class="data-select" style=" width: 100%; ">
-
-                    </div>
+                <div class="input-content ">
+                    &nbsp;
                 </div>
             </div>
 
@@ -228,58 +225,67 @@
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[2].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[2].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_name}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_name" readonly/>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[3].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[3].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_spec}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_spec"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_actual_unit}}</div>
+                                 @click="selectUnit($event,index)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_actual_unit=item.goods_actual_unit!=''?item.goods_actual_unit:item.goods_min_unit}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_actual_unit"/>
+                                    <select class="unit" @change="unitChang($event,index)">
+
+
+                                    </select>
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_unit_price"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
                             <div class="input-content " :style="{ width: thead[6].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
                                 <div class="data-show">&nbsp;{{item.goods_out_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_total_quantity"/>
+                                    <input type="number" v-model="item.goods_out_total_quantity"
+                                           @change="quantityChang(index)"/>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[7].width + 'px'}">
-                                <div class="data-show">&nbsp;{{item.goods_out_total_price = item.goods_id == '' ?
-                                    '':item.goods_out_unit_price * item.goods_out_total_quantity}}
+                            <div class="input-content " :style="{ width: thead[6].width + 'px'}">
+                                <div class="data-show">&nbsp;{{(item.goods_weight=item.goods_id!=''?item.goods_weight:'')+item.goods_min_unit}}</div>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
+                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_total_price"/>
+                                    <input type="number" v-model="item.goods_out_unit_price"
+                                           @change="unitPriceChang(index)"/>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-content " :style="{ width: thead[7].width + 'px'}"
+                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                                <div class="data-show">&nbsp;{{item.goods_out_total_price}}
+                                </div>
+                                <div class="data-select" style="display: none;">
+                                    <input type="number" v-model="item.goods_out_total_price"
+                                           @change="totalPriceChang(index)"/>
                                 </div>
                             </div>
                         </td>
@@ -395,8 +401,8 @@
 
             <div class="form-head-row">
                 <div class="form-item " style="">
-                    <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
-                    <div class="input-content ">
+                    <span class="title" style="">部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门:</span>
+                    <div class="input-content "  >
                         <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
                     </div>
                 </div>
@@ -404,7 +410,7 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_payment_date}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_date}}</div>
                     </div>
                 </div>
 
@@ -412,6 +418,7 @@
                     <span class="title" style="">单据编号:</span>
                     <div class="input-content ">
                         <div class="data-show" style="">&nbsp;{{headInfo.out_order_id}}</div>
+
                     </div>
                 </div>
             </div>
@@ -422,23 +429,24 @@
                     <span class="title" style="">所属仓库:</span>
                     <div class="input-content ">
                         <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
+
                     </div>
                 </div>
-
                 <div class="form-item " style="">
-                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                    <div class="input-content ">
+                    <span class="title" style=" ">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <div class="input-content " style="  ">
                         <div class="data-show" style="">&nbsp;{{headInfo.out_order_remark}}</div>
+
                     </div>
                 </div>
-
 
                 <div class="form-item " style="">
                     <span class="title" style="">&nbsp;</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;</div>
+                        &nbsp;
                     </div>
                 </div>
+
             </div>
 
 
@@ -461,20 +469,23 @@
                         <div align=center><b>规格</b></div>
                     </td>
 
-                    <td width="10%">
+                    <td width="5%">
                         <div align=center><b>单位</b></div>
                     </td>
+                    <td width="5%">
+                        <div align=center><b>数量</b></div>
+                    </td>
                     <td width="10%">
+                        <div align=center><b>重量</b></div>
+                    </td>
+                    <td width="5%">
                         <div align=center><b>单价</b></div>
                     </td>
 
                     <td width="10%">
-                        <div align=center><b>数量</b></div>
-                    </td>
-                    <td width="10%">
                         <div align=center><b>金额</b></div>
                     </td>
-                    <td width="10%">
+                    <td width="15%">
                         <div align=center><b>备注</b></div>
                     </td>
                 </tr>
@@ -497,10 +508,13 @@
                         {{item.goods_actual_unit}}
                     </td>
                     <td>
-                        {{item.goods_out_unit_price}}
+                        {{item.goods_out_total_quantity}}
                     </td>
                     <td>
-                        {{item.goods_out_total_quantity}}
+                        {{item.goods_weight+item.goods_min_unit}}
+                    </td>
+                    <td>
+                        {{item.goods_out_unit_price}}
                     </td>
                     <td>
                         {{item.goods_out_total_price}}
@@ -511,18 +525,19 @@
                 </tr>
                 </tbody>
                 <tfoot>
-                <!--<tr>-->
-                <!--<td ><b>表格页脚</b></td>-->
-                <!--<td ><b>本页动态合计</b></td>-->
-                <!--<td ><b>&nbsp;</b></td>-->
-                <!--<td tdata="pageNO" format="#" align="left">-->
-                <!--<p align="center"><b>第<font color="#0000FF">#</font>页</b></p>-->
-                <!--</td>-->
-                <!--<td tdata="pageCount" format="#" align="left">-->
-                <!--<p align="center"><b>总<font color="#0000FF">##</font>页</b></td>-->
-                <!--<td width="14%" align="right">　</td>-->
-                <!--<td width="19%" tdata="subSum" format="#,##0.00" align="right"><font color="#0000FF">###元</font></td>-->
-                <!--</tr>-->
+                <tr>
+                    <td ><b>合计</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>{{headInfo.out_order_price}}</b></td>
+                    <td ><b>&nbsp;</b></td>
+
+                </tr>
                 </tfoot>
             </table>
         </div>
@@ -546,9 +561,10 @@
         {title: '商品编号', width: 100},
         {title: '名称', width: 100},
         {title: '规格', width: 100},
-        {title: '实际单位', width: 100},
-        {title: '单价', width: 100},
+        {title: '单位', width: 100},
         {title: '数量', width: 100},
+        {title: '重量', width: 100},
+        {title: '单价', width: 100},
         {title: '金额', width: 100},
         {title: '备注', width: 100}
 
@@ -556,18 +572,21 @@
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,
-        isSave :true,
+        isSave: true,
         thead: thead,
         headInfo: {
-            out_order_type_name:'材料出库单',
+            out_order_type_name: '{$out_order_type_name}',
             customer_id: '',
             customer_name: '',
-            out_order_payment_date: '',
+            out_order_date: '',
             out_order_id: '',
             storehouse_name: '',
             out_order_price: '',
             out_order_actual_payment: '',
-            out_order_remark:''
+            out_order_remark: '',
+            out_order_tax_rate:0,
+            out_order_including_tax_price:0,
+            out_order_account_receivable:0
         },
         tableInfo: [],
         tableData: []
@@ -588,11 +607,14 @@
                 handler: function (val, oldVal) {
                     this.isSave = false;
                     this.tableData = [];
+                    var out_order_price = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
                         if (val[i].goods_id != '') {
                             this.tableData.push(val[i]);
+                            out_order_price += parseFloat(val[i].goods_out_total_price);
                         }
                     }
+                    this.headInfo.out_order_price = out_order_price;
                 },
                 deep: true
             },
@@ -615,7 +637,6 @@
             },
             checkOrderId: function (out_order_id) {
                 var self = this;
-
                 $.ajax({
                     url: '/corethink/admin.php?s=/admin/public/checkOutOrderId',
                     type: 'POST', //GET
@@ -628,11 +649,11 @@
                     },
                     success: function (data, textStatus, jqXHR) {
                         var data = eval('(' + data + ')');
-                        console.log(data)
-                        if(data.error == '0000'){
 
-                        }else{
-                            layer.msg('单据'+out_order_id+'已存在！');
+                        if (data.error == '0000') {
+
+                        } else {
+                            layer.msg('单据' + out_order_id + '已存在！');
                             self.headInfo.out_order_id = '';
                         }
                     },
@@ -836,16 +857,16 @@
 
             },
             goBack: function () { //刷新
-                if(!this.isSave){
+                if (!this.isSave) {
                     layer.confirm('单据还未保存，确定关闭吗？', {
-                        btn: ['取消','确定'] //按钮
-                    }, function(){
+                        btn: ['取消', '确定'] //按钮
+                    }, function () {
                         layer.closeAll();
-                    }, function(){
+                    }, function () {
                         location.href = '/corethink/admin.php?s=/admin/OutOrder/materialOutOrder'
                         layer.closeAll();
                     });
-                }else {
+                } else {
                     location.href = '/corethink/admin.php?s=/admin/OutOrder/materialOutOrder'
                 }
             },
@@ -856,8 +877,8 @@
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
-                        headInfo:  (self.headInfo),
-                        tableInfo:  (self.tableData),
+                        headInfo: (self.headInfo),
+                        tableInfo: (self.tableData),
 
                     },
                     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
@@ -867,7 +888,7 @@
                         if (self.headInfo.customer_name == '') {
                             layer.msg('请选择部门');
                             flag = false;
-                        } else if (self.headInfo.out_order_payment_date == '') {
+                        } else if (self.headInfo.out_order_date == '') {
                             layer.msg('请选择日期');
                             flag = false;
                         } else if (self.headInfo.out_order_id == '') {
@@ -900,10 +921,12 @@
                     success: function (data, textStatus, jqXHR) {
                         var data = eval('(' + data + ')');
 
-                        if(data.error == '0000'){
+                        if (data.error == '0000') {
                             layer.msg('保存成功');
                             self.isSave = true;
-                        }else{
+                        } else if (data.error == '0002') {
+                            layer.msg('已保存！');
+                        } else {
                             layer.msg('保存失败');
                         }
 
@@ -921,8 +944,8 @@
 
             },
             print: function () { //打印
-                if(!this.isSave){
-                    layer.msg('单据未保存');
+                if (!this.isSave) {
+                    layer.msg('单据为保存');
                     return;
                 }
                 LODOP = getLodop();
@@ -939,7 +962,7 @@
                 LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 800, $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
-                LODOP.ADD_PRINT_HTM(30, 0, 750, 130, strAllStyle + $('#print-headinfo').html());
+                LODOP.ADD_PRINT_HTM(30, 0, 750, 150, strAllStyle + $('#print-headinfo').html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
                 LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
@@ -980,7 +1003,7 @@
                     skin: 'CLYM-style',
                     area: ['800px', '560px'],
                     title: '商品列表',
-                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/材料',
+                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/产品',
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系
                     },
@@ -1017,6 +1040,9 @@
                                         goods_out_unit_price: retInfo[i].goods_cost_price,
                                         goods_out_total_quantity: 0,
                                         goods_out_total_price: 0,
+                                        goods_rates: retInfo[i].goods_rates,
+                                        goods_min_unit: retInfo[i].goods_min_unit,
+                                        goods_weight: 0,
                                         goods_remark: '',
 
                                     });
@@ -1030,6 +1056,88 @@
 
                     }
                 });
+            },
+            selectUnit: function (event, index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-select').css('display', 'inline-block');
+                $(ele).children('.data-select').children('input').focus();
+                goods_rates = this.tableInfo[index].goods_rates;
+                goods_rates = goods_rates.split(',');
+
+                var option = '<option value="">请选择</option>';
+                var t;
+                for (var i = 0; i < goods_rates.length; i++) {
+                    if (goods_rates[i] != '') {
+                        t = (goods_rates[i]).split('/')
+                        option += '<option value="' + goods_rates[i] + '">' + t[1] + '</option>'
+                    }
+                }
+                $(ele).children('.data-select').children('.unit').children('option').remove();
+                $(ele).children('.data-select').children('.unit').append(option);
+            },
+            unitChang: function (event,index) {
+
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+
+                var item = this.tableInfo[index];
+                var ele = event.currentTarget;
+
+                var goods_actual_unit =  $(ele).val().split('/')[1];
+                var unit_quantity=  $(ele).val().split('/')[0];
+                this.tableInfo[index].goods_actual_unit = goods_actual_unit;
+
+                var goods_weight = goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity * item.goods_out_total_quantity;
+                this.tableInfo[index].goods_weight = item.goods_out_total_quantity > 0 ? goods_weight : 0;
+
+            },
+            quantityChang: function (index) {
+
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+
+                var item = this.tableInfo[index];
+                this.tableInfo[index].goods_out_total_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_unit_price > 0 ? item.goods_out_unit_price * item.goods_out_total_quantity : 0).toFixed(2);
+
+
+                var goods_rates = (item.goods_rates).split(',');
+                var unit_quantity = 0;
+                for(var i =0 ;i<goods_rates.length;i++){
+                    if (goods_rates[i].split('/')[1] == item.goods_actual_unit) {
+                        unit_quantity =  goods_rates[i].split('/')[0];
+                        console.log(goods_rates[i].split('/')[1]);
+                        console.log(unit_quantity);
+
+                        break;
+                    }
+                }
+                this.tableInfo[index].goods_weight = item.goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity  * item.goods_out_total_quantity;
+
+            },
+            unitPriceChang: function (index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var item = this.tableInfo[index];
+                this.tableInfo[index].goods_out_total_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_unit_price > 0 ? item.goods_out_unit_price * item.goods_out_total_quantity : 0).toFixed(2);
+
+
+            },
+            totalPriceChang: function (index) {
+                if (!this.tableInfo[index].goods_id) {
+                    return false;
+                }
+                var item = this.tableInfo[index];
+
+                this.tableInfo[index].goods_out_unit_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_total_price > 0 ? item.goods_out_total_price / item.goods_out_total_quantity : 0).toFixed(2);
+
+
             },
         }
     })

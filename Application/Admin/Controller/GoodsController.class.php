@@ -22,6 +22,29 @@ class GoodsController extends AdminController
      */
     public function index()
     {
+
+        if(IS_POST){
+            $d_object = D('Goods');
+
+            if($_POST['type']=='export'){
+                $list = $d_object->field('goods_type_name,goods_id,goods_name,goods_spec,goods_min_unit,goods_rates,goods_stock_balance,goods_cost_price,goods_market_price,storehouse_name')->select();
+                $filename = '商品列表';
+                $head = array("商品类型","商品编号","商品名称","商品规格","商品最小计量单位","换算率集合","商品库存量","商品成本价","商品销售价","商品所在仓库");
+                if($list){
+                    D('Module')->export($list,$filename,$head);
+                }
+
+            }elseif($_POST['type']=='import'){
+                $table='Goods';
+                $data =explode(',','goods_type_name,goods_id,goods_name,goods_spec,goods_min_unit,goods_rates,goods_stock_balance,goods_cost_price,goods_market_price,storehouse_name') ;
+                D('Module')->import($table,$data);
+
+                redirect(U('index'), 0, '');
+            }
+
+        }
+
+
         // 搜索
         $keyword                                  = I('keyword', '', 'string');
         $condition                                = array('like', '%' . $keyword . '%');
@@ -38,6 +61,11 @@ class GoodsController extends AdminController
         $data_list     = $user_object->page($p, C('ADMIN_PAGE_ROWS'))->where($map)->order('id desc')->select();
         $page          = new Page($user_object->where($map)->count(), C('ADMIN_PAGE_ROWS') );
 
+
+        $attr['title'] = '模板下载';
+        $attr['class'] = 'btn btn-success';
+        $attr['href']  = '/corethink/Uploads/splb.xls';
+
         // 使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->setMetaTitle('商品列表') // 设置页面标题
@@ -45,7 +73,10 @@ class GoodsController extends AdminController
 //            ->addTopButton('resume') // 添加启用按钮
 //            ->addTopButton('forbid') // 添加禁用按钮
             ->addTopButton('delete') // 添加删除按钮
-            ->setSearch('商品编号/商品名称', U('index'))
+            ->addTopButton('self', $attr)
+            ->setImport_Export('import_export', U('index'))
+
+//            ->setSearch('商品编号/商品名称', U('index'))
             ->addTableColumn('id', 'ID')
 
 

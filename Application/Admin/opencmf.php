@@ -197,18 +197,18 @@ return array(
             'icon'  => 'fa fa-list-ol',
             'url'   => 'Admin/GoodsCheck/index',
         ),
-        'b6'  => array(
-            'pid'   => 'b',
-            'title' => '应收序时簿',
-            'icon'  => 'fa fa-bookmark-o',
-            'url'   => 'Admin/public/demo',
-        ),
-        'b7'  => array(
-            'pid'   => 'b',
-            'title' => '应付序时簿',
-            'icon'  => 'fa fa-bookmark',
-            'url'   => 'Admin/public/demo',
-        ),
+//        'b6'  => array(
+//            'pid'   => 'b',
+//            'title' => '应收序时簿',
+//            'icon'  => 'fa fa-bookmark-o',
+//            'url'   => 'Admin/public/demo',
+//        ),
+//        'b7'  => array(
+//            'pid'   => 'b',
+//            'title' => '应付序时簿',
+//            'icon'  => 'fa fa-bookmark',
+//            'url'   => 'Admin/paymentList/index',
+//        ),
 
         'c'  => array(
             'pid'   => '1',
@@ -219,7 +219,7 @@ return array(
             'pid'   => 'c',
             'title' => '库房即时查询',
             'icon'  => 'fa fa-eye',
-            'url'   => 'Admin/InstantInventory/index',
+            'url'   => 'Admin/public/demo',
         ),
         'c2'  => array(
             'pid'   => 'c',
