@@ -55,7 +55,7 @@ class DatabaseController extends AdminController
             }
             $json_string = json_encode($list);
             file_put_contents($file_path, $json_string);
-            $date = date('Y-m-d', NOW_TIME);
+            $date =json_encode(date('Y-m-d', NOW_TIME)) ;
             $list = json_encode($list);
         }
 

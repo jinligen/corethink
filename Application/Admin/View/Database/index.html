@@ -131,15 +131,15 @@
 
 <script>
 
-    var _list =   eval('(' + '{$_list}' + ')');
-    var _date = eval('(' + '{$_date}' + ')');
 
+    var _list =   JSON.parse('{$_list}');
+    var _date =  JSON.parse('{$_date}');
+console.log(_date)
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,
         tableInfo: _list,
     };
-
 
     var vm = new Vue({
         el: '#page',
