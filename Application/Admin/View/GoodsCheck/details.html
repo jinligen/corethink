@@ -97,7 +97,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+<div class=" " id="page" style="width: 750px;margin: 0 20%;display: none;">
 
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
@@ -184,61 +184,36 @@
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[1].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)"
-                                 style="height: 26px">
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
                                 <div class="data-show">&nbsp;{{item.goods_id}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_id" readonly/>
-
-                                </div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[2].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[2].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_name}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_name" readonly/>
-                                </div>
+
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[3].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[3].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_spec}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_spec"/>
-                                </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_actual_unit}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_actual_unit"/>
-                                </div>
+                            <div class="input-content " :style="{ width: thead[4].width + 'px'}" >
+                                <div class="data-show">&nbsp;{{item.goods_min_unit}}</div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_stock_balance}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_stock_balance"/>
-                                </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[6].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[6].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_check_balance}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_check_balance"/>
-                                </div>
                             </div>
                         </td>
                         <td :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
@@ -282,15 +257,8 @@
                             </td>
                             <td :style="{ width: thead[1].width  + 'px',textAlign:'center',backgroundColor:'' }">
 
-                                <div class="input-content " style="height: 26px;" @click="dataInputShow($event)"
-                                     @mouseleave="dataInputHide($event)">
+                                <div class="input-content " style="height: 26px;"  >
                                     <div class="data-show" style="">&nbsp;{{item.goods_id}}</div>
-                                    <div class="data-select" style="display: none;width: 100%;">
-                                        <input type="text" style="" v-model="item.goods_id" readonly/>
-
-                                        <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;"
-                                           @click="selectGoodsList()">&#xe615;</i>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -322,7 +290,7 @@
                             <td :style="{ width: 80  + 'px',textAlign:'center'}">
                                 <div class="layui-table-cell laytable-cell-2-18">
                                     <a class="layui-btn layui-btn-danger layui-btn-mini"
-                                       @click="deleteItem(index)">删除</a>
+                                       >删除</a>
                                 </div>
                             </td>
                         </tr>
@@ -461,7 +429,7 @@
         <!--{{item.goods_spec}}-->
         <!--</td>-->
         <!--<td>-->
-        <!--{{item.goods_actual_unit}}-->
+        <!--{{item.goods_min_unit}}-->
         <!--</td>-->
         <!--<td>-->
         <!--{{item.goods_out_unit_price}}-->
@@ -506,9 +474,12 @@
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
 
 <script>
+    setTimeout(function () {
+        $('#page').show()
+    },1000);
     var LODOP; //声明为全局变量
     var _list =   eval('(' + '{$_list}' + ')');
-    
+    console.log(_list)
     var thead = [ //标题栏
         {title: 'ID', width: 50},
         {title: '商品编号', width: 100},
@@ -789,7 +760,7 @@
                         goods_id: '',
                         goods_name: '',
                         goods_spec: '',
-                        goods_actual_unit: '',
+                        goods_min_unit: '',
                         goods_out_unit_price: '',
                         goods_out_total_quantity: '',
                         goods_out_total_price: '',
@@ -829,7 +800,7 @@
                                 self.goBack();
                             },2000);
                         }else{
-                            layer.msg('审核失败');
+                            layer.msg(data.msg);
                         }
 
                     },
@@ -919,7 +890,7 @@
                                         goods_id: retInfo[i].goods_id,
                                         goods_name: retInfo[i].goods_name,
                                         goods_spec: retInfo[i].goods_spec,
-                                        goods_actual_unit: retInfo[i].goods_min_unit,
+                                        goods_min_unit: retInfo[i].goods_min_unit,
                                         goods_stock_balance: retInfo[i].goods_stock_balance,
                                         goods_check_balance: 0,
                                         goods_remark: '',

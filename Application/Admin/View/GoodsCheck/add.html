@@ -122,9 +122,9 @@
                     <div class="data-select" style=" width: 100%;">
                         <select v-model="headInfo.storehouse_name">
                             <option value="">请选择</option>
-                            <option value="产品仓">产品仓</option>
-                            <option value="2号仓">2号仓</option>
-                            <option value="3号仓">3号仓</option>
+                            <volist name="_storehouse_name" id="vo">
+                                <option value="{$vo}">{$vo}</option>
+                            </volist>
                         </select>
                     </div>
                 </div>
@@ -184,52 +184,31 @@
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[1].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)"
-                                 style="height: 26px">
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
                                 <div class="data-show">&nbsp;{{item.goods_id}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_id" readonly/>
-
-                                </div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[2].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[2].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_name}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_name" readonly/>
-                                </div>
+
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[3].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[3].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_spec}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_spec"/>
-                                </div>
                             </div>
                         </td>
                         <td>
-                            <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_actual_unit}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_actual_unit"/>
-                                </div>
+                            <div class="input-content " :style="{ width: thead[4].width + 'px'}" >
+                                <div class="data-show">&nbsp;{{item.goods_min_unit}}</div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}" >
                                 <div class="data-show">&nbsp;{{item.goods_stock_balance}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_stock_balance"/>
-                                </div>
                             </div>
                         </td>
                         <td>
@@ -461,7 +440,7 @@
                         <!--{{item.goods_spec}}-->
                     <!--</td>-->
                     <!--<td>-->
-                        <!--{{item.goods_actual_unit}}-->
+                        <!--{{item.goods_min_unit}}-->
                     <!--</td>-->
                     <!--<td>-->
                         <!--{{item.goods_out_unit_price}}-->
@@ -784,7 +763,7 @@
                         goods_id: '',
                         goods_name: '',
                         goods_spec: '',
-                        goods_actual_unit: '',
+                        goods_min_unit: '',
                         goods_out_unit_price: '',
                         goods_out_total_quantity: '',
                         goods_out_total_price: '',
@@ -846,7 +825,7 @@
                             layer.msg('保存成功');
                             self.isSave = true;
                         }else{
-                            layer.msg('保存失败');
+                            layer.msg(data.msg);
                         }
 
                     },
@@ -936,7 +915,7 @@
                                         goods_id: retInfo[i].goods_id,
                                         goods_name: retInfo[i].goods_name,
                                         goods_spec: retInfo[i].goods_spec,
-                                        goods_actual_unit: retInfo[i].goods_min_unit,
+                                        goods_min_unit: retInfo[i].goods_min_unit,
                                         goods_stock_balance: retInfo[i].goods_stock_balance,
                                         goods_check_balance: 0,
                                         goods_remark: '',

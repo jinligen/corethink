@@ -93,6 +93,12 @@ class GoodsCheckController extends AdminController
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
 
+            $map['goods_check_id'] = array('eq',$headInfo['goods_check_id']);
+            $id = D('GoodsCheck')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"已保存！",data:[]}');
+                exit;
+            }
             $dataList = [];
 
 
@@ -145,6 +151,16 @@ class GoodsCheckController extends AdminController
         if (IS_POST) {
 
             if ($_POST['goods_check_id']) {
+
+                $where['goods_check_id'] = array('eq',$_POST['goods_check_id']);
+                $where['goods_check_is_audited'] = array('eq','1');
+                $id = D('GoodsCheck')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"已审核！",data:[]}');
+                    exit;
+                }
+
+
                 $map['goods_check_id'] = $_POST['goods_check_id'];
 
                 $data['goods_check_is_audited'] = 1;
