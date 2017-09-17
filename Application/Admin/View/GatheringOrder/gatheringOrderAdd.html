@@ -102,6 +102,8 @@
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
         &nbsp;
+        <button class="layui-btn layui-btn-primary layui-btn-small" @click="selectGatheringList()">生成</button>
+        &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="save()">保存</button>
         &nbsp;
         <button class="layui-btn layui-btn-primary layui-btn-small" @click="print()">打印</button>
@@ -149,30 +151,58 @@
 
         <div class="form-head-row">
             <div class="form-item " style="">
-                <span class="title" style="">所属仓库:</span>
+                <span class="title" style="">收款类型:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
-                        <select v-model="headInfo.storehouse_name">
-                            <option value="">请选择</option>
-                            <option value="1号仓">1号仓</option>
-                            <option value="2号仓">2号仓</option>
-                            <option value="3号仓">3号仓</option>
+                        <select v-model="headInfo.gathering_order_type_name">
+                            <option value="采购收款">采购收款</option>
+                            <option value="预收款">预收款</option>
                         </select>
                     </div>
                 </div>
             </div>
+            <div class="form-item " style="">
+                <span class="title" style="">整单折扣:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <div class="data-select" style=" width: 100%;">
+                            <input type="number" style="width: 50px;display: inline-block" v-model="headInfo.gathering_order_deposit_rate"/> %
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">折扣额:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style="" v-model="headInfo.gathering_order_deposit_after_price"  />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-head-row">
+
 
             <div class="form-item " style="">
                 <span class="title" style="">单据金额:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
-                        <input type="text" style="" v-model="headInfo.gathering_order_price"/>
+                        <input type="number" style="" v-model="headInfo.gathering_order_price"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">实际收款:</span>
+                <span class="title" style="">应收金额:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style="" v-model="headInfo.gathering_order_receivable_price"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">本次支付:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
                         <input type="number" style="" v-model="headInfo.gathering_order_actual_payment"/>
@@ -180,6 +210,7 @@
                 </div>
             </div>
         </div>
+
         <div class="form-head-row">
             <div class="form-item " style="">
                 <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
@@ -202,6 +233,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <div id="div2">
         <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
@@ -235,83 +267,66 @@
                                 {{index}}
                             </div>
                         </td>
+
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.out_order_id}}</div>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.out_order_date}}</div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.out_order_price}}</div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.already_clear_price}}</div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.no_clear_price}}</div>
+                            </div>
+                        </td>
+
+
                         <td>
                             <div class="input-content " :style="{ width: thead[1].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)"
                                  style="height: 26px">
-                                <div class="data-show">&nbsp;{{item.goods_id}}</div>
+                                <div class="data-show">&nbsp;{{item.now_clear_price}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_id" readonly/>
+                                    <input type="text" v-model="item.now_clear_price" />
 
                                 </div>
                             </div>
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[2].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_name}}</div>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}"
+                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)"
+                                 style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.order_remark}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_name" readonly/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[3].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_spec}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_spec"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_actual_unit}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_actual_unit"/>
+                                    <input type="text" v-model="item.order_remark" />
+
                                 </div>
                             </div>
                         </td>
 
-                        <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_unit_price"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[6].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_total_quantity}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_total_quantity"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[7].width + 'px'}">
-                                <div class="data-show">&nbsp;{{item.goods_out_total_price = item.goods_id == '' ?
-                                    '':item.goods_out_unit_price * item.goods_out_total_quantity}}
-                                </div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_out_total_price"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[8].width + 'px'}"
-                                 @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_remark}}</div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="text" v-model="item.goods_remark"/>
-                                </div>
-                            </div>
-                        </td>
+
+
                         <td :style="{ width: thead[0].width  + 'px',textAlign:'center'}">
                             <div class="layui-table-cell laytable-cell-2-18">
                                 <a class="layui-btn layui-btn-danger layui-btn-mini" @click="deleteItem(index)">删除</a>
@@ -335,7 +350,7 @@
 
                             <th :style="{ width: thead[1].width  + 'px',textAlign:'left '}">
                                 <div class="input-content " style="height: 28px;line-height: 28px">
-                                    <div class="data-show">商品编号</div>
+                                    <div class="data-show">源单编号</div>
                                 </div>
                             </th>
                         </tr>
@@ -353,15 +368,8 @@
                             </td>
                             <td :style="{ width: thead[1].width  + 'px',textAlign:'center',backgroundColor:'' }">
 
-                                <div class="input-content " style="height: 26px;" @click="dataInputShow($event)"
-                                     @mouseleave="dataInputHide($event)">
-                                    <div class="data-show" style="">&nbsp;{{item.goods_id}}</div>
-                                    <div class="data-select" style="display: none;width: 100%;">
-                                        <input type="text" style="" v-model="item.goods_id" readonly/>
-
-                                        <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;"
-                                           @click="selectGoodsList()">&#xe615;</i>
-                                    </div>
+                                <div class="input-content " style="height: 26px;" >
+                                    <div class="data-show" style="">&nbsp;{{item.out_order_id}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -416,22 +424,22 @@
             <div class="form-head-row">
                 <div class="form-item " style="">
                     <span class="title" style="">客&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;户:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
+                    <div class="input-content " >
+                        {{headInfo.customer_name}}
                     </div>
                 </div>
 
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_payment_date}}</div>
+                        {{headInfo.gathering_order_payment_date}}
                     </div>
                 </div>
 
                 <div class="form-item " style="">
                     <span class="title" style="">单据编号:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_id}}</div>
+                        {{headInfo.gathering_order_id}}
                     </div>
                 </div>
             </div>
@@ -439,46 +447,63 @@
 
             <div class="form-head-row">
                 <div class="form-item " style="">
-                    <span class="title" style="">所属仓库:</span>
+                    <span class="title" style="">收款类型:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
+                        {{headInfo.gathering_order_type_name}}
                     </div>
                 </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">整单折扣:</span>
+                    <div class="input-content ">
+                        {{headInfo.gathering_order_deposit_rate}}
+
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">折扣额:</span>
+                    <div class="input-content ">
+                        {{headInfo.gathering_order_deposit_after_price}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-head-row">
+
 
                 <div class="form-item " style="">
                     <span class="title" style="">单据金额:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_price}}</div>
+                        {{headInfo.gathering_order_price}}
+
                     </div>
                 </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">实际收款:</span>
+                    <span class="title" style="">应收金额:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_actual_payment}}</div>
+                        {{headInfo.gathering_order_receivable_price}}
+
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">本次支付:</span>
+                    <div class="input-content ">
+                        {{headInfo.gathering_order_actual_payment}}
+
                     </div>
                 </div>
             </div>
+
             <div class="form-head-row">
                 <div class="form-item " style="">
                     <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.gathering_order_remark}}</div>
-                    </div>
-                </div>
-                <div class="form-item " style="">
-                    <span class="title" style="">&nbsp;</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="form-item " style="">
-                    <span class="title" style="">&nbsp;</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;</div>
+                    <div class="input-content " style=" flex: 9">
+                        {{headInfo.gathering_order_remark}}
+
                     </div>
                 </div>
             </div>
+
 
         </div>
         <div id="print-table">
@@ -489,30 +514,27 @@
                     <td width="5%">
                         <div align=center><b>序号</b></div>
                     </td>
-                    <td width="15%">
-                        <div align=center><b>商品编号</b></div>
+                    <td width="10%">
+                        <div align=center><b>源单编号</b></div>
                     </td>
                     <td width="20%">
-                        <div align=center><b>名称</b></div>
+                        <div align=center><b>日期</b></div>
                     </td>
                     <td width="10%">
-                        <div align=center><b>规格</b></div>
-                    </td>
-
-                    <td width="10%">
-                        <div align=center><b>单位</b></div>
-                    </td>
-                    <td width="10%">
-                        <div align=center><b>单价</b></div>
+                        <div align=center><b>单据金额</b></div>
                     </td>
 
                     <td width="10%">
-                        <div align=center><b>数量</b></div>
+                        <div align=center><b>已核销</b></div>
                     </td>
                     <td width="10%">
-                        <div align=center><b>金额</b></div>
+                        <div align=center><b>未核销</b></div>
                     </td>
+
                     <td width="10%">
+                        <div align=center><b>本次核销</b></div>
+                    </td>
+                    <td width="15%">
                         <div align=center><b>备注</b></div>
                     </td>
                 </tr>
@@ -523,44 +545,40 @@
                         {{index + 1}}
                     </td>
                     <td>
-                        {{item.goods_id}}
+                        {{item.out_order_id}}
                     </td>
                     <td>
-                        {{item.goods_name}}
+                        {{item.out_order_date}}
                     </td>
                     <td>
-                        {{item.goods_spec}}
+                        {{item.out_order_price}}
                     </td>
                     <td>
-                        {{item.goods_actual_unit}}
+                        {{item.already_clear_price}}
                     </td>
                     <td>
-                        {{item.goods_out_unit_price}}
+                        {{item.no_clear_price}}
                     </td>
                     <td>
-                        {{item.goods_out_total_quantity}}
+                        {{item.now_clear_price}}
                     </td>
                     <td>
-                        {{item.goods_out_total_price}}
-                    </td>
-                    <td>
-                        {{item.goods_remark}}
+                        {{item.order_remark}}
                     </td>
                 </tr>
                 </tbody>
                 <tfoot>
-                <!--<tr>-->
-                <!--<td ><b>表格页脚</b></td>-->
-                <!--<td ><b>本页动态合计</b></td>-->
-                <!--<td ><b>&nbsp;</b></td>-->
-                <!--<td tdata="pageNO" format="#" align="left">-->
-                <!--<p align="center"><b>第<font color="#0000FF">#</font>页</b></p>-->
-                <!--</td>-->
-                <!--<td tdata="pageCount" format="#" align="left">-->
-                <!--<p align="center"><b>总<font color="#0000FF">##</font>页</b></td>-->
-                <!--<td width="14%" align="right">　</td>-->
-                <!--<td width="19%" tdata="subSum" format="#,##0.00" align="right"><font color="#0000FF">###元</font></td>-->
-                <!--</tr>-->
+                <tr>
+                    <td ><b>合计</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>{{headInfo.gathering_order_price}}</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+
+                </tr>
                 </tfoot>
             </table>
         </div>
@@ -580,14 +598,14 @@
     var LODOP; //声明为全局变量
 
     var thead = [ //标题栏
-        {title: 'ID', width: 50},
-        {title: '商品编号', width: 100},
-        {title: '名称', width: 100},
-        {title: '规格', width: 100},
-        {title: '实际单位', width: 100},
-        {title: '单价', width: 100},
-        {title: '数量', width: 100},
-        {title: '金额', width: 100},
+        {title: 'ID', width: 100},
+        {title: '源单编号', width: 100},
+        {title: '日期', width: 100},
+        {title: '单据金额', width: 100},
+        {title: '应收金额', width: 100},
+        {title: '已核销金额', width: 100},
+        {title: '未核销金额', width: 100},
+        {title: '本次核销金额', width: 100},
         {title: '备注', width: 100}
 
     ];
@@ -597,15 +615,18 @@
         isSave :true,
         thead: thead,
         headInfo: {
-            gathering_order_type_name:'收款单',
+            gathering_order_type_name:'预收款',
+            gathering_order_deposit_rate:0,
+            gathering_order_deposit_after_price:0,
+            gathering_order_price:0,
+            gathering_order_receivable_price:0,
+            gathering_order_actual_payment:0,
+            gathering_order_remark:'',
+
             customer_id: '',
             customer_name: '',
             gathering_order_payment_date: '',
             gathering_order_id: '',
-            storehouse_name: '',
-            gathering_order_price: '',
-            gathering_order_actual_payment: '',
-            gathering_order_remark:''
         },
         tableInfo: [],
         tableData: []
@@ -618,7 +639,11 @@
         watch: {
             headInfo: {
                 handler: function (val, oldVal) {
-                    this.isSave = false;
+                    this.headInfo.gathering_order_price = parseFloat(this.headInfo.gathering_order_price).toFixed(2);
+                    this.headInfo.gathering_order_deposit_after_price = (parseFloat(this.headInfo.gathering_order_deposit_rate) * parseFloat(this.headInfo.gathering_order_price)/100).toFixed(2);
+                    this.headInfo.gathering_order_receivable_price = parseFloat(this.headInfo.gathering_order_price).toFixed(2) -  parseFloat(this.headInfo.gathering_order_deposit_after_price).toFixed(2);
+
+                    this.headInfo.gathering_order_actual_payment = parseFloat(this.headInfo.gathering_order_actual_payment).toFixed(2);
                 },
                 deep: true
             },
@@ -626,11 +651,17 @@
                 handler: function (val, oldVal) {
                     this.isSave = false;
                     this.tableData = [];
+                    var total_price = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
-                        if (val[i].goods_id != '') {
+                        console.log(val[i])
+                        if (val[i].out_order_id != '') {
                             this.tableData.push(val[i]);
+                            total_price += parseFloat(val[i].no_clear_price);
                         }
                     }
+
+                    this.headInfo.gathering_order_price = total_price.toFixed(2);
+                    console.log(this.headInfo.gathering_order_price)
                 },
                 deep: true
             },
@@ -846,7 +877,7 @@
                     this.tableInfo.splice(index, 1);
                 }
                 for (var i = 0; i < this.tableInfo.length; i++) {
-                    if (this.tableInfo[i].goods_id === '') {
+                    if (this.tableInfo[i].out_order_id === '') {
                         this.tableInfo.splice(i, 1)
                     }
                 }
@@ -857,16 +888,14 @@
 
                 for (var i = 0; i < leng + 5; i++) {
                     this.tableInfo.push({
-                        goods_id: '',
-                        goods_name: '',
-                        goods_spec: '',
-                        goods_actual_unit: '',
-                        goods_out_unit_price: '',
-                        goods_out_total_quantity: '',
-                        goods_out_total_price: '',
-                        goods_remark: '',
-
-                        goods_min_unit: '',
+                        out_order_id: '',
+                        out_order_date: '',
+                        out_order_price:'',
+                        out_order_account_receivable:'',
+                        already_clear_price: '',
+                        no_clear_price: '',
+                        now_clear_price: '',
+                        order_remark: ''
 
                     })
                 }
@@ -917,24 +946,8 @@
                             layer.msg('请填写单据金额');
                             flag = false;
                         } else if (self.headInfo.gathering_order_actual_payment == '') {
-                            layer.msg('请填写实际收款');
+                            layer.msg('请填写实际支付');
                             flag = false;
-                        } else if (self.tableData.length == '') {
-                            layer.msg('请选择商品');
-                            flag = false;
-                        } else {
-                            for (var i = 0, leng = self.tableData.length; i < leng; i++) {
-                                if (self.tableData[i].goods_out_unit_price <= 0) {
-                                    layer.msg(self.tableData[i].goods_id + '的单价必须大于0');
-                                    flag = false;
-                                    break;
-                                }
-                                if (self.tableData[i].goods_out_total_quantity <= 0) {
-                                    layer.msg(self.tableData[i].goods_id + '的数量必须大于0');
-                                    flag = false;
-                                    break;
-                                }
-                            }
                         }
 
 
@@ -947,7 +960,7 @@
                             layer.msg('保存成功');
                             self.isSave = true;
                         }else{
-                            layer.msg('保存失败');
+                            layer.msg(data.msg);
                         }
 
                     },
@@ -1015,15 +1028,19 @@
                     }
                 });
             },
-            selectGoodsList: function () {
+            selectGatheringList: function () {
                 var self = this;
+                if(self.headInfo.customer_id==''){
+                    layer.msg('请选择客户！');
+                    return false;
+                }
                 var childPageBody;
                 layer.open({
                     type: 2,
                     skin: 'CLYM-style',
                     area: ['800px', '560px'],
-                    title: '产品列表',
-                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/产品',
+                    title: '应收账单列表',
+                    content: '/corethink/admin.php?s=/admin/public/gatheringList/customer_id/'+self.headInfo.customer_id,
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系
                     },
@@ -1035,7 +1052,7 @@
                             var tableData = [];
 
                             for (var i = 0; i < self.tableInfo.length; i++) {
-                                if (self.tableInfo[i].goods_id != '') {
+                                if (self.tableInfo[i].out_order_id != '') {
                                     tableData.push(self.tableInfo[i])
                                 }
                             }
@@ -1046,21 +1063,22 @@
 
                                 for (; j < l; j++) {
 
-                                    if (self.tableInfo[j].goods_id == retInfo[i].goods_id) {
+                                    if (self.tableInfo[j].out_order_id == retInfo[i].out_order_id) {
                                         break;
                                     }
                                 }
-                                console.log(j)
+                                console.log(retInfo[i])
                                 if (j == l) {
                                     tableData.push({
-                                        goods_id: retInfo[i].goods_id,
-                                        goods_name: retInfo[i].goods_name,
-                                        goods_spec: retInfo[i].goods_spec,
-                                        goods_actual_unit: retInfo[i].goods_min_unit,
-                                        goods_out_unit_price: retInfo[i].goods_cost_price,
-                                        goods_out_total_quantity: 0,
-                                        goods_out_total_price: 0,
-                                        goods_remark: '',
+                                        out_order_id: retInfo[i].out_order_id,
+                                        out_order_date: retInfo[i].out_order_date,
+                                        out_order_price:retInfo[i].out_order_price,
+                                        out_order_account_receivable:retInfo[i].out_order_account_receivable,
+                                        already_clear_price: retInfo[i].already_clear_price,
+                                        no_clear_price: retInfo[i].no_clear_price,
+                                        now_clear_price: retInfo[i].no_clear_price,
+                                        order_remark: retInfo[i].order_remark,
+
 
                                     });
                                 }
@@ -1084,6 +1102,8 @@
         vm.scrollLeft = $(this).scrollLeft()
 
     });
+
+
 </script>
 
 </html>

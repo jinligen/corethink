@@ -158,50 +158,68 @@ console.log(_date)
 
             },
             backup:function () {
-                $('#upload_target').remove()
-                $.ajax({
-                    url: '/corethink/admin.php?s=/admin/database/export',
-                    type: 'POST', //GET
-                    async: true,    //或false,是否异步
-                    data: {
-                        test:'test'
-                    },
-                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-                    beforeSend: function (xhr) {
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        var data = eval('(' + data + ')');
-                        console.log(data)
-                        if(data.error == '0000'){
-                            $('#div2').append('<iframe id="upload_target" name="upload_target" src="/corethink/admin.php?s=/admin/database/export" style="display: none"></iframe>')
-                        }else{
-                            layer.msg( data.msg );
+                layer.confirm('确定要开始备份吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+
+                    layer.closeAll()
+                    $('#upload_target').remove()
+                    $.ajax({
+                        url: '/corethink/admin.php?s=/admin/database/export',
+                        type: 'POST', //GET
+                        async: true,    //或false,是否异步
+                        data: {
+                            test:'test'
+                        },
+                        dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                        beforeSend: function (xhr) {
+                        },
+                        success: function (data, textStatus, jqXHR) {
+                            var data = eval('(' + data + ')');
+                            console.log(data)
+                            if(data.error == '0000'){
+                                $('#div2').append('<iframe id="upload_target" name="upload_target" src="/corethink/admin.php?s=/admin/database/export" style="display: none"></iframe>')
+                            }else{
+                                layer.msg( data.msg );
+                            }
+                        },
+                        error: function (xhr, textStatus) {
+                            console.log('错误')
+                            console.log(xhr)
+                            console.log(textStatus)
+                        },
+                        complete: function () {
+                            console.log('结束')
                         }
-                    },
-                    error: function (xhr, textStatus) {
-                        console.log('错误')
-                        console.log(xhr)
-                        console.log(textStatus)
-                    },
-                    complete: function () {
-                        console.log('结束')
-                    }
-                })
+                    })
+                }, function(){
+
+                });
+
 
             },
             backdown:function () {
-                $('#upload_target').remove()
-                var tables = []
-                for(var i = 0,leng = _list.length;i<leng;i++){
-                    tables.push(_list[i].name)
-                }
+                layer.confirm('确定要开始备份吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    layer.closeAll()
+                    $('#upload_target').remove()
+                    var tables = []
+                    for(var i = 0,leng = _list.length;i<leng;i++){
+                        tables.push(_list[i].name)
+                    }
 
-                var prama = {tables:tables,date:_date};
-                prama = JSON.stringify(prama);
-                var url = '/corethink/admin.php?s=/admin/database/import/prama/' + prama;
-                url = encodeURI(url);
-                console.log(encodeURI(url))
-                $('#div2').append('<iframe id="upload_target" name="upload_target" src="' +url+ '" style="display: none"></iframe>')
+                    var prama = {tables:tables,date:_date};
+                    prama = JSON.stringify(prama);
+                    var url = '/corethink/admin.php?s=/admin/database/import/prama/' + prama;
+                    url = encodeURI(url);
+                    console.log(encodeURI(url))
+                    $('#div2').append('<iframe id="upload_target" name="upload_target" src="' +url+ '" style="display: none"></iframe>')
+
+                }, function(){
+
+                });
+
 
 
             },

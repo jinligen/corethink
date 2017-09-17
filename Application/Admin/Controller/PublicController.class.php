@@ -143,6 +143,22 @@ class PublicController extends CommonController
         $this->assign('_list', json_encode($list));
         $this->display();
     }
+    
+    /**
+     * 获取应收列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function gatheringList()
+    {
+
+        $type = $_GET['customer_id'];
+        $map['customer_id'] = array('like','%'.$type.'%');
+        $list = D('storehouse_out_order_view')->where($map)->select();
+
+        $this->assign('_list', json_encode($list));
+        $this->display();
+    }
 
 
     /**

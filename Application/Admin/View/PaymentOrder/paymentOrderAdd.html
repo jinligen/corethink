@@ -290,6 +290,14 @@
 
                         <td>
                             <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
+                                <div class="data-show">&nbsp;{{item.entry_order_account_payable}}</div>
+                            </div>
+                        </td>
+
+
+
+                        <td>
+                            <div class="input-content " :style="{ width: thead[1].width + 'px'}" style="height: 26px">
                                 <div class="data-show">&nbsp;{{item.already_clear_price}}</div>
                             </div>
                         </td>
@@ -415,6 +423,175 @@
         </div>
     </div>
 
+    <div class="print-content" style="display: none">
+        <div id="print-headinfo">
+            <div class="layui-row" style=" text-align: center">
+                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">付&nbsp;&nbsp;款&nbsp;&nbsp;单</span>
+            </div>
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="">供&nbsp;&nbsp;应&nbsp;&nbsp;商:</span>
+                    <div class="input-content " >
+                        {{headInfo.customer_name}}
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_payment_date}}
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">单据编号:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_id}}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="">付款类型:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_type_name}}
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">整单折扣:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_deposit_rate}}
+
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">折扣额:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_deposit_after_price}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-head-row">
+
+
+                <div class="form-item " style="">
+                    <span class="title" style="">单据金额:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_price}}
+
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">应付金额:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_should_payment_price}}
+
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">本次支付:</span>
+                    <div class="input-content ">
+                        {{headInfo.payment_order_actual_payment}}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <div class="input-content " style=" flex: 9">
+                        {{headInfo.payment_order_remark}}
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="print-table">
+            <table border=1 cellSpacing=0 cellPadding=1 width="100%" style="border-collapse:collapse;"
+                   bordercolor="#333333">
+                <thead>
+                <tr>
+                    <td width="5%">
+                        <div align=center><b>序号</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>源单编号</b></div>
+                    </td>
+                    <td width="20%">
+                        <div align=center><b>日期</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>单据金额</b></div>
+                    </td>
+
+                    <td width="10%">
+                        <div align=center><b>已核销</b></div>
+                    </td>
+                    <td width="10%">
+                        <div align=center><b>未核销</b></div>
+                    </td>
+
+                    <td width="10%">
+                        <div align=center><b>本次核销</b></div>
+                    </td>
+                    <td width="15%">
+                        <div align=center><b>备注</b></div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item, index) in tableInfo">
+                    <td>
+                        {{index + 1}}
+                    </td>
+                    <td>
+                        {{item.entry_order_id}}
+                    </td>
+                    <td>
+                        {{item.entry_order_date}}
+                    </td>
+                    <td>
+                        {{item.entry_order_price}}
+                    </td>
+                    <td>
+                        {{item.already_clear_price}}
+                    </td>
+                    <td>
+                        {{item.no_clear_price}}
+                    </td>
+                    <td>
+                        {{item.now_clear_price}}
+                    </td>
+                    <td>
+                        {{item.order_remark}}
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td ><b>合计</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>{{headInfo.payment_order_price}}</b></td>
+                    <td ><b>&nbsp;</b></td>
+                    <td ><b>&nbsp;</b></td>
+
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 
@@ -433,6 +610,7 @@
         {title: '源单编号', width: 100},
         {title: '日期', width: 100},
         {title: '单据金额', width: 100},
+        {title: '应付金额', width: 100},
         {title: '已核销金额', width: 100},
         {title: '未核销金额', width: 100},
         {title: '本次核销金额', width: 100},
@@ -469,8 +647,10 @@
         watch: {
             headInfo: {
                 handler: function (val, oldVal) {
+                    this.headInfo.payment_order_price = parseFloat(this.headInfo.payment_order_price).toFixed(2);
                     this.headInfo.payment_order_deposit_after_price = (parseFloat(this.headInfo.payment_order_deposit_rate) * parseFloat(this.headInfo.payment_order_price)/100).toFixed(2);
                     this.headInfo.payment_order_should_payment_price = parseFloat(this.headInfo.payment_order_price) -  parseFloat(this.headInfo.payment_order_deposit_after_price);
+                    this.headInfo.payment_order_actual_payment = parseFloat(this.headInfo.payment_order_actual_payment).toFixed(2);
                 },
                 deep: true
             },
@@ -717,6 +897,7 @@
                         entry_order_id: '',
                         entry_order_date: '',
                         entry_order_price:'',
+                        entry_order_account_payable:'',
                         already_clear_price: '',
                         no_clear_price: '',
                         now_clear_price: '',
@@ -785,7 +966,7 @@
                             layer.msg('保存成功');
                             self.isSave = true;
                         }else{
-                            layer.msg('保存失败');
+                            layer.msg(data.msg);
                         }
 
                     },
@@ -898,6 +1079,7 @@
                                         entry_order_id: retInfo[i].entry_order_id,
                                         entry_order_date: retInfo[i].entry_order_date,
                                         entry_order_price:retInfo[i].entry_order_price,
+                                        entry_order_account_payable:retInfo[i].entry_order_account_payable,
                                         already_clear_price: retInfo[i].already_clear_price,
                                         no_clear_price: retInfo[i].no_clear_price,
                                         now_clear_price: retInfo[i].no_clear_price,
@@ -924,6 +1106,11 @@
     $("#scroll").scroll(function () {
         vm.scrollTop = $(this).scrollTop()
         vm.scrollLeft = $(this).scrollLeft()
+
+    });
+    $("input[type='number']").change(function () {
+         var value = $(this).val();
+        console.log(value)
 
     });
 </script>

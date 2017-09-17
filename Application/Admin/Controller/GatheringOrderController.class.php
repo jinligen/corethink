@@ -23,28 +23,30 @@ class GatheringOrderController extends AdminController
     public function index()
     {
         $map['status'] = array('egt', '1'); // 禁用和正常状态
-        $map['gathering_order_type_name'] = array('like', '%收款单%');
+//        $map['gathering_order_type_name'] = array('like', '%付款单%');
 
         $p = !empty($_GET["p"]) ? $_GET['p'] : 1;
 
-        $d_object = D('GatheringOrder');
-
+        $d_object = D('GatheringOrder'); 
         $field = 'id,
-                   customer_name,
-                   gathering_order_payment_date,
                    gathering_order_id,
-                   storehouse_name,
+                   gathering_order_type_name,
                    gathering_order_price,
+                   gathering_order_deposit_rate,
+                   gathering_order_deposit_after_price,
+                   gathering_order_receivable_price,
                    gathering_order_actual_payment,
-                   gathering_order_remark,
+                   gathering_order_remark, 
                    create_time,
                    status,
                    gathering_order_is_audited';
         $data_list = $d_object->page($p, C('ADMIN_PAGE_ROWS'))->field($field)->where($map)->order('gathering_order_id')->group('gathering_order_id')->select();
+
+//        echo var_dump($d_object->getLastSql());
+//        exit;
         $page = new Page($d_object->where($map)->field($field)->group('gathering_order_id')->count(), C('ADMIN_PAGE_ROWS'));
 
-//        echo var_dump($data_list);
-//        exit;
+
 
         $add['title'] = '新增';
         $add['class'] = 'btn btn-primary';
@@ -67,12 +69,14 @@ class GatheringOrderController extends AdminController
         ->addTopButton('audite')// 添加审核按钮
         ->addTopButton('delete')// 添加删除按钮
 
+
         ->addTableColumn('id', 'ID', '', '', '50%')
-            ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('gathering_order_payment_date', '采购日期')
             ->addTableColumn('gathering_order_id', '单据编号')
-            ->addTableColumn('storehouse_name', '所在仓库')
+            ->addTableColumn('gathering_order_type_name', '日期')
             ->addTableColumn('gathering_order_price', '单据金额')
+            ->addTableColumn('gathering_order_deposit_rate', '折扣率')
+            ->addTableColumn('gathering_order_deposit_after_price', '折扣额')
+            ->addTableColumn('gathering_order_receivable_price', '应收账款')
             ->addTableColumn('gathering_order_actual_payment', '实际支付')
             ->addTableColumn('gathering_order_remark', '摘要')
             ->addTableColumn('create_time', '创建时间')
@@ -101,6 +105,13 @@ class GatheringOrderController extends AdminController
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
 
+            $map['gathering_order_id'] = array('eq',$headInfo['gathering_order_id']);
+            $id = D('GatheringOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"'.$headInfo['gathering_order_id'].'已保存！",data:[]}');
+                exit;
+            }
+            
             $dataList = [];
 
 
@@ -120,9 +131,12 @@ class GatheringOrderController extends AdminController
             }
 
 
+
             if (count($dataList)>0) {
                 $d_object = D('GatheringOrder');
                 $id = $d_object->addAll($dataList);
+//                echo json_encode($dataList);
+//                echo json_encode($id);exit;
                 if ($id) {
                     echo json_encode('{error:"0000",msg:"操作成功！",data:[]}');
                 } else {
@@ -152,6 +166,17 @@ class GatheringOrderController extends AdminController
         if (IS_POST) {
 
             if ($_POST['gathering_order_id']) {
+                
+                $where['gathering_order_id'] = array('eq',$_POST['gathering_order_id']);
+                $where['gathering_order_is_audited'] = array('eq','1');
+                $id = D('GatheringOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"'.$_POST['gathering_order_id'].'已审核！",data:[]}');
+                    exit;
+                }
+                
+                
+                
                 $map['gathering_order_id'] = $_POST['gathering_order_id'];
 
                 $data['gathering_order_is_audited'] = 1;
@@ -179,6 +204,7 @@ class GatheringOrderController extends AdminController
 
             $this->assign('_list',  json_encode($list));
 
+//            echo var_dump($list);exit;
             $this->display();
         }
     }

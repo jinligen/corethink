@@ -75,8 +75,8 @@ class OutOrderController extends AdminController
         ->addTopButton('delete')// 添加删除按钮
 
         ->addTableColumn('id', 'ID', '', '', '50%')
-            ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('out_order_date', '采购日期')
+            ->addTableColumn('customer_name', '客户')
+            ->addTableColumn('out_order_date', '日期')
             ->addTableColumn('out_order_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
             ->addTableColumn('out_order_price', '单据金额')

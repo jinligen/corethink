@@ -106,6 +106,14 @@ class PaymentOrderController extends AdminController
             $headInfo = ($_POST['headInfo']);
             $tableInfo = ($_POST['tableInfo']);
 
+            $map['payment_order_id'] = array('eq',$headInfo['payment_order_id']);
+            $id = D('PaymentOrder')->where($map)->find();
+            if($id){
+                echo json_encode('{error:"0002",msg:"'.$headInfo['payment_order_id'].'已保存！",data:[]}');
+                exit;
+            }
+
+
             $dataList = [];
 
 
@@ -157,6 +165,17 @@ class PaymentOrderController extends AdminController
         if (IS_POST) {
 
             if ($_POST['payment_order_id']) {
+
+
+                $where['payment_order_id'] = array('eq',$_POST['payment_order_id']);
+                $where['payment_order_is_audited'] = array('eq','1');
+                $id = D('PaymentOrder')->where($where)->find();
+                if($id){
+                    echo json_encode('{error:"0002",msg:"'.$_POST['payment_order_id'].'已审核！",data:[]}');
+                    exit;
+                }
+
+
                 $map['payment_order_id'] = $_POST['payment_order_id'];
 
                 $data['payment_order_is_audited'] = 1;
