@@ -147,6 +147,7 @@ class PaymentOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->display();
         }
 

@@ -219,6 +219,7 @@ class OutOrderController extends AdminController
         } else {
             // 使用FormBuilder快速建立表单页面。
             $this->assign('out_order_type_name', '销售出库单'); //页面标题
+            $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->display();
         }
 
@@ -274,6 +275,7 @@ class OutOrderController extends AdminController
             // 使用FormBuilder快速建立表单页面。
 
             $this->assign('out_order_type_name', '材料出库单'); //页面标题
+            $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->display();
         }
     }

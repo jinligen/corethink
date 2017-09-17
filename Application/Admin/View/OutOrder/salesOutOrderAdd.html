@@ -97,7 +97,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+<div class=" " id="page" style="width: 750px;margin: 0 20%;display: none">
 
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
@@ -154,9 +154,9 @@
                     <div class="data-select" style=" width: 100%;">
                         <select v-model="headInfo.storehouse_name">
                             <option value="">请选择</option>
-                            <option value="1号仓">1号仓</option>
-                            <option value="2号仓">2号仓</option>
-                            <option value="3号仓">3号仓</option>
+                            <volist name="_storehouse_name" id="vo">
+                                <option value="{$vo}">{$vo}</option>
+                            </volist>
                         </select>
                     </div>
                 </div>
@@ -648,6 +648,9 @@
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
 
 <script>
+    setTimeout(function () {
+        $('#page').show()
+    },1000);
     var LODOP; //声明为全局变量
 
     var thead = [ //标题栏

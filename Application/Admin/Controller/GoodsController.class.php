@@ -90,7 +90,7 @@ class GoodsController extends AdminController
             ->addTableColumn('goods_cost_price', '商品成本价')
             ->addTableColumn('goods_market_price', '商品销售价')
             ->addTableColumn('storehouse_name', '所在仓库')
-            ->addTableColumn('nickname', '操作人')
+//            ->addTableColumn('nickname', '操作人')
             ->addTableColumn('create_time', '创建时间')
             ->addTableColumn('status', '状态', 'status')
             ->addTableColumn('right_button', '操作', 'btn')
@@ -135,7 +135,7 @@ class GoodsController extends AdminController
             $builder->setMetaTitle('新增') //设置页面标题
                 ->setPostUrl(U('add')) //设置表单提交地址
 
-                ->addFormItem('goods_type_name', 'radio', '类别', '',array('原材料'=>'原材料','产品'=>'产品'),'','')
+                ->addFormItem('goods_type_name', 'radio', '类别', '',D('Admin/GoodsType')->getList(),'','')
                 ->addFormItem('goods_id', 'text', '商品编码', '','','','')
                 ->addFormItem('goods_name', 'text', '商品名称', '','','','')
                 ->addFormItem('goods_spec', 'text', '商品规格', '')
@@ -188,7 +188,7 @@ class GoodsController extends AdminController
             $builder->setMetaTitle('编辑') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
-                ->addFormItem('goods_type_name', 'radio', '类别', '',array('原材料'=>'原材料','产品'=>'产品'),'','')
+                ->addFormItem('goods_type_name', 'radio', '类别', '',D('Admin/GoodsType')->getList(),'','')
                 ->addFormItem('goods_id', 'text', '商品编码', '','','','')
                 ->addFormItem('goods_name', 'text', '商品名称', '','','','')
                 ->addFormItem('goods_spec', 'text', '商品规格', '')

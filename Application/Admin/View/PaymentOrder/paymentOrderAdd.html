@@ -97,7 +97,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+<div class=" " id="page" style="width: 750px;margin: 0 20%;display: none">
 
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
@@ -603,6 +603,9 @@
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
 
 <script>
+    setTimeout(function () {
+        $('#page').show()
+    },1000);
     var LODOP; //声明为全局变量
 
     var thead = [ //标题栏
@@ -945,14 +948,11 @@
                         } else if (self.headInfo.payment_order_id == '') {
                             layer.msg('请填写单据编号');
                             flag = false;
-                        } else if (self.headInfo.storehouse_name == '') {
-                            layer.msg('请选择所属仓库');
-                            flag = false;
                         } else if (self.headInfo.payment_order_price == '') {
                             layer.msg('请填写单据金额');
                             flag = false;
                         } else if (self.headInfo.payment_order_actual_payment == '') {
-                            layer.msg('请填写实际支付');
+                            layer.msg('请填写本次支付');
                             flag = false;
                         }
 

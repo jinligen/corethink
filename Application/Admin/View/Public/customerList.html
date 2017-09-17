@@ -15,7 +15,7 @@
     <span class="layui-btn layui-btn-small " data-type="getCheckData"   onclick="parent.layer.closeAll()" >确定</span>
 </div>
 
-<table id="table" lay-filter="table" style=""></table>
+<table id="table" lay-filter="table"  ></table>
 
 
 <script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
@@ -33,8 +33,8 @@
     var _cols = [[ //标题栏
         {checkbox: true,   fixed: true},
 //        {field:'id',title: 'ID', width:50,  fixed: true},
-        {field:'customer_id',title: '客户编号', width:100, fixed: true},
-        {field:'customer_name',title: '名称', width:150, fixed: true},
+        {field:'customer_id',title: '编号', width:100, fixed: true},
+        {field:'customer_name',title: '名称', width:150 },
         {field:'customer_address',title: '地址', width:200},
         {field:'customer_phone',title: '联系电话', width:150},
     ]]
@@ -44,7 +44,8 @@
         table.render({
             elem: '#table'
             ,data: _data
-            ,height: 500
+            ,height: 450
+            ,width: 'auto'
             ,cols: _cols
             ,skin: 'row' //表格风格
             ,even: true
@@ -61,7 +62,7 @@
             for(var i= 0 ,leng = table.cache.table.length;i<leng;i++){
                 delete table.cache.table[i].LAY_CHECKED;
             }
-
+            $('.layui-table-fixed.layui-table-fixed-l  .layui-table thead tr .layui-unselect.layui-form-checkbox').hide()
             $('.layui-table-fixed.layui-table-fixed-l .layui-table tbody tr').each(function (index) {
                 var ele = $(this).children('td').children('.laytable-cell-checkbox').children(' .layui-form-checkbox')
                 if(index != table_index){

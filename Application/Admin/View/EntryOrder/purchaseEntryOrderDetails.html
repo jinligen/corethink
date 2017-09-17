@@ -97,7 +97,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 20%;">
+<div class=" " id="page" style="width: 750px;margin: 0 20%;display: none">
 
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
@@ -539,21 +539,6 @@
                     </div>
                 </div>
 
-                <div class="form-item " style="">
-                    <span class="title" style="">&nbsp;</span>
-                    <div class="input-content ">
-                        <div class="data-select" style=" width: 100%;">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-item " style="">
-                    <span class="title" style="">&nbsp;</span>
-                    <div class="input-content ">
-                        <div class="data-select" style=" width: 100%;">
-                        </div>
-                    </div>
-                </div>
-
 
 
             </div>
@@ -662,6 +647,9 @@
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
 
 <script>
+    setTimeout(function () {
+        $('#page').show()
+    },1000);
     var LODOP; //声明为全局变量
     var _list =   eval('(' + '{$_list}' + ')');
 

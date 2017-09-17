@@ -131,9 +131,7 @@ class CustomerController extends AdminController
             $d_object = D('Customer');
             $data        = $d_object->create();
             if ($data) {
-                $result = $d_object
-                    ->field('id,customer_id,customer_name,update_time')
-                    ->save($data);
+                $result = $d_object ->save($data);
                 if ($result) {
                     $this->success('更新成功', U('index'));
                 } else {
