@@ -201,7 +201,7 @@ return array(
             'pid'   => 'b',
             'title' => '销售订单',
             'icon'  => 'fa fa-bookmark-o',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/SalesOrder/index',
         ),
         'b7'  => array(
             'pid'   => 'b',

@@ -110,7 +110,7 @@
     <div id="div1">
 
         <div class="layui-row" style=" text-align: center">
-            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;订&nbsp;&nbsp;单</span>
         </div>
 
         <div class="form-head-row">
@@ -124,14 +124,14 @@
             <div class="form-item " style="">
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_date}}</div>
+                    <div class="data-show" style="">&nbsp;{{headInfo.sales_order_date}}</div>
                 </div>
             </div>
 
             <div class="form-item " style="">
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_id}}</div>
+                    <div class="data-show" style="">&nbsp;{{headInfo.sales_order_id}}</div>
 
                 </div>
             </div>
@@ -139,71 +139,20 @@
 
 
         <div class="form-head-row">
-            <div class="form-item " style="">
-                <span class="title" style="">所属仓库:</span>
-                <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
-
-                </div>
-            </div>
-            <div class="form-item " style="">
-                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:</span>
-                <div class="input-content ">
-
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_tax_rate}}</div>
-
-                </div>
-            </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span>
-                <div class="input-content ">
-
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_including_tax_price}}</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="form-head-row">
-
-            <div class="form-item " style="">
-                <span class="title" style="">单据金额:</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                        <input type="text" style="" v-model="headInfo.out_order_price"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-item " style="">
-                <span class="title" style="">应付金额:</span>
-                <div class="input-content ">
-
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_account_receivable}}</div>
-
-                </div>
+                <span class="title" style="">交付日期:{{headInfo.sales_order_give_date}}</span>
 
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">本次支付:</span>
-                <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_actual_payment}}</div>
+                <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:{{headInfo.sales_order_remark}}</span>
 
-                </div>
             </div>
 
-
-
-        </div>
-        <div class="form-head-row">
             <div class="form-item " style="">
-                <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                <div class="input-content " style=" flex: 9">
-                    <div class="data-show" style="">&nbsp;{{headInfo.out_order_remark}}</div>
+                <span class="title" style="">&nbsp;</span>
 
-                </div>
             </div>
 
 
@@ -211,6 +160,7 @@
         </div>
 
     </div>
+
     <div id="div2">
         <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
             <div class="layui-table-header" id="fixed-header">
@@ -245,7 +195,7 @@
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[1].width + 'px'}"
-                                 
+
                                  style="height: 26px">
                                 <div class="data-show">&nbsp;{{item.goods_id}}</div>
                                 <div class="data-select" style="display: none;">
@@ -271,7 +221,7 @@
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[4].width + 'px'}"
-                                 >
+                            >
                                 <div class="data-show">&nbsp;{{item.goods_actual_unit=item.goods_actual_unit!=''?item.goods_actual_unit:item.goods_min_unit}}</div>
                                 <div class="data-select" style="display: none;">
                                     <select class="unit" @change="unitChang($event,index)">
@@ -284,10 +234,10 @@
 
                         <td>
                             <div class="input-content " :style="{ width: thead[6].width + 'px'}"
-                                 >
-                                <div class="data-show">&nbsp;{{item.goods_out_total_quantity}}</div>
+                            >
+                                <div class="data-show">&nbsp;{{item.goods_sales_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_total_quantity"
+                                    <input type="number" v-model="item.goods_sales_total_quantity"
                                            @change="quantityChang(index)"/>
                                 </div>
                             </div>
@@ -300,29 +250,29 @@
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                                 >
-                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}
+                            >
+                                <div class="data-show">&nbsp;{{item.goods_sales_unit_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_unit_price"
+                                    <input type="number" v-model="item.goods_sales_unit_price"
                                            @change="unitPriceChang(index)"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[7].width + 'px'}"
-                                 >
-                                <div class="data-show">&nbsp;{{item.goods_out_total_price}}
+                            >
+                                <div class="data-show">&nbsp;{{item.goods_sales_total_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_total_price"
+                                    <input type="number" v-model="item.goods_sales_total_price"
                                            @change="totalPriceChang(index)"/>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="input-content " :style="{ width: thead[8].width + 'px'}"
-                                 >
+                            >
                                 <div class="data-show">&nbsp;{{item.goods_remark}}</div>
                                 <div class="data-select" style="display: none;">
                                     <input type="text" v-model="item.goods_remark"/>
@@ -370,15 +320,9 @@
                             </td>
                             <td :style="{ width: thead[1].width  + 'px',textAlign:'center',backgroundColor:'' }">
 
-                                <div class="input-content " style="height: 26px;" 
-                                     >
+                                <div class="input-content " style="height: 26px;" >
                                     <div class="data-show" style="">&nbsp;{{item.goods_id}}</div>
-                                    <div class="data-select" style="display: none;width: 100%;">
-                                        <input type="text" style="" v-model="item.goods_id" readonly/>
 
-                                        <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;"
-                                           @click="selectGoodsList()">&#xe615;</i>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -427,7 +371,7 @@
     <div class="print-content" style="display: none">
         <div id="print-headinfo">
             <div class="layui-row" style=" text-align: center">
-                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;订&nbsp;&nbsp;单</span>
             </div>
 
             <div class="form-head-row">
@@ -441,14 +385,14 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_date}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.sales_order_date}}</div>
                     </div>
                 </div>
 
                 <div class="form-item " style="">
                     <span class="title" style="">单据编号:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_id}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.sales_order_id}}</div>
 
                     </div>
                 </div>
@@ -456,76 +400,21 @@
 
 
             <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="">所属仓库:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
-
-                    </div>
-                </div>
-                <div class="form-item " style="">
-                    <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_tax_rate}}</div>
-
-                    </div>
-                </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_including_tax_price}}</div>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="form-head-row">
-
-                <div class="form-item " style="">
-                    <span class="title" style="">单据金额:</span>
-                    <div class="input-content ">
-                        <div class="data-select" style=" width: 100%;">
-                            <input type="text" style="" v-model="headInfo.out_order_price"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-item " style="">
-                    <span class="title" style="">应付金额:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_account_receivable}}</div>
-
-                    </div>
+                    <span class="title" style="">交付日期:{{headInfo.sales_order_give_date}}</span>
 
                 </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">本次支付:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_actual_payment}}</div>
+                    <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:{{headInfo.sales_order_remark}}</span>
 
-                    </div>
                 </div>
 
 
 
             </div>
-            <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                    <div class="input-content " style=" flex: 9">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_remark}}</div>
 
-                    </div>
-                </div>
-
-
-
-            </div>
 
         </div>
         <div id="print-table">
@@ -585,16 +474,16 @@
                         {{item.goods_actual_unit}}
                     </td>
                     <td>
-                        {{item.goods_out_total_quantity}}
+                        {{item.goods_sales_total_quantity}}
                     </td>
                     <td>
                         {{item.goods_weight+item.goods_min_unit}}
                     </td>
                     <td>
-                        {{item.goods_out_unit_price}}
+                        {{item.goods_sales_unit_price}}
                     </td>
                     <td>
-                        {{item.goods_out_total_price}}
+                        {{item.goods_sales_total_price}}
                     </td>
                     <td>
                         {{item.goods_remark}}
@@ -611,7 +500,7 @@
                     <td ><b>&nbsp;</b></td>
                     <td ><b>&nbsp;</b></td>
                     <td ><b>&nbsp;</b></td>
-                    <td ><b>{{headInfo.out_order_price}}</b></td>
+                    <td ><b>{{headInfo.sales_order_price}}</b></td>
                     <td ><b>&nbsp;</b></td>
 
                 </tr>
@@ -656,18 +545,13 @@
         isSave: true,
         thead: thead,
         headInfo: {
-            out_order_type_name: '{$out_order_type_name}',
             customer_id: '',
             customer_name: '',
-            out_order_date: '',
-            out_order_id: '',
-            storehouse_name: '',
-            out_order_price: '',
-            out_order_actual_payment: '',
-            out_order_remark: '',
-            out_order_tax_rate:0,
-            out_order_including_tax_price:0,
-            out_order_account_receivable:0
+            sales_order_date: '',
+            sales_order_id: '',
+
+            sales_order_remark: '',
+            sales_order_give_date:''
         },
         tableInfo: [],
         tableData: []
@@ -688,14 +572,13 @@
                 handler: function (val, oldVal) {
                     this.isSave = false;
                     this.tableData = [];
-                    var out_order_price = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
                         if (val[i].goods_id != '') {
                             this.tableData.push(val[i]);
-                            out_order_price += parseFloat(val[i].goods_out_total_price);
+
                         }
                     }
-                    this.headInfo.out_order_price = out_order_price;
+
                 },
                 deep: true
             },
@@ -723,6 +606,7 @@
                     this.deleteItem(-1)
                 }
             },
+
             deleteItem: function (index) {
 
                 if (index >= 0) {
@@ -744,9 +628,9 @@
                         goods_name: '',
                         goods_spec: '',
                         goods_actual_unit: '',
-                        goods_out_unit_price: '',
-                        goods_out_total_quantity: '',
-                        goods_out_total_price: '',
+                        goods_sales_unit_price: '',
+                        goods_sales_total_quantity: '',
+                        goods_sales_total_price: '',
                         goods_remark: '',
 
                         goods_min_unit: '',
@@ -756,7 +640,7 @@
 
             },
             goBack: function () { //刷新
-                location.href = '/corethink/admin.php?s=/admin/OutOrder/salesOutOrder'
+                location.href = '/corethink/admin.php?s=/admin/SalesOrder/index'
             },
             audite: function () { //保存
                 var self = this;
@@ -764,11 +648,11 @@
                     return false;
                 }
                 $.ajax({
-                    url: '/corethink/admin.php?s=/admin/OutOrder/salesOutOrderDetails/id/-1',
+                    url: '/corethink/admin.php?s=/admin/SalesOrder/salesOrderDetails/id/-1',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
-                        out_order_id:  _list[0].out_order_id,
+                        sales_order_id:  _list[0].sales_order_id,
                     },
                     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
                     beforeSend: function (xhr) {
@@ -801,10 +685,9 @@
                 })
 
 
-            },
-            print: function () { //打印
-                if (this.headInfo.out_order_is_audited!='1') {
-                    layer.msg('单据未审核');
+            },print: function () { //打印
+                if (!this.isSave) {
+                    layer.msg('单据为保存');
                     return;
                 }
                 LODOP = getLodop();
@@ -840,6 +723,7 @@
         vm.scrollLeft = $(this).scrollLeft()
 
     });
+
 </script>
 
 </html>

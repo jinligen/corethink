@@ -162,6 +162,23 @@ class PublicController extends CommonController
 
 
     /**
+     * 获取应付列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function salesOrderList()
+    {
+
+        $type = $_GET['customer_id'];
+        $map['customer_id'] = array('like','%'.$type.'%');
+        $list = D('storehouse_sales_order')->where($map)->select();
+//echo $list;exit;
+        $this->assign('_list', json_encode($list));
+        $this->display();
+    }
+
+
+    /**
      * 
      * @param  integer $id 验证码ID
      * @return boolean 检测结果
@@ -248,6 +265,24 @@ class PublicController extends CommonController
         $goods_check_id = $_POST['goods_check_id'];
         $map['goods_check_id'] = array('eq',$goods_check_id);
         $ret = D('storehouse_goods_check')->where($map)->find();
+
+        if($ret){
+            echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');
+        }else{
+            echo json_encode('{error:"0000",msg:"未查到该单据编号的信息",data:[]}');
+        }
+
+    }
+    /**
+     *
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function checkSalesOrderId (){
+
+        $sales_order_id = $_POST['sales_order_id'];
+        $map['sales_order_id'] = array('eq',$sales_order_id);
+        $ret = D('storehouse_sales_order')->where($map)->find();
 
         if($ret){
             echo json_encode('{error:"0001",msg:"该单据编号已存在！",data:[]}');

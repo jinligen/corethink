@@ -102,8 +102,6 @@
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small   " @click="goBack()">返回</button>
         &nbsp;
-        <button class="layui-btn layui-btn-primary layui-btn-small" @click="selectSalesOrderList()">生成</button>
-        &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="save()">保存</button>
         &nbsp;
         <button class="layui-btn layui-btn-primary layui-btn-small" @click="print()">打印</button>
@@ -112,7 +110,7 @@
     <div id="div1">
 
         <div class="layui-row" style=" text-align: center">
-            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;订&nbsp;&nbsp;单</span>
         </div>
 
         <div class="form-head-row">
@@ -132,7 +130,7 @@
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="" v-model="headInfo.out_order_date"/>
+                        <input type="date" id="date" style="" v-model="headInfo.sales_order_date"/>
                     </div>
                 </div>
             </div>
@@ -141,95 +139,47 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.out_order_id"
-                               @change="checkOrderId(headInfo.out_order_id)"/>
+                        <input type="text" style="" v-model="headInfo.sales_order_id"
+                               @change="checkOrderId(headInfo.sales_order_id)"/>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <div class="form-head-row">
-            <div class="form-item " style="">
-                <span class="title" style="">所属仓库:</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                        <select v-model="headInfo.storehouse_name">
-                            <option value="">请选择</option>
-                            <volist name="_storehouse_name" id="vo">
-                                <option value="{$vo}">{$vo}</option>
-                            </volist>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-item " style="">
-                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                        <input type="number" style=" width: 80px;display: inline-block;text-align: center" v-model="headInfo.out_order_tax_rate"/>%
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-item " style="">
-                <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span>
-                <div class="input-content ">
-                    <span style="display: none">{{headInfo.out_order_including_tax_price=parseFloat(headInfo.out_order_price*headInfo.out_order_tax_rate/100).toFixed(2)}}</span>
-                    <div class="data-select" style=" width: 100%;">
-                        <input type="number" style="" v-model="headInfo.out_order_including_tax_price"/>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+         
         <div class="form-head-row">
 
             <div class="form-item " style="">
-                <span class="title" style="">单据金额:</span>
+                <span class="title" style="">交付日期:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
-                        <input type="text" style="" v-model="headInfo.out_order_price"/>
+                        <input type="text" style="" v-model="headInfo.sales_order_give_date"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">应付金额:</span>
-                <div class="input-content ">
-                    <span style="display: none">{{headInfo.out_order_account_receivable=parseFloat(headInfo.out_order_price - headInfo.out_order_including_tax_price).toFixed(2)}}</span>
-
-                    <div class="data-select" style=" width: 100%;">
-                        <input type="text" style="" v-model="headInfo.out_order_account_receivable"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-item " style="">
-                <span class="title" style="">本次支付:</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                        <input type="number" style="" v-model="headInfo.out_order_actual_payment"/>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
-        <div class="form-head-row">
-            <div class="form-item " style="">
-                <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                <div class="input-content " style=" flex: 9">
+                <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                <div class="input-content " style=" ">
                     <div class="data-select" style=" width: 100%; ">
-                        <input type="text" style="width: 100%;" v-model="headInfo.out_order_remark"/>
+                        <input type="text" style="width: 100%;" v-model="headInfo.sales_order_remark"/>
                     </div>
                 </div>
             </div>
 
+            <div class="form-item " style="">
+                <span class="title" style="">&nbsp;</span>
+                <div class="input-content ">
+                    &nbsp;
+                </div>
+            </div>
+
+
 
         </div>
+
     </div>
+
     <div id="div2">
         <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
             <div class="layui-table-header" id="fixed-header">
@@ -304,9 +254,9 @@
                         <td>
                             <div class="input-content " :style="{ width: thead[6].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_total_quantity}}</div>
+                                <div class="data-show">&nbsp;{{item.goods_sales_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_total_quantity"
+                                    <input type="number" v-model="item.goods_sales_total_quantity"
                                            @change="quantityChang(index)"/>
                                 </div>
                             </div>
@@ -320,10 +270,10 @@
                         <td>
                             <div class="input-content " :style="{ width: thead[5].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_unit_price}}
+                                <div class="data-show">&nbsp;{{item.goods_sales_unit_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_unit_price"
+                                    <input type="number" v-model="item.goods_sales_unit_price"
                                            @change="unitPriceChang(index)"/>
                                 </div>
                             </div>
@@ -331,10 +281,10 @@
                         <td>
                             <div class="input-content " :style="{ width: thead[7].width + 'px'}"
                                  @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                                <div class="data-show">&nbsp;{{item.goods_out_total_price}}
+                                <div class="data-show">&nbsp;{{item.goods_sales_total_price}}
                                 </div>
                                 <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_out_total_price"
+                                    <input type="number" v-model="item.goods_sales_total_price"
                                            @change="totalPriceChang(index)"/>
                                 </div>
                             </div>
@@ -446,7 +396,7 @@
     <div class="print-content" style="display: none">
         <div id="print-headinfo">
             <div class="layui-row" style=" text-align: center">
-                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
+                <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;订&nbsp;&nbsp;单</span>
             </div>
 
             <div class="form-head-row">
@@ -460,14 +410,14 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_date}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.sales_order_date}}</div>
                     </div>
                 </div>
 
                 <div class="form-item " style="">
                     <span class="title" style="">单据编号:</span>
                     <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_id}}</div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.sales_order_id}}</div>
 
                     </div>
                 </div>
@@ -475,76 +425,21 @@
 
 
             <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="">所属仓库:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
-
-                    </div>
-                </div>
-                <div class="form-item " style="">
-                    <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_tax_rate}}</div>
-
-                    </div>
-                </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">税&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_including_tax_price}}</div>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="form-head-row">
-
-                <div class="form-item " style="">
-                    <span class="title" style="">单据金额:</span>
-                    <div class="input-content ">
-                        <div class="data-select" style=" width: 100%;">
-                            <input type="text" style="" v-model="headInfo.out_order_price"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-item " style="">
-                    <span class="title" style="">应付金额:</span>
-                    <div class="input-content ">
-
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_account_receivable}}</div>
-
-                    </div>
+                    <span class="title" style="">交付日期:{{headInfo.sales_order_give_date}}</span>
 
                 </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">本次支付:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_actual_payment}}</div>
+                    <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:{{headInfo.sales_order_remark}}</span>
 
-                    </div>
                 </div>
 
 
 
             </div>
-            <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                    <div class="input-content " style=" flex: 9">
-                        <div class="data-show" style="">&nbsp;{{headInfo.out_order_remark}}</div>
 
-                    </div>
-                </div>
-
-
-
-            </div>
 
         </div>
         <div id="print-table">
@@ -604,16 +499,16 @@
                         {{item.goods_actual_unit}}
                     </td>
                     <td>
-                        {{item.goods_out_total_quantity}}
+                        {{item.goods_sales_total_quantity}}
                     </td>
                     <td>
                         {{item.goods_weight+item.goods_min_unit}}
                     </td>
                     <td>
-                        {{item.goods_out_unit_price}}
+                        {{item.goods_sales_unit_price}}
                     </td>
                     <td>
-                        {{item.goods_out_total_price}}
+                        {{item.goods_sales_total_price}}
                     </td>
                     <td>
                         {{item.goods_remark}}
@@ -630,7 +525,7 @@
                     <td ><b>&nbsp;</b></td>
                     <td ><b>&nbsp;</b></td>
                     <td ><b>&nbsp;</b></td>
-                    <td ><b>{{headInfo.out_order_price}}</b></td>
+                    <td ><b>{{headInfo.sales_order_price}}</b></td>
                     <td ><b>&nbsp;</b></td>
 
                 </tr>
@@ -674,18 +569,13 @@
         isSave: true,
         thead: thead,
         headInfo: {
-            out_order_type_name: '{$out_order_type_name}',
             customer_id: '',
             customer_name: '',
-            out_order_date: '',
-            out_order_id: '',
-            storehouse_name: '',
-            out_order_price: '',
-            out_order_actual_payment: '',
-            out_order_remark: '',
-            out_order_tax_rate:0,
-            out_order_including_tax_price:0,
-            out_order_account_receivable:0
+            sales_order_date: '',
+            sales_order_id: '',
+
+            sales_order_remark: '',
+            sales_order_give_date:''
         },
         tableInfo: [],
         tableData: []
@@ -706,14 +596,13 @@
                 handler: function (val, oldVal) {
                     this.isSave = false;
                     this.tableData = [];
-                    var out_order_price = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
                         if (val[i].goods_id != '') {
                             this.tableData.push(val[i]);
-                            out_order_price += parseFloat(val[i].goods_out_total_price);
+
                         }
                     }
-                    this.headInfo.out_order_price = out_order_price;
+
                 },
                 deep: true
             },
@@ -734,14 +623,14 @@
             init: function () {
                 this.deleteItem(-1)
             },
-            checkOrderId: function (out_order_id) {
+            checkOrderId: function (sales_order_id) {
                 var self = this;
                 $.ajax({
-                    url: '/corethink/admin.php?s=/admin/public/checkOutOrderId',
+                    url: '/corethink/admin.php?s=/admin/public/checkSalesOrderId',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
-                        out_order_id: out_order_id,
+                        sales_order_id: sales_order_id,
                     },
                     dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
                     beforeSend: function (xhr) {
@@ -752,8 +641,8 @@
                         if (data.error == '0000') {
 
                         } else {
-                            layer.msg('单据' + out_order_id + '已存在！');
-                            self.headInfo.out_order_id = '';
+                            layer.msg('单据' + sales_order_id + '已存在！');
+                            self.headInfo.sales_order_id = '';
                         }
                     },
                     error: function (xhr, textStatus) {
@@ -944,9 +833,9 @@
                         goods_name: '',
                         goods_spec: '',
                         goods_actual_unit: '',
-                        goods_out_unit_price: '',
-                        goods_out_total_quantity: '',
-                        goods_out_total_price: '',
+                        goods_sales_unit_price: '',
+                        goods_sales_total_quantity: '',
+                        goods_sales_total_price: '',
                         goods_remark: '',
 
                         goods_min_unit: '',
@@ -962,17 +851,17 @@
                     }, function () {
                         layer.closeAll();
                     }, function () {
-                        location.href = '/corethink/admin.php?s=/admin/OutOrder/salesOutOrder'
+                        location.href = '/corethink/admin.php?s=/admin/SalesOrder/index'
                         layer.closeAll();
                     });
                 } else {
-                    location.href = '/corethink/admin.php?s=/admin/OutOrder/salesOutOrder'
+                    location.href = '/corethink/admin.php?s=/admin/SalesOrder/index'
                 }
             },
             save: function () { //保存
                 var self = this;
                 $.ajax({
-                    url: '/corethink/admin.php?s=/admin/OutOrder/salesOutOrderAdd',
+                    url: '/corethink/admin.php?s=/admin/SalesOrder/SalesOrderAdd',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
@@ -987,32 +876,26 @@
                         if (self.headInfo.customer_name == '') {
                             layer.msg('请选择客户');
                             flag = false;
-                        } else if (self.headInfo.out_order_date == '') {
+                        } else if (self.headInfo.sales_order_date == '') {
                             layer.msg('请选择日期');
                             flag = false;
-                        } else if (self.headInfo.out_order_id == '') {
+                        } else if (self.headInfo.sales_order_id == '') {
                             layer.msg('请填写单据编号');
                             flag = false;
-                        } else if (self.headInfo.storehouse_name == '') {
-                            layer.msg('请选择所属仓库');
+                        } else if (self.headInfo.sales_order_give_date == '') {
+                            layer.msg('请选择交付日期');
                             flag = false;
-                        } else if (self.headInfo.out_order_price == '') {
-                            layer.msg('请填写单据金额');
-                            flag = false;
-                        } else if (self.headInfo.out_order_actual_payment == '') {
-//                            layer.msg('请填写本次支付');
-//                            flag = false;
                         } else if (self.tableData.length == '') {
                             layer.msg('请选择商品');
                             flag = false;
                         } else {
                             for (var i = 0, leng = self.tableData.length; i < leng; i++) {
-                                if (self.tableData[i].goods_out_unit_price <= 0) {
+                                if (self.tableData[i].goods_sales_unit_price <= 0) {
                                     layer.msg(self.tableData[i].goods_id + '的单价必须大于0');
                                     flag = false;
                                     break;
                                 }
-                                if (self.tableData[i].goods_out_total_quantity <= 0) {
+                                if (self.tableData[i].goods_sales_total_quantity <= 0) {
                                     layer.msg(self.tableData[i].goods_id + '的数量必须大于0');
                                     flag = false;
                                     break;
@@ -1142,9 +1025,9 @@
                                         goods_name: retInfo[i].goods_name,
                                         goods_spec: retInfo[i].goods_spec,
                                         goods_actual_unit: retInfo[i].goods_min_unit,
-                                        goods_out_unit_price: retInfo[i].goods_cost_price,
-                                        goods_out_total_quantity: 0,
-                                        goods_out_total_price: 0,
+                                        goods_sales_unit_price: retInfo[i].goods_cost_price,
+                                        goods_sales_total_quantity: 0,
+                                        goods_sales_total_price: 0,
                                         goods_rates: retInfo[i].goods_rates,
                                         goods_min_unit: retInfo[i].goods_min_unit,
                                         goods_weight: 0,
@@ -1197,8 +1080,8 @@
                 var unit_quantity=  $(ele).val().split('/')[0];
                 this.tableInfo[index].goods_actual_unit = goods_actual_unit;
 
-                var goods_weight = goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity * item.goods_out_total_quantity;
-                this.tableInfo[index].goods_weight = item.goods_out_total_quantity > 0 ? goods_weight : 0;
+                var goods_weight = goods_actual_unit == item.goods_min_unit ? item.goods_sales_total_quantity : unit_quantity * item.goods_sales_total_quantity;
+                this.tableInfo[index].goods_weight = item.goods_sales_total_quantity > 0 ? goods_weight : 0;
 
             },
             quantityChang: function (index) {
@@ -1208,7 +1091,7 @@
                 }
 
                 var item = this.tableInfo[index];
-                this.tableInfo[index].goods_out_total_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_unit_price > 0 ? item.goods_out_unit_price * item.goods_out_total_quantity : 0).toFixed(2);
+                this.tableInfo[index].goods_sales_total_price = parseFloat(item.goods_sales_total_quantity > 0 && item.goods_sales_unit_price > 0 ? item.goods_sales_unit_price * item.goods_sales_total_quantity : 0).toFixed(2);
 
 
                 var goods_rates = (item.goods_rates).split(',');
@@ -1222,7 +1105,7 @@
                         break;
                     }
                 }
-                this.tableInfo[index].goods_weight = item.goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity  * item.goods_out_total_quantity;
+                this.tableInfo[index].goods_weight = item.goods_actual_unit == item.goods_min_unit ? item.goods_sales_total_quantity : unit_quantity  * item.goods_sales_total_quantity;
 
             },
             unitPriceChang: function (index) {
@@ -1230,7 +1113,7 @@
                     return false;
                 }
                 var item = this.tableInfo[index];
-                this.tableInfo[index].goods_out_total_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_unit_price > 0 ? item.goods_out_unit_price * item.goods_out_total_quantity : 0).toFixed(2);
+                this.tableInfo[index].goods_sales_total_price = parseFloat(item.goods_sales_total_quantity > 0 && item.goods_sales_unit_price > 0 ? item.goods_sales_unit_price * item.goods_sales_total_quantity : 0).toFixed(2);
 
 
             },
@@ -1240,77 +1123,11 @@
                 }
                 var item = this.tableInfo[index];
 
-                this.tableInfo[index].goods_out_unit_price = parseFloat(item.goods_out_total_quantity > 0 && item.goods_out_total_price > 0 ? item.goods_out_total_price / item.goods_out_total_quantity : 0).toFixed(2);
+                this.tableInfo[index].goods_sales_unit_price = parseFloat(item.goods_sales_total_quantity > 0 && item.goods_sales_total_price > 0 ? item.goods_sales_total_price / item.goods_sales_total_quantity : 0).toFixed(2);
 
 
             },
-            selectSalesOrderList: function () {
-                var self = this;
-                if(self.headInfo.customer_id==''){
-                    layer.msg('请选择客户！');
-                    return false;
-                }
-                var childPageBody;
-                layer.open({
-                    type: 2,
-                    skin: 'CLYM-style',
-                    area: ['800px', '560px'],
-                    title: '应付账单列表',
-                    content: '/corethink/admin.php?s=/admin/public/salesOrderList/customer_id/'+self.headInfo.customer_id,
-                    success: function (layero, index) {
-                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
-                    },
-                    end: function () {
-                        var ret = childPageBody.find('textarea#retData')
-                        var retInfo = ret.val()
-                        if (retInfo != '') {
-                            retInfo = JSON.parse(retInfo)
-                            var tableData = [];
 
-                            for (var i = 0; i < self.tableInfo.length; i++) {
-                                if (self.tableInfo[i].goods_id != '') {
-                                    tableData.push(self.tableInfo[i])
-                                }
-                            }
-
-                            for (var i = 0, leng = retInfo.length; i < leng; i++) {
-                                var j = 0;
-                                var l = self.tableInfo.length;
-
-                                for (; j < l; j++) {
-
-                                    if (self.tableInfo[j].goods_id == retInfo[i].goods_id) {
-                                        break;
-                                    }
-                                }
-                                console.log(retInfo[i])
-                                if (j == l) {
-                                    tableData.push({
-                                        goods_id: retInfo[i].goods_id,
-                                        goods_name: retInfo[i].goods_name,
-                                        goods_spec: retInfo[i].goods_spec,
-                                        goods_actual_unit: retInfo[i].goods_actual_unit,
-                                        goods_out_unit_price: retInfo[i].goods_sales_unit_price,
-                                        goods_out_total_quantity: retInfo[i].goods_sales_total_quantity,
-                                        goods_out_total_price: retInfo[i].goods_sales_total_price,
-                                        goods_rates: retInfo[i].goods_rates,
-                                        goods_min_unit: retInfo[i].goods_min_unit,
-                                        goods_weight: retInfo[i].goods_weight,
-                                        goods_remark: retInfo[i].goods_remark,
-
-                                    });
-                                }
-                            }
-                            console.log('22222');
-                            console.log(tableData);
-                            self.tableInfo = tableData;
-                            self.deleteItem(-1);
-                        }
-
-
-                    }
-                });
-            },
         }
     })
 
