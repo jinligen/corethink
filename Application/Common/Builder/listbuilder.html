@@ -244,18 +244,18 @@
                     </script>
                 </form>
                 <!-- 搜索框 -->
-                <!--<notempty name="search">-->
-                    <!--<div class="col-xs-12 col-sm-3 clearfix">-->
-                        <!--<form class="form" method="get" action="{$search.url}">-->
-                            <!--<div class="form-group">-->
-                                <!--<div class="input-group search-form">-->
-                                    <!--<input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">-->
-                                    <!--<span class="input-group-btn"><a class="btn btn-default search-btn"><i class="fa fa-search"></i></a></span>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</form>-->
-                    <!--</div>-->
-                <!--</notempty>-->
+                <notempty name="search">
+                    <div class="col-xs-12 col-sm-3 clearfix">
+                        <form class="form" method="get" action="{$search.url}">
+                            <div class="form-group">
+                                <div class="input-group search-form">
+                                    <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">
+                                    <span class="input-group-btn"><a class="btn btn-default search-btn"><i class="fa fa-search"></i></a></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </notempty>
             </div>
         </div>
     </notempty>

@@ -39,13 +39,13 @@ class UserController extends AdminController
         $p             = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $user_object   = D('User');
         $data_list     = $user_object
-            ->page($p, 1)
+            ->page($p,  C('ADMIN_PAGE_ROWS'))
             ->where($map)
             ->order('id desc')
             ->select();
         $page = new Page(
             $user_object->where($map)->count(),
-           1
+            C('ADMIN_PAGE_ROWS')
         );
 
         // 使用Builder快速建立列表页面。

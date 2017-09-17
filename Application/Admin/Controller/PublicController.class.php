@@ -137,7 +137,7 @@ class PublicController extends CommonController
     {
 
         $type = $_GET['customer_id'];
-        $map['customer_id'] = array('like','%'.$type.'%');
+        $map['customer_id'] = array('like','%'.$type.'%'); 
         $list = D('storehouse_entry_order_view')->where($map)->select();
 //echo $list;exit;
         $this->assign('_list', json_encode($list));

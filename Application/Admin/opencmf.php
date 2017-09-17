@@ -197,18 +197,29 @@ return array(
             'icon'  => 'fa fa-list-ol',
             'url'   => 'Admin/GoodsCheck/index',
         ),
-//        'b6'  => array(
-//            'pid'   => 'b',
-//            'title' => '应收序时簿',
-//            'icon'  => 'fa fa-bookmark-o',
-//            'url'   => 'Admin/public/demo',
-//        ),
-//        'b7'  => array(
-//            'pid'   => 'b',
-//            'title' => '应付序时簿',
-//            'icon'  => 'fa fa-bookmark',
-//            'url'   => 'Admin/paymentList/index',
-//        ),
+        'b6'  => array(
+            'pid'   => 'b',
+            'title' => '销售订单',
+            'icon'  => 'fa fa-bookmark-o',
+            'url'   => 'Admin/public/demo',
+        ),
+        'b7'  => array(
+            'pid'   => 'b',
+            'title' => '成本计算表',
+            'icon'  => 'fa fa-bookmark',
+            'url'   => 'Admin/public/demo',
+        ),
+
+
+
+        'b10'  => array(
+            'pid'   => 'b',
+            'title' => '财务结账',
+            'icon'  => 'fa fa-bookmark',
+            'url'   => 'Admin/CloseAccounts/index',
+        ),
+
+
 
         'c'  => array(
             'pid'   => '1',
@@ -219,19 +230,19 @@ return array(
             'pid'   => 'c',
             'title' => '库房即时查询',
             'icon'  => 'fa fa-eye',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/InstantInventory/index',
         ),
         'c2'  => array(
             'pid'   => 'c',
             'title' => '采购报表',
             'icon'  => 'fa fa-table',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/SummaryPurchase/index',
         ),
         'c3'  => array(
             'pid'   => 'c',
             'title' => '销售报表',
             'icon'  => 'fa fa-building-o',
-            'url'   => 'Admin/public/demo',
+            'url'   => 'Admin/SummarySales/index',
         ),
 
 
