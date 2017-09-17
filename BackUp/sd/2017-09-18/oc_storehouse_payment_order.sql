@@ -1,0 +1,42 @@
+
+DROP TABLE IF EXISTS `oc_storehouse_payment_order`;
+CREATE TABLE `oc_storehouse_payment_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `payment_order_type_name` varchar(50) DEFAULT '' COMMENT '付款单类型',
+  `payment_order_id` varchar(11) DEFAULT '' COMMENT '付款单编号',
+  `payment_order_invoice_number` varchar(50) DEFAULT '' COMMENT '发票号码',
+  `payment_order_payment_way` varchar(10) DEFAULT '' COMMENT '支付方式',
+  `payment_order_remark` varchar(50) DEFAULT '' COMMENT '摘要',
+  `payment_order_payment_account` varchar(20) DEFAULT '' COMMENT '支付账户',
+  `payment_order_price` decimal(10,2) DEFAULT '0.00' COMMENT '单据金额',
+  `payment_order_deposit_rate` decimal(4,2) DEFAULT '0.00' COMMENT '折扣率',
+  `payment_order_deposit_after_price` decimal(10,2) DEFAULT '0.00' COMMENT '折后金额',
+  `payment_order_tax_rate` decimal(4,2) DEFAULT '0.00' COMMENT '税率',
+  `payment_order_including_tax_price` decimal(10,2) DEFAULT '0.00' COMMENT '含税金额',
+  `payment_order_should_payment_price` decimal(10,2) DEFAULT '0.00' COMMENT '应付金额',
+  `payment_order_actual_payment` decimal(10,2) DEFAULT '0.00' COMMENT '实际支付',
+  `payment_order_payment_date` date DEFAULT NULL COMMENT '支付日期',
+  `payment_order_is_audited` int(2) DEFAULT '0' COMMENT '是否审核',
+  `payment_order_date` date DEFAULT NULL COMMENT '单据发生日期',
+  `customer_id` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 编号',
+  `customer_name` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 名称',
+  `storehouse_name` varchar(50) DEFAULT '' COMMENT '所属仓库',
+  `invoice_type` varchar(50) DEFAULT '' COMMENT '发票类型',
+  `username` varchar(50) DEFAULT '' COMMENT '操作人（英文）',
+  `nickname` varchar(50) DEFAULT '' COMMENT '操作人（中文）',
+  `clerk_name` varchar(50) DEFAULT '' COMMENT '业务员',
+  `entry_order_date` date DEFAULT '0000-00-00' COMMENT '单据发生日期',
+  `entry_order_id` varchar(50) DEFAULT '' COMMENT '单据编号',
+  `entry_order_price` decimal(10,2) DEFAULT '0.00' COMMENT '单据金额',
+  `entry_order_account_payable` decimal(10,2) DEFAULT '0.00' COMMENT '应付金额',
+  `already_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '已核销',
+  `no_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '未核销',
+  `now_clear_price` decimal(10,2) DEFAULT '0.00' COMMENT '本次核销',
+  `order_remark` varchar(20) DEFAULT '' COMMENT '商品备注',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '单据生成时间',
+  `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(3) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+INSERT INTO `oc_storehouse_payment_order` VALUES ('1', '预付款', 'FKD000001', '', '', '', '', '50.00', '0.00', '0.00', '0.00', '0.00', '50.00', '50.00', '2017-09-30', '1', '', 'GYS1001', 'XXX建材有限公司', '', '', 'admin', '超级管理员', '', '2017-09-14', 'CG000001', '150.00', '150.00', '100.00', '50.00', '50.00', '测试下雨', '2017-09-17 21:42:55', '0000-00-00 00:00:00', '1');
