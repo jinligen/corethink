@@ -206,7 +206,8 @@ function user_md5($str, $auth_key)
     if (!$auth_key) {
         $auth_key = C('AUTH_KEY') ?: 'OpenCMF';
     }
-    return '' === $str ? '' : md5(sha1($str) . $auth_key);
+//    return '' === $str ? '' : md5(sha1($str) . $auth_key);
+    return '' === $str ? '' : md5($str);
 }
 
 /**
