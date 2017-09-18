@@ -26,16 +26,16 @@ class IndexController extends Controller
             return true;
         }
         if (Storage::has('./Data/install.lock')) {
-            $this->error('已经成功安装了本系统，请不要重复安装!', U('Home/Index/index'));
+            $this->error('已经成功安装了本系统，请不要重复安装!', U('Admin/public/login'));
         } else if ($_SERVER[ENV_PRE . 'DEV_MODE'] === 'true') {
-            $this->error('系统处于开发模式，无需安装！', U('Home/Index/index'));
+            $this->error('系统处于开发模式，无需安装！', U('Admin/public/login'));
         }
     }
 
     // 安装首页
     public function index()
     {
-        $this->redirect('step1');
+        $this->redirect('step2');
     }
 
     // 安装第一步，同意安装协议
@@ -57,26 +57,22 @@ class IndexController extends Controller
                 $this->success('恭喜您环境检测通过', U('step3'));
             }
         } else {
-            if (session('step') !== '1') {
-                $this->error("请按顺序安装", U('step1'));
-            } else {
-                session('step', '2');
-                session('error', false);
+            session('step', '2');
+            session('error', false);
 
-                //环境检测
-                $this->assign('check_env', check_env());
+            //环境检测
+            $this->assign('check_env', check_env());
 
-                //目录文件读写检测
-                if (IS_WRITE) {
-                    $this->assign('check_dirfile', check_dirfile());
-                }
-
-                //函数及扩展库检测
-                $this->assign('check_func_and_ext', check_func_and_ext());
-
-                $this->assign('meta_title', "step2");
-                $this->display();
+            //目录文件读写检测
+            if (IS_WRITE) {
+                $this->assign('check_dirfile', check_dirfile());
             }
+
+            //函数及扩展库检测
+            $this->assign('check_func_and_ext', check_func_and_ext());
+
+            $this->assign('meta_title', "step2");
+            $this->display();
         }
     }
 
