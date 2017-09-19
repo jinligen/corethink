@@ -853,17 +853,22 @@ DROP TABLE IF EXISTS `oc_storehouse_out_order_view`;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
-CREATE TRIGGER `oc_storehouse_goods_check_trigger` BEFORE UPDATE ON `oc_storehouse_goods_check`
- FOR EACH ROW BEGIN
-    IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
+DELIMITER $$
+CREATE
+    TRIGGER `opencmf_corethink`.`oc_storehouse_goods_check_trigger` BEFORE UPDATE ON `oc_storehouse_goods_check`
+    FOR EACH ROW BEGIN
+	IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
 	     UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
 	END IF;
-END;
+    END$$
+DELIMITER ;
 
+
+DELIMITER $$
 CREATE TRIGGER `oc_storehouse_out_order_trigger` BEFORE UPDATE ON `oc_storehouse_out_order`
- FOR EACH ROW BEGIN
-    IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
+    FOR EACH ROW BEGIN
+	IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
 	     UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
 	END IF;
-END;
+    END$$
+DELIMITER ;

@@ -11,7 +11,28 @@
     <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
     <style id="style1">
 
+        .order-title{
+            text-align: center;position: relative
+        }
+        .order-title img{
+            position: absolute;
+            top: 0px;
+            right: 150px;
+            width: 60px;
+            /*display: none;*/
 
+        }
+        .audited{
+            display: block;
+            -webkit-animation-name:myanimation;
+            -webkit-animation-duration:1s;
+            -webkit-animation-timing-function:linear;
+        }
+        @-webkit-keyframes myanimation
+        {
+            0%{ -webkit-transform:scale(2);}
+            100%{ -webkit-transform:scale(1);}
+        }
         .nav-btn {
             display: flex;
             flex-direction: row;
@@ -110,8 +131,9 @@
 
     <div id="div1">
 
-        <div class="layui-row" style=" text-align: center">
+        <div class="layui-row order-title" style=" text-align: center">
             <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">付&nbsp;&nbsp;款&nbsp;&nbsp;单</span>
+            <img src="__PUBLIC__/imgs/audited.png"   :style="{ display: (headInfo.payment_order_is_audited==1?'block':'none')}"/>
         </div>
 
         <div class="form-head-row">
@@ -406,9 +428,12 @@
 
     <div class="print-content" style="display: none">
         <div id="print-headinfo">
-            <div class="layui-row" style=" text-align: center">
+
+            <div class="layui-row order-title" style=" text-align: center">
                 <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">付&nbsp;&nbsp;款&nbsp;&nbsp;单</span>
+                <img src="__PUBLIC__/imgs/audited.png"   :style="{ display: (headInfo.payment_order_is_audited==1?'block':'none')}"/>
             </div>
+
 
             <div class="form-head-row">
                 <div class="form-item " style="">
@@ -737,6 +762,8 @@
                          var data = eval('(' + data + ')');
 
                          if(data.error == '0000'){
+                             $('.order-title img').css('display','block');
+                             $('.order-title img').addClass('audited');
                              layer.msg('审核成功');
                              setTimeout(function () {
                                  window.location.reload();

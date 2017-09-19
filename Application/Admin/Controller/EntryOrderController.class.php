@@ -217,11 +217,20 @@ class EntryOrderController extends AdminController
             }
         } else {
 
+            $map['entry_order_type_name'] = array('like','%采购%');
+            $item = D('EntryOrder')->where($map)->order('entry_order_id desc')->find(); 
+            $num = D('Admin/Ids')->getNum($item['entry_order_id']);
+            $order_id = D('Admin/Ids')->getOrderId('CGRKD',$num);  
+            $this->assign('_order_id', ($order_id)); //系统生成单据编号
+            
+
+            
             // 使用FormBuilder快速建立表单页面。
             $this->assign('entry_order_type_name', '采购入库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
-             
+
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
+
 
             $this->display();
         }
@@ -276,6 +285,13 @@ class EntryOrderController extends AdminController
                 echo json_encode('{error:"0001",msg:"未插入任何数据！",data:[]}');
             }
         } else {
+            $map['entry_order_type_name'] = array('like','%产品%');
+            $item = D('EntryOrder')->where($map)->order('entry_order_id desc')->find();
+            $num = D('Admin/Ids')->getNum($item['entry_order_id']);
+            $order_id = D('Admin/Ids')->getOrderId('CPRKD',$num);
+            $this->assign('_order_id', ($order_id)); //系统生成单据编号
+
+
             // 使用FormBuilder快速建立表单页面。
             $this->assign('entry_order_type_name', '产品入库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表

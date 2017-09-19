@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
-    <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
     <style id="style1">
 
         .nav-btn {
@@ -42,7 +41,7 @@
     </div>
 
     <div id="div2">
-        <div class="layui-form layui-border-box layui-table-view" style="width:750px; ">
+        <div class="layui-form layui-border-box layui-table-view" style="width:780px; ">
             <div class="layui-table-header" id="fixed-header">
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table" >
                     <thead>
@@ -133,6 +132,10 @@
 
 <script>
 
+
+    setTimeout(function () {
+        $('#page').show()
+    },1000);
 
     var _list =   JSON.parse('{$_list}');
     var _date =  JSON.parse('{$_date}');

@@ -142,7 +142,7 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.payment_order_id"
+                        <input type="text" style="" v-model="headInfo.payment_order_id" readonly
                                @change="checkOrderId(headInfo.payment_order_id)"/>
                     </div>
                 </div>
@@ -690,7 +690,7 @@
             customer_id: '',
             customer_name: '',
             payment_order_payment_date: '',
-            payment_order_id: '',
+            payment_order_id: '{$_order_id}',
         },
         tableInfo: [],
         tableData: []

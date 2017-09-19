@@ -217,6 +217,13 @@ class OutOrderController extends AdminController
                 echo json_encode('{error:"0001",msg:"未插入任何数据！",data:[]}');
             }
         } else {
+            
+            $map['out_order_type_name'] = array('like','%销售%');
+            $item = D('OutOrder')->where($map)->order('out_order_id desc')->find();
+            $num = D('Admin/Ids')->getNum($item['out_order_id']);
+            $order_id = D('Admin/Ids')->getOrderId('XSCKD',$num);
+            $this->assign('_order_id', ($order_id)); //系统生成单据编号
+
             // 使用FormBuilder快速建立表单页面。
             $this->assign('out_order_type_name', '销售出库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
@@ -275,6 +282,13 @@ class OutOrderController extends AdminController
         } else {
             // 使用FormBuilder快速建立表单页面。
 
+            $map['out_order_type_name'] = array('like','%材料%');
+            $item = D('OutOrder')->where($map)->order('out_order_id desc')->find();
+            $num = D('Admin/Ids')->getNum($item['out_order_id']);
+            $order_id = D('Admin/Ids')->getOrderId('CLCKD',$num);
+            $this->assign('_order_id', ($order_id)); //系统生成单据编号
+
+            
             $this->assign('out_order_type_name', '材料出库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期

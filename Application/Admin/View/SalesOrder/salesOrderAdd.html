@@ -140,7 +140,7 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.sales_order_id"
+                        <input type="text" style="" v-model="headInfo.sales_order_id" readonly
                                @change="checkOrderId(headInfo.sales_order_id)"/>
                     </div>
                 </div>
@@ -574,7 +574,7 @@
             customer_id: '',
             customer_name: '',
             sales_order_date: '',
-            sales_order_id: '',
+            sales_order_id: '{$_order_id}',
 
             sales_order_remark: '',
             sales_order_give_date:''

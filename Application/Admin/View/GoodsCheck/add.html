@@ -144,7 +144,7 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.goods_check_id"
+                        <input type="text" style="" v-model="headInfo.goods_check_id" readonly
                                @change="checkOrderId(headInfo.goods_check_id)"/>
                     </div>
                 </div>
@@ -508,7 +508,7 @@
         isSave :true,
         thead: thead,
         headInfo: {
-            goods_check_id: '',
+            goods_check_id: '{$_order_id}',
             storehouse_name: '',
 
         },

@@ -138,7 +138,7 @@
                 <span class="title" style="">单据编号:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="text" style="" v-model="headInfo.entry_order_id"
+                        <input type="text" style="" v-model="headInfo.entry_order_id" readonly
                                @change="checkOrderId(headInfo.entry_order_id)"/>
                     </div>
                 </div>
@@ -731,7 +731,7 @@
             customer_id: '',
             customer_name: '',
             entry_order_date: '',
-            entry_order_id: '',
+            entry_order_id: '{$_order_id}',
             storehouse_name: '',
             entry_order_price: '',
             entry_order_actual_payment: '',

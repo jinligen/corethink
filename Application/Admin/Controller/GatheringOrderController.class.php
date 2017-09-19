@@ -148,6 +148,11 @@ class GatheringOrderController extends AdminController
             }
         } else {
             // 使用FormBuilder快速建立表单页面。
+            $item = D('GatheringOrder')->order('gathering_order_id desc')->find();
+            $num = D('Admin/Ids')->getNum($item['gathering_order_id']);
+            $order_id = D('Admin/Ids')->getOrderId('SKD',$num);
+            $this->assign('_order_id', ($order_id)); //系统生成单据编号
+
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
             $this->display();
