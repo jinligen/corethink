@@ -1,0 +1,25 @@
+body{
+    background: #fff;
+}
+
+#div2{
+    /*height: 100px !important;*/
+}
+.layui-form{
+
+    height: 460px !important;
+}
+.layui-table-main{
+    height: 380px !important;
+}
+
+.layui-table-fixed-l .layui-table-body{
+    height: 365px !important;
+}
+.layui-table-fixed-r .layui-table-body{
+    height: 365px !important;
+}
+.layui-table-view .layui-table td, .layui-table-view .layui-table th{
+    border: 1px rgba(0,0,0,0.4) solid;
+    text-align: center !important;
+}

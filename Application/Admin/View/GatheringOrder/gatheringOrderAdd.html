@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
     <style id="style1">
 
 
@@ -155,7 +156,7 @@
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
                         <select v-model="headInfo.gathering_order_type_name">
-                            <option value="采购收款">采购收款</option>
+                            <option value="销售收款">销售收款</option>
                             <option value="预收款">预收款</option>
                         </select>
                     </div>
@@ -419,6 +420,39 @@
 
             </div>
 
+            <div class="form-head-row" style="margin: 10px auto">
+                <div class="form-item " style="">
+                    <span class="title" style="">部门:</span>
+                    <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                        <div class="data-show" style="">&nbsp;{{headInfo.department}}</div>
+                        <div class="data-select" style="display: none;width: 100%;">
+                            <input type="text" style="" v-model="headInfo.department"/>
+                            <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;" @click="selectDepartmentList()">
+                                &#xe615;</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">业务员:</span>
+                    <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
+                        <div class="data-show" style="">&nbsp;{{headInfo.clerk_name}}</div>
+                        <div class="data-select" style="display: none;width: 100%;">
+                            <input type="text" style="" v-model="headInfo.clerk_name"/>
+                            <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;" @click="selectClerkList()">
+                                &#xe615;</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">制单人:{$_user_auth.nickname}</span>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">审核时间:{$_user_auth.audited_date}</span>
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -590,6 +624,25 @@
                 </tfoot>
             </table>
         </div>
+
+        <div   id="table-foot">
+            <div  style="text-align: left;margin-left: 20px">
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    部门: {{headInfo.department}}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    业务员: {{headInfo.clerk_name}}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    制单人: {$_user_auth.nickname}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    审核时间: {$_user_auth.audited_date}
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </div>
@@ -601,6 +654,7 @@
 <script src="__PUBLIC__/libs/vue/vue.js"></script>
 <!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
 
 <script>
     setTimeout(function () {
@@ -956,6 +1010,12 @@
                         } else if (self.headInfo.gathering_order_actual_payment == '') {
                             layer.msg('请填写本次支付');
                             flag = false;
+                        } else if (self.headInfo.department == '') {
+                            layer.msg('请选择部门');
+                            flag = false;
+                        } else if (self.headInfo.clerk_name == '') {
+                            layer.msg('请选择业务员');
+                            flag = false;
                         }
 
 
@@ -985,7 +1045,7 @@
 
             },
             print: function () { //打印
-                if(!this.isSave){
+                if (!this.isSave) {
                     layer.msg('单据未保存');
                     return;
                 }
@@ -1000,10 +1060,15 @@
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
 //                LODOP.SET_PRINT_PAGESIZE(1, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
-                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 800, $("#print-table").html());
+                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 400, $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
-                LODOP.ADD_PRINT_HTM(30, 0, 750, 130, strAllStyle + $('#print-headinfo').html());
+                LODOP.ADD_PRINT_HTM( $('#print-headinfo').height() + 400 + 40 , 10, 750, 20, strAllStyle + $("#table-foot").html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
+                LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
+                LODOP.SET_PRINT_STYLEA(0, "LinkedItem", 1);
+                LODOP.ADD_PRINT_HTM(30, 0, 750, 150, strAllStyle + $('#print-headinfo').html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
                 LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
@@ -1097,6 +1162,55 @@
                         }
 
 
+                    }
+                });
+            },
+            selectClerkList:function () {
+                var self = this;
+                var childPageBody;
+                layer.open({
+                    type: 2,
+                    skin: 'CLYM-style',
+                    area: ['500px', '560px'],
+                    title: '业务员列表',
+                    content: '/corethink/admin.php?s=/admin/public/clerkList',
+                    success: function (layero, index) {
+                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
+                    },
+                    end: function () {
+                        var ret = childPageBody.find('textarea#retData')
+                        var retInfo = ret.val()
+                        if (retInfo != '') {
+                            retInfo = JSON.parse(retInfo)
+                            self.headInfo.clerk_id = retInfo.clerk_id;
+                            self.headInfo.clerk_name = retInfo.clerk_name;
+                        }
+
+                        console.log(retInfo)
+                    }
+                });
+            },
+            selectDepartmentList: function () {
+                var self = this;
+                var childPageBody;
+                layer.open({
+                    type: 2,
+                    skin: 'CLYM-style',
+                    area: ['500px', '560px'],
+                    title: '部门列表',
+                    content: '/corethink/admin.php?s=/admin/public/departmentList',
+                    success: function (layero, index) {
+                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
+                    },
+                    end: function () {
+                        var ret = childPageBody.find('textarea#retData')
+                        var retInfo = ret.val()
+                        if (retInfo != '') {
+                            retInfo = JSON.parse(retInfo)
+                            self.headInfo.department = retInfo.customer_name;
+                        }
+
+                        console.log(retInfo)
                     }
                 });
             },

@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
     <style id="style1">
 
 
@@ -518,6 +519,7 @@
 <script src="__PUBLIC__/libs/vue/vue.js"></script>
 <!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
 
 <script>
     setTimeout(function () {
@@ -687,7 +689,7 @@
 
             },print: function () { //打印
                 if (!this.isSave) {
-                    layer.msg('单据为保存');
+                    layer.msg('单据未审核');
                     return;
                 }
                 LODOP = getLodop();

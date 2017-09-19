@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
     <style id="style1">
 
 
@@ -90,7 +91,16 @@
             text-align: center;
         }
 
-
+        #table-foot{
+            width: 750px;
+            margin-bottom: 100px;
+        }
+        #table-foot span{
+            display: inline-block;
+            width: 25%;
+            text-align: left;
+            color: red;
+        }
     </style>
 
 </head>
@@ -437,6 +447,24 @@
             </div>
 
 
+            <div >
+                <div  style="text-align: left;margin-left: 20px;margin-top: 10px">
+                    <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                        部门: {{headInfo.department}}
+                    </div>
+                    <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                        业务员: {{headInfo.clerk_name}}
+                    </div>
+                    <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                        制单人: {$_user_auth.nickname}
+                    </div>
+                    <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                        审核时间: {$_user_auth.audited_date}
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
@@ -633,7 +661,27 @@
                 </tr>
                 </tfoot>
             </table>
+
         </div>
+
+        <div   id="table-foot">
+            <div  style="text-align: left;margin-left: 20px;margin-top: 10px">
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    部门: {{headInfo.department}}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    业务员: {{headInfo.clerk_name}}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    制单人: {$_user_auth.nickname}
+                </div>
+                <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
+                    审核时间: {$_user_auth.audited_date}
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </div>
@@ -645,6 +693,7 @@
 <script src="__PUBLIC__/libs/vue/vue.js"></script>
 <!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
 
 <script>
     setTimeout(function () {
@@ -754,7 +803,7 @@
                 var leng = this.tableInfo.length % 10 === 0 ? (this.tableInfo.length === 0 ? 10 : 0) : 10 - this.tableInfo.length % 10;
 
 
-                for (var i = 0; i < leng + 5; i++) {
+                for (var i = 0; i < leng; i++) {
                     this.tableInfo.push({
                         goods_id: '',
                         goods_name: '',
@@ -834,9 +883,14 @@
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
 //                LODOP.SET_PRINT_PAGESIZE(1, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
-                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 800, $("#print-table").html());
+                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 0, 750, 400, $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
+                LODOP.ADD_PRINT_HTM( $('#print-headinfo').height() + 400 + 40 , 10, 750, 20, strAllStyle + $("#table-foot").html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
+                LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
+                LODOP.SET_PRINT_STYLEA(0, "LinkedItem", 1);
                 LODOP.ADD_PRINT_HTM(30, 0, 750, 150, strAllStyle + $('#print-headinfo').html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);

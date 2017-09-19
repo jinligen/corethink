@@ -28,6 +28,7 @@ class ClerkModel extends Model
      */
     protected $_validate = array(
 
+        array('clerk_id', 'require', '业务员编号不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('clerk_phone', 'require', '电话不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('clerk_name', 'require', '业务员名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('clerk_phone', '/^1\d{10}$/', '电话号码格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),

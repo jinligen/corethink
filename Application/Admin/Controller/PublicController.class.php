@@ -129,6 +129,37 @@ class PublicController extends CommonController
     }
 
     /**
+     * 获取业务员列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function clerkList()
+    {
+
+        $list = D('storehouse_clerk')->select();
+
+        $this->assign('_list',  json_encode($list));
+//        echo  var_dump( $type);exit;
+        $this->display();
+    }
+    /**
+     * 获取部门列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function departmentList()
+    {
+
+        $map['types'] = array('like','%部门%');
+        $list = D('storehouse_customer')->where($map)->select();
+
+        $this->assign('_list',  json_encode($list));
+//        echo  var_dump( $type);exit;
+        $this->display();
+    }
+
+
+    /**
      * 获取应付列表
      * @param  integer $id 验证码ID
      * @return boolean 检测结果
@@ -291,19 +322,6 @@ class PublicController extends CommonController
         }
 
     }
-
-
-    /**
-     * 获取业务员列表
-     * @param  integer $id 验证码ID
-     * @return boolean 检测结果
-     */
-    public function clerkList()
-    {
-
-        $this->display();
-    }
-
 
 
 

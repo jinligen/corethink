@@ -38,6 +38,7 @@ class ClerkController extends AdminController
             ->addTopButton('delete') // 添加删除按钮
 
             ->addTableColumn('id', 'ID')
+            ->addTableColumn('clerk_id', '业务员编号')
             ->addTableColumn('clerk_name', '业务员名称')
             ->addTableColumn('clerk_phone', '电话')
 
@@ -77,6 +78,7 @@ class ClerkController extends AdminController
             $builder->setMetaTitle('新增') //设置页面标题
                 ->setPostUrl(U('add')) //设置表单提交地址
 
+                ->addFormItem('clerk_id', 'text', '业务员编号', '','','','')
                 ->addFormItem('clerk_name', 'text', '业务员名称', '','','','')
                 ->addFormItem('clerk_phone', 'num', '电话', '','','','')
 
@@ -97,9 +99,7 @@ class ClerkController extends AdminController
             $d_object = D('Clerk');
             $data        = $d_object->create();
             if ($data) {
-                $result = $d_object
-                    ->field('id,clerk_id,clerk_name,update_time')
-                    ->save($data);
+                $result = $d_object ->save($data);
                 if ($result) {
                     $this->success('更新成功', U('index'));
                 } else {
@@ -117,6 +117,7 @@ class ClerkController extends AdminController
             $builder->setMetaTitle('编辑') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
+                ->addFormItem('clerk_id', 'text', '业务员编号', '','','','')
                 ->addFormItem('clerk_name', 'text', '业务员名称', '','','','')
                 ->addFormItem('clerk_phone', 'num', '电话', '','','','')
 
