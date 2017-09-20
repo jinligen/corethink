@@ -37,7 +37,7 @@ class CloseAccountsController extends AdminController
             ->addTopButton('addnew') // 添加新增按钮
 
             ->addTableColumn('id', 'ID')
-            ->addTableColumn('close_date', '结账日期')
+            ->addTableColumn('close_date', '结账月份')
             ->addTableColumn('nickname', '操作人')
 //
 //            ->addTableColumn('create_time', '创建时间')
@@ -78,7 +78,7 @@ class CloseAccountsController extends AdminController
             $builder->setMetaTitle('新增') //设置页面标题
                 ->setPostUrl(U('add')) //设置表单提交地址
 
-                ->addFormItem('close_date', 'date', '结账日期', '','','','')
+                ->addFormItem('close_date', 'yearmonth', '结账月份', '','','','')
 
                 ->setFormData()
                 ->display();
@@ -118,7 +118,7 @@ class CloseAccountsController extends AdminController
             $builder->setMetaTitle('编辑') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
-                ->addFormItem('close_date', 'date', '结账日期', '','','','')
+                ->addFormItem('close_date', 'yearmonth', '结账月份', '','','','')
 
                 ->setFormData($info)
                 ->display();

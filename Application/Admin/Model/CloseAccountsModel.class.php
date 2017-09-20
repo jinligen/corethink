@@ -36,7 +36,7 @@ class CloseAccountsModel extends Model
     public function getCloseDate(){
         $list = $this->order('close_date desc')->limit(1)->getField('close_date',true);
 
-        return $list?$list[0]:'000-00-00';
+        return $list?$list[0].'-01':'0000-00-00';
     }
 
 }
