@@ -118,7 +118,9 @@
 
 
     </div>
-    <textarea placeholder="备份开始..." class="layui-textarea" style="height: 300px;border: hidden" id="msg"></textarea>
+    <div   class="layui-textarea" style="height: 300px;border: hidden" id="msg">
+        准备...
+    </div>
 </div>
 
 
@@ -242,7 +244,7 @@ console.log(_date)
     });
 
     function processReturn(msg){
-        $('#msg').val($('#msg').val() + '\n' + msg);
+        $('#msg').html($('#msg').html() + '<br/>' + msg);
     }
 </script>
 

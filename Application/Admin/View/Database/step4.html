@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>安装{:C('INSTALL_PRODUCT_NAME')}－{$meta_title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+    <link rel="stylesheet" type="text/css" href="__CUI__/css/cui.min.css">
+    <script type="text/javascript" src="__PUBLIC__/libs/jquery/1.x/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__CUI__/js/cui.min.js"></script>
+</head>
+<body style="background-color: #f6f6f6;">
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>开始安装</span>
+            </div>
+            <div class="panel-body">
+                <div id="show-list" class="install-database">
+                </div>
+                <script type="text/javascript">
+                    var list   = document.getElementById('show-list');
+                    function showmsg(msg, classname){
+                        var li = document.createElement('p');
+                        li.innerHTML = msg;
+                        classname && li.setAttribute('class', classname);
+                        list.appendChild(li);
+                        document.scrollTop += 30;
+                    }
+                </script>
+                <button class="btn btn-warning disabled">正在安装，请稍后...</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

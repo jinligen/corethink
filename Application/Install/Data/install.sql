@@ -1,32 +1,5 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 4541
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
-# Host: 127.0.0.1 (MySQL 5.5.50-0ubuntu0.14.04.1)
-# Database: corethink
-# Generation Time: 2016-08-14 11:53:25 +0000
-# ************************************************************
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
-# Dump of table oc_admin_access
-# ------------------------------------------------------------
-
-/*Table structure for table `oc_admin_access` */
 
 DROP TABLE IF EXISTS `oc_admin_access`;
-
 CREATE TABLE `oc_admin_access` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -38,14 +11,12 @@ CREATE TABLE `oc_admin_access` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='后台管理员与用户组对应关系表';
 
-/*Data for the table `oc_admin_access` */
+INSERT INTO `oc_admin_access` VALUES ('1', '1', '1', '1438651748', '1438651748', '0', '1');
+INSERT INTO `oc_admin_access` VALUES ('4', '2', '2', '1504080046', '1504597267', '0', '1');
 
-insert  into `oc_admin_access`(`id`,`uid`,`group`,`create_time`,`update_time`,`sort`,`status`) values (1,1,1,1438651748,1438651748,0,1),(4,2,2,1504080046,1504597267,0,1);
 
-/*Table structure for table `oc_admin_addon` */
 
 DROP TABLE IF EXISTS `oc_admin_addon`;
-
 CREATE TABLE `oc_admin_addon` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(32) NOT NULL DEFAULT '' COMMENT '插件名或标识',
@@ -63,14 +34,11 @@ CREATE TABLE `oc_admin_addon` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='插件表';
 
-/*Data for the table `oc_admin_addon` */
+INSERT INTO `oc_admin_addon` VALUES ('1', 'RocketToTop', '小火箭返回顶部', '小火箭返回顶部', '{"status":"1"}', 'OpenCMF', '1.2.0', '0', '0', '1471175585', '1471175585', '0', '1');
 
-insert  into `oc_admin_addon`(`id`,`name`,`title`,`description`,`config`,`author`,`version`,`adminlist`,`type`,`create_time`,`update_time`,`sort`,`status`) values (1,'RocketToTop','小火箭返回顶部','小火箭返回顶部','{\"status\":\"1\"}','OpenCMF','1.2.0',0,0,1471175585,1471175585,0,1);
 
-/*Table structure for table `oc_admin_config` */
 
 DROP TABLE IF EXISTS `oc_admin_config`;
-
 CREATE TABLE `oc_admin_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '配置标题',
@@ -87,14 +55,37 @@ CREATE TABLE `oc_admin_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
-/*Data for the table `oc_admin_config` */
+INSERT INTO `oc_admin_config` VALUES ('1', '站点开关', 'TOGGLE_WEB_SITE', '0', '1', 'select', '0:关闭1:开启', '站点关闭后将不能访问', '1378898976', '1406992386', '1', '1');
+INSERT INTO `oc_admin_config` VALUES ('3', '网站口号', 'WEB_SITE_SLOGAN', '互联网WEB产品最佳选择', '1', 'text', '', '网站口号、宣传标语、一句话介绍', '1434081649', '1434081649', '3', '1');
+INSERT INTO `oc_admin_config` VALUES ('4', '网站LOGO', 'WEB_SITE_LOGO', '', '1', 'picture', '', '网站LOGO', '1407003397', '1407004692', '4', '1');
+INSERT INTO `oc_admin_config` VALUES ('5', '网站描述', 'WEB_SITE_DESCRIPTION', 'CoreThink是一套基于统一核心的通用互联网+信息化服务解决方案，追求简单、高效、卓越。可轻松实现支持多终端的WEB产品快速搭建、部署、上线。系统功能采用模块化、组件化、插件化等开放化低耦合设计，应用商城拥有丰富的功能模块、插件、主题，便于用户灵活扩展和二次开发。', '1', 'textarea', '', '网站搜索引擎描述', '1378898976', '1379235841', '5', '1');
+INSERT INTO `oc_admin_config` VALUES ('6', '网站关键字', 'WEB_SITE_KEYWORD', 'OpenCMF、CoreThink、南京科斯克网络科技', '1', 'textarea', '', '网站搜索引擎关键字', '1378898976', '1381390100', '6', '1');
+INSERT INTO `oc_admin_config` VALUES ('7', '版权信息', 'WEB_SITE_COPYRIGHT', 'Copyright © 南京科斯克网络科技有限公司 All rights reserved.', '1', 'text', '', '设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”', '1406991855', '1406992583', '7', '1');
+INSERT INTO `oc_admin_config` VALUES ('8', '网站备案号', 'WEB_SITE_ICP', '苏ICP备1502009-2号', '1', 'text', '', '设置在网站底部显示的备案号，如“苏ICP备1502009-2号"', '1378900335', '1415983236', '8', '1');
+INSERT INTO `oc_admin_config` VALUES ('9', '站点统计', 'WEB_SITE_STATISTICS', '', '1', 'textarea', '', '支持百度、Google、cnzz等所有Javascript的统计代码', '1378900335', '1415983236', '9', '1');
+INSERT INTO `oc_admin_config` VALUES ('10', '文件上传大小', 'UPLOAD_FILE_SIZE', '10', '2', 'num', '', '文件上传大小单位：MB', '1428681031', '1428681031', '1', '1');
+INSERT INTO `oc_admin_config` VALUES ('11', '图片上传大小', 'UPLOAD_IMAGE_SIZE', '2', '2', 'num', '', '图片上传大小单位：MB', '1428681071', '1428681071', '2', '1');
+INSERT INTO `oc_admin_config` VALUES ('12', '后台多标签', 'ADMIN_TABS', '1', '2', 'radio', '0:关闭1:开启', '', '1453445526', '1453445526', '3', '1');
+INSERT INTO `oc_admin_config` VALUES ('13', '分页数量', 'ADMIN_PAGE_ROWS', '10', '2', 'num', '', '分页时每页的记录数', '1434019462', '1434019481', '4', '1');
+INSERT INTO `oc_admin_config` VALUES ('14', '后台主题', 'ADMIN_THEME', 'default', '2', 'select', 'default:默认主题blue:蓝色理想green:绿色生活', '后台界面主题', '1436678171', '1436690570', '5', '1');
+INSERT INTO `oc_admin_config` VALUES ('15', '导航分组', 'NAV_GROUP_LIST', 'main:主导航top:顶部导航bottom:底部导航wap_bottom:Wap底部导航', '2', 'array', '', '导航分组', '1458382037', '1458382061', '6', '1');
+INSERT INTO `oc_admin_config` VALUES ('16', '配置分组', 'CONFIG_GROUP_LIST', '1:基本2:系统3:开发4:部署5:授权', '2', 'array', '', '配置分组', '1379228036', '1426930700', '7', '1');
+INSERT INTO `oc_admin_config` VALUES ('17', '开发模式', 'DEVELOP_MODE', '0', '3', 'select', '1:开启0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', '1432393583', '1432393583', '1', '1');
+INSERT INTO `oc_admin_config` VALUES ('18', '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', '3', 'select', '0:关闭1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '2', '1');
+INSERT INTO `oc_admin_config` VALUES ('19', '系统加密KEY', 'AUTH_KEY', 'ViS*vA>)G`RTf.eC/o>cZ$&Yu`YUO|BEP$S%oECC}u$QOd"J+=-_U:@Xh}Z<;L{K', '3', 'textarea', '', '轻易不要修改此项，否则容易造成用户无法登录；如要修改，务必备份原key', '1438647773', '1438647815', '3', '1');
+INSERT INTO `oc_admin_config` VALUES ('20', 'URL模式', 'URL_MODEL', '3', '4', 'select', '0:普通模式1:PATHINFO模式2:REWRITE模式3:兼容模式', '', '1438423248', '1438423248', '1', '1');
+INSERT INTO `oc_admin_config` VALUES ('21', '静态文件独立域名', 'STATIC_DOMAIN', '', '4', 'text', '', '静态文件独立域名一般用于在用户无感知的情况下平和的将网站图片自动存储到腾讯万象优图、又拍云等第三方服务。', '1438564784', '1438564784', '2', '1');
+INSERT INTO `oc_admin_config` VALUES ('22', '开启子域名配置', 'APP_SUB_DOMAIN_DEPLOY', '0', '4', 'radio', '1:是0:否', '是否开启子域名配置', '1467549933', '1467549933', '3', '1');
+INSERT INTO `oc_admin_config` VALUES ('23', '子域名规则', 'APP_SUB_DOMAIN_RULES', '', '4', 'array', '', '子域名规则', '1467549993', '1467549993', '4', '1');
+INSERT INTO `oc_admin_config` VALUES ('24', '域名后缀', 'APP_DOMAIN_SUFFIX', '', '4', 'text', '', 'com.cn 、net.cn之类的需要配置此项', '1467550066', '1467550066', '5', '1');
+INSERT INTO `oc_admin_config` VALUES ('25', '强制Wap主题', 'WAP_MODE', '0', '4', 'radio', '1:是0:否', '是否在电脑端强制显示Wap主题', '1467121607', '1467121607', '6', '1');
+INSERT INTO `oc_admin_config` VALUES ('26', '官网账号', 'AUTH_USERNAME', 'trial', '5', 'text', '', '官网登陆账号（用户名）', '1438647815', '1438647815', '1', '1');
+INSERT INTO `oc_admin_config` VALUES ('27', '官网密码', 'AUTH_PASSWORD', 'trial', '5', 'text', '', '官网密码', '1438647815', '1438647815', '2', '1');
+INSERT INTO `oc_admin_config` VALUES ('28', '密钥', 'AUTH_SN', '', '5', 'textarea', '', '密钥请通过登陆官网至个人中心获取', '1438647815', '1438647815', '3', '1');
 
-insert  into `oc_admin_config`(`id`,`title`,`name`,`value`,`group`,`type`,`options`,`tip`,`create_time`,`update_time`,`sort`,`status`) values (1,'站点开关','TOGGLE_WEB_SITE','0',1,'select','0:关闭1:开启','站点关闭后将不能访问',1378898976,1406992386,1,1),(3,'网站口号','WEB_SITE_SLOGAN','互联网WEB产品最佳选择',1,'text','','网站口号、宣传标语、一句话介绍',1434081649,1434081649,3,1),(4,'网站LOGO','WEB_SITE_LOGO','',1,'picture','','网站LOGO',1407003397,1407004692,4,1),(5,'网站描述','WEB_SITE_DESCRIPTION','CoreThink是一套基于统一核心的通用互联网+信息化服务解决方案，追求简单、高效、卓越。可轻松实现支持多终端的WEB产品快速搭建、部署、上线。系统功能采用模块化、组件化、插件化等开放化低耦合设计，应用商城拥有丰富的功能模块、插件、主题，便于用户灵活扩展和二次开发。',1,'textarea','','网站搜索引擎描述',1378898976,1379235841,5,1),(6,'网站关键字','WEB_SITE_KEYWORD','OpenCMF、CoreThink、南京科斯克网络科技',1,'textarea','','网站搜索引擎关键字',1378898976,1381390100,6,1),(7,'版权信息','WEB_SITE_COPYRIGHT','Copyright © 南京科斯克网络科技有限公司 All rights reserved.',1,'text','','设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”',1406991855,1406992583,7,1),(8,'网站备案号','WEB_SITE_ICP','苏ICP备1502009-2号',1,'text','','设置在网站底部显示的备案号，如“苏ICP备1502009-2号\"',1378900335,1415983236,8,1),(9,'站点统计','WEB_SITE_STATISTICS','',1,'textarea','','支持百度、Google、cnzz等所有Javascript的统计代码',1378900335,1415983236,9,1),(10,'文件上传大小','UPLOAD_FILE_SIZE','10',2,'num','','文件上传大小单位：MB',1428681031,1428681031,1,1),(11,'图片上传大小','UPLOAD_IMAGE_SIZE','2',2,'num','','图片上传大小单位：MB',1428681071,1428681071,2,1),(12,'后台多标签','ADMIN_TABS','1',2,'radio','0:关闭1:开启','',1453445526,1453445526,3,1),(13,'分页数量','ADMIN_PAGE_ROWS','10',2,'num','','分页时每页的记录数',1434019462,1434019481,4,1),(14,'后台主题','ADMIN_THEME','default',2,'select','default:默认主题blue:蓝色理想green:绿色生活','后台界面主题',1436678171,1436690570,5,1),(15,'导航分组','NAV_GROUP_LIST','main:主导航top:顶部导航bottom:底部导航wap_bottom:Wap底部导航',2,'array','','导航分组',1458382037,1458382061,6,1),(16,'配置分组','CONFIG_GROUP_LIST','1:基本2:系统3:开发4:部署5:授权',2,'array','','配置分组',1379228036,1426930700,7,1),(17,'开发模式','DEVELOP_MODE','0',3,'select','1:开启0:关闭','开发模式下会显示菜单管理、配置管理、数据字典等开发者工具',1432393583,1432393583,1,1),(18,'是否显示页面Trace','SHOW_PAGE_TRACE','0',3,'select','0:关闭1:开启','是否显示页面Trace信息',1387165685,1387165685,2,1),(19,'系统加密KEY','AUTH_KEY','oQ[Kme<T{%x$ct&}Y!,WFgT_J>~!_u_?Ze{fL*&%F\"BJ,*=p:bn}uYitbluJ\"rd}',3,'textarea','','轻易不要修改此项，否则容易造成用户无法登录；如要修改，务必备份原key',1438647773,1438647815,3,1),(20,'URL模式','URL_MODEL','3',4,'select','0:普通模式1:PATHINFO模式2:REWRITE模式3:兼容模式','',1438423248,1438423248,1,1),(21,'静态文件独立域名','STATIC_DOMAIN','',4,'text','','静态文件独立域名一般用于在用户无感知的情况下平和的将网站图片自动存储到腾讯万象优图、又拍云等第三方服务。',1438564784,1438564784,2,1),(22,'开启子域名配置','APP_SUB_DOMAIN_DEPLOY','0',4,'radio','1:是0:否','是否开启子域名配置',1467549933,1467549933,3,1),(23,'子域名规则','APP_SUB_DOMAIN_RULES','',4,'array','','子域名规则',1467549993,1467549993,4,1),(24,'域名后缀','APP_DOMAIN_SUFFIX','',4,'text','','com.cn 、net.cn之类的需要配置此项',1467550066,1467550066,5,1),(25,'强制Wap主题','WAP_MODE','0',4,'radio','1:是0:否','是否在电脑端强制显示Wap主题',1467121607,1467121607,6,1),(26,'官网账号','AUTH_USERNAME','trial',5,'text','','官网登陆账号（用户名）',1438647815,1438647815,1,1),(27,'官网密码','AUTH_PASSWORD','trial',5,'text','','官网密码',1438647815,1438647815,2,1),(28,'密钥','AUTH_SN','',5,'textarea','','密钥请通过登陆官网至个人中心获取',1438647815,1438647815,3,1);
 
-/*Table structure for table `oc_admin_group` */
 
 DROP TABLE IF EXISTS `oc_admin_group`;
-
 CREATE TABLE `oc_admin_group` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '部门ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级部门ID',
@@ -108,14 +99,12 @@ CREATE TABLE `oc_admin_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='部门信息表';
 
-/*Data for the table `oc_admin_group` */
+INSERT INTO `oc_admin_group` VALUES ('1', '0', '超级管理员', '', '', '1426881003', '1427552428', '0', '1');
+INSERT INTO `oc_admin_group` VALUES ('2', '0', '库房', 'fa-folder', '{"Admin":["1","a","a2","a22","a3","a33","a4","a43"]}', '1503989351', '1504597248', '0', '1');
 
-insert  into `oc_admin_group`(`id`,`pid`,`title`,`icon`,`menu_auth`,`create_time`,`update_time`,`sort`,`status`) values (1,0,'超级管理员','','',1426881003,1427552428,0,1),(2,0,'库房','fa-folder','{\"Admin\":[\"1\",\"a\",\"a2\",\"a22\",\"a3\",\"a33\",\"a4\",\"a43\"]}',1503989351,1504597248,0,1);
 
-/*Table structure for table `oc_admin_hook` */
 
 DROP TABLE IF EXISTS `oc_admin_hook`;
-
 CREATE TABLE `oc_admin_hook` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '钩子ID',
   `name` varchar(32) NOT NULL DEFAULT '' COMMENT '钩子名称',
@@ -128,14 +117,16 @@ CREATE TABLE `oc_admin_hook` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='钩子表';
 
-/*Data for the table `oc_admin_hook` */
+INSERT INTO `oc_admin_hook` VALUES ('1', 'AdminIndex', '后台首页小工具', '后台首页小工具', '1', '1446522155', '1446522155', '1');
+INSERT INTO `oc_admin_hook` VALUES ('2', 'FormBuilderExtend', 'FormBuilder类型扩展Builder', '', '1', '1447831268', '1447831268', '1');
+INSERT INTO `oc_admin_hook` VALUES ('3', 'UploadFile', '上传文件钩子', '', '1', '1407681961', '1407681961', '1');
+INSERT INTO `oc_admin_hook` VALUES ('4', 'PageHeader', '页面header钩子，一般用于加载插件CSS文件和代码', '', '1', '1407681961', '1407681961', '1');
+INSERT INTO `oc_admin_hook` VALUES ('5', 'PageFooter', '页面footer钩子，一般用于加载插件CSS文件和代码', 'RocketToTop', '1', '1407681961', '1407681961', '1');
+INSERT INTO `oc_admin_hook` VALUES ('6', 'CommonHook', '通用钩子，自定义用途，一般用来定制特殊功能', '', '1', '1456147822', '1456147822', '1');
 
-insert  into `oc_admin_hook`(`id`,`name`,`description`,`addons`,`type`,`create_time`,`update_time`,`status`) values (1,'AdminIndex','后台首页小工具','后台首页小工具',1,1446522155,1446522155,1),(2,'FormBuilderExtend','FormBuilder类型扩展Builder','',1,1447831268,1447831268,1),(3,'UploadFile','上传文件钩子','',1,1407681961,1407681961,1),(4,'PageHeader','页面header钩子，一般用于加载插件CSS文件和代码','',1,1407681961,1407681961,1),(5,'PageFooter','页面footer钩子，一般用于加载插件CSS文件和代码','RocketToTop',1,1407681961,1407681961,1),(6,'CommonHook','通用钩子，自定义用途，一般用来定制特殊功能','',1,1456147822,1456147822,1);
 
-/*Table structure for table `oc_admin_module` */
 
 DROP TABLE IF EXISTS `oc_admin_module`;
-
 CREATE TABLE `oc_admin_module` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(31) NOT NULL DEFAULT '' COMMENT '名称',
@@ -157,14 +148,11 @@ CREATE TABLE `oc_admin_module` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='模块功能表';
 
-/*Data for the table `oc_admin_module` */
+INSERT INTO `oc_admin_module` VALUES ('1', 'Admin', '系统', '', 'fa fa-cog', '#3CA6F1', '核心系统', '南京科斯克网络科技有限公司', '1.3.0', '', '', '{"1":{"pid":"0","title":"u7cfbu7edf","icon":"fa fa-cog","level":"system","id":"1"},"a":{"pid":"1","title":"u7cfbu7edfu529fu80fd","icon":"fa fa-folder-open-o","id":"a"},"a1":{"pid":"a","title":"u7cfbu7edfu8bbeu7f6e","icon":"fa fa-wrench","url":"Admin/Config/group","id":"a1"},"a11":{"pid":"a1","title":"u4feeu6539u8bbeu7f6e","url":"Admin/Config/groupSave","id":"a11"},"a2":{"pid":"a","title":"u7528u6237u5217u8868","icon":"fa fa-user","url":"Admin/User/index","id":"a2"},"a21":{"pid":"a2","title":"u65b0u589e","url":"Admin/User/add","id":"a21"},"a22":{"pid":"a2","title":"u7f16u8f91","url":"Admin/User/edit","id":"a22"},"a23":{"pid":"a2","title":"u8bbeu7f6eu72b6u6001","url":"Admin/User/setStatus","id":"a23"},"a3":{"pid":"a","title":"u7528u6237u5206u7ec4","icon":"fa fa-lock","url":"Admin/Access/index","id":"a3"},"a31":{"pid":"a3","title":"u65b0u589e","url":"Admin/Access/add","id":"a31"},"a32":{"pid":"a3","title":"u7f16u8f91","url":"Admin/Access/edit","id":"a32"},"a33":{"pid":"a3","title":"u8bbeu7f6eu72b6u6001","url":"Admin/Access/setStatus","id":"a33"},"a4":{"pid":"a","title":"u89d2u8272u7ba1u7406","icon":"fa fa-sitemap","url":"Admin/Group/index","id":"a4"},"a41":{"pid":"a4","title":"u65b0u589e","url":"Admin/Group/add","id":"a41"},"a42":{"pid":"a4","title":"u7f16u8f91","url":"Admin/Group/edit","id":"a42"},"a43":{"pid":"a4","title":"u8bbeu7f6eu72b6u6001","url":"Admin/Group/setStatus","id":"a43"},"a5":{"pid":"a","title":"u529fu80fdu6a21u5757","icon":"fa fa-th-large","url":"Admin/Module/index","id":"a5"},"a51":{"pid":"a5","title":"u5b89u88c5","url":"Admin/Module/install","id":"a51"},"a52":{"pid":"a5","title":"u5378u8f7d","url":"Admin/Module/uninstall","id":"a52"},"a53":{"pid":"a5","title":"u66f4u65b0u4fe1u606f","url":"Admin/Module/updateInfo","id":"a53"},"a54":{"pid":"a5","title":"u8bbeu7f6eu72b6u6001","url":"Admin/Module/setStatus","id":"a54"},"a6":{"pid":"a","title":"u6570u636eu5907u4efd/u8fd8u539f","icon":"fa fa-book","url":"admin/database/index","id":"a6"},"b":{"pid":"1","title":"u5e93u5b58u7ba1u7406","icon":"fa fa-folder-open-o","id":"b"},"b1":{"pid":"b","title":"u91c7u8d2du5165u5e93u5355","icon":"fa fa-file-o","url":"Admin/EntryOrder/purchaseEntryOrder","id":"b1"},"b8":{"pid":"b","title":"u4ea7u54c1u5165u5e93u5355","icon":"fa fa-file-o","url":"Admin/EntryOrder/productEntryOrder","id":"b8"},"b2":{"pid":"b","title":"u6750u6599u51fau5e93u5355","icon":"fa fa-files-o","url":"Admin/OutOrder/materialOutOrder","id":"b2"},"b9":{"pid":"b","title":"u9500u552eu51fau5e93u5355","icon":"fa fa-files-o","url":"Admin/OutOrder/salesOutOrder","id":"b9"},"b3":{"pid":"b","title":"u4ed8u6b3eu5355","icon":"fa fa-list-alt","url":"Admin/PaymentOrder/index","id":"b3"},"b4":{"pid":"b","title":"u6536u6b3eu5355","icon":"fa fa-floppy-o","url":"Admin/GatheringOrder/index","id":"b4"},"b5":{"pid":"b","title":"u76d8u70b9u5217u8868","icon":"fa fa-list-ol","url":"Admin/GoodsCheck/index","id":"b5"},"b6":{"pid":"b","title":"u9500u552eu8ba2u5355","icon":"fa fa-bookmark-o","url":"Admin/SalesOrder/index","id":"b6"},"b7":{"pid":"b","title":"u6210u672cu8ba1u7b97u8868","icon":"fa fa-bookmark","url":"Admin/public/demo","id":"b7"},"b10":{"pid":"b","title":"u8d22u52a1u7ed3u8d26","icon":"fa fa-bookmark","url":"Admin/CloseAccounts/index","id":"b10"},"c":{"pid":"1","title":"u62a5u8868u7ba1u7406","icon":"fa fa-bar-chart-o","id":"c"},"c1":{"pid":"c","title":"u5e93u623fu5373u65f6u67e5u8be2","icon":"fa fa-eye","url":"Admin/InstantInventory/index","id":"c1"},"c2":{"pid":"c","title":"u91c7u8d2du62a5u8868","icon":"fa fa-table","url":"Admin/SummaryPurchase/index","id":"c2"},"c3":{"pid":"c","title":"u9500u552eu62a5u8868","icon":"fa fa-building-o","url":"Admin/SummarySales/index","id":"c3"},"d":{"pid":"1","title":"u57fau7840u4fe1u606fu7ba1u7406","icon":"fa fa-folder-open-o","id":"d"},"d1":{"pid":"d","title":"u4ed3u5e93u4fe1u606f","icon":"fa fa-info-circle","url":"Admin/StoreHouseInfo/index","id":"d1"},"d2":{"pid":"d","title":"u5546u54c1u4fe1u606f","icon":"fa fa-info","url":"Admin/goods/index","id":"d2"},"d3":{"pid":"d","title":"u5546u54c1u7c7bu578b","icon":"fa fa-wrench","url":"Admin/goodsType/index","id":"d3"},"d4":{"pid":"d","title":"u5ba2u6237u5217u8868","icon":"fa fa-user-md","url":"Admin/customer/index","id":"d4"},"d5":{"pid":"d","title":"u4e1au52a1u5458u5217u8868","icon":"fa fa-user","url":"Admin/clerk/index","id":"d5"}}', '1', '1438651748', '1505715698', '0', '1');
 
-insert  into `oc_admin_module`(`id`,`name`,`title`,`logo`,`icon`,`icon_color`,`description`,`developer`,`version`,`user_nav`,`config`,`admin_menu`,`is_system`,`create_time`,`update_time`,`sort`,`status`) values (1,'Admin','系统','','fa fa-cog','#3CA6F1','核心系统','南京科斯克网络科技有限公司','1.3.0','','','{\"1\":{\"pid\":\"0\",\"title\":\"\\u7cfb\\u7edf\",\"icon\":\"fa fa-cog\",\"level\":\"system\",\"id\":\"1\"},\"a\":{\"pid\":\"1\",\"title\":\"\\u7cfb\\u7edf\\u529f\\u80fd\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"a\"},\"a1\":{\"pid\":\"a\",\"title\":\"\\u7cfb\\u7edf\\u8bbe\\u7f6e\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/Config\\/group\",\"id\":\"a1\"},\"a11\":{\"pid\":\"a1\",\"title\":\"\\u4fee\\u6539\\u8bbe\\u7f6e\",\"url\":\"Admin\\/Config\\/groupSave\",\"id\":\"a11\"},\"a2\":{\"pid\":\"a\",\"title\":\"\\u7528\\u6237\\u5217\\u8868\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/User\\/index\",\"id\":\"a2\"},\"a21\":{\"pid\":\"a2\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/User\\/add\",\"id\":\"a21\"},\"a22\":{\"pid\":\"a2\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/User\\/edit\",\"id\":\"a22\"},\"a23\":{\"pid\":\"a2\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/User\\/setStatus\",\"id\":\"a23\"},\"a3\":{\"pid\":\"a\",\"title\":\"\\u7528\\u6237\\u5206\\u7ec4\",\"icon\":\"fa fa-lock\",\"url\":\"Admin\\/Access\\/index\",\"id\":\"a3\"},\"a31\":{\"pid\":\"a3\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Access\\/add\",\"id\":\"a31\"},\"a32\":{\"pid\":\"a3\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Access\\/edit\",\"id\":\"a32\"},\"a33\":{\"pid\":\"a3\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Access\\/setStatus\",\"id\":\"a33\"},\"a4\":{\"pid\":\"a\",\"title\":\"\\u89d2\\u8272\\u7ba1\\u7406\",\"icon\":\"fa fa-sitemap\",\"url\":\"Admin\\/Group\\/index\",\"id\":\"a4\"},\"a41\":{\"pid\":\"a4\",\"title\":\"\\u65b0\\u589e\",\"url\":\"Admin\\/Group\\/add\",\"id\":\"a41\"},\"a42\":{\"pid\":\"a4\",\"title\":\"\\u7f16\\u8f91\",\"url\":\"Admin\\/Group\\/edit\",\"id\":\"a42\"},\"a43\":{\"pid\":\"a4\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Group\\/setStatus\",\"id\":\"a43\"},\"a5\":{\"pid\":\"a\",\"title\":\"\\u529f\\u80fd\\u6a21\\u5757\",\"icon\":\"fa fa-th-large\",\"url\":\"Admin\\/Module\\/index\",\"id\":\"a5\"},\"a51\":{\"pid\":\"a5\",\"title\":\"\\u5b89\\u88c5\",\"url\":\"Admin\\/Module\\/install\",\"id\":\"a51\"},\"a52\":{\"pid\":\"a5\",\"title\":\"\\u5378\\u8f7d\",\"url\":\"Admin\\/Module\\/uninstall\",\"id\":\"a52\"},\"a53\":{\"pid\":\"a5\",\"title\":\"\\u66f4\\u65b0\\u4fe1\\u606f\",\"url\":\"Admin\\/Module\\/updateInfo\",\"id\":\"a53\"},\"a54\":{\"pid\":\"a5\",\"title\":\"\\u8bbe\\u7f6e\\u72b6\\u6001\",\"url\":\"Admin\\/Module\\/setStatus\",\"id\":\"a54\"},\"a6\":{\"pid\":\"a\",\"title\":\"\\u6570\\u636e\\u5907\\u4efd\\/\\u8fd8\\u539f\",\"icon\":\"fa fa-book\",\"url\":\"admin\\/database\\/index\",\"id\":\"a6\"},\"b\":{\"pid\":\"1\",\"title\":\"\\u5e93\\u5b58\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"b\"},\"b1\":{\"pid\":\"b\",\"title\":\"\\u91c7\\u8d2d\\u5165\\u5e93\\u5355\",\"icon\":\"fa fa-file-o\",\"url\":\"Admin\\/EntryOrder\\/purchaseEntryOrder\",\"id\":\"b1\"},\"b8\":{\"pid\":\"b\",\"title\":\"\\u4ea7\\u54c1\\u5165\\u5e93\\u5355\",\"icon\":\"fa fa-file-o\",\"url\":\"Admin\\/EntryOrder\\/productEntryOrder\",\"id\":\"b8\"},\"b2\":{\"pid\":\"b\",\"title\":\"\\u6750\\u6599\\u51fa\\u5e93\\u5355\",\"icon\":\"fa fa-files-o\",\"url\":\"Admin\\/OutOrder\\/materialOutOrder\",\"id\":\"b2\"},\"b9\":{\"pid\":\"b\",\"title\":\"\\u9500\\u552e\\u51fa\\u5e93\\u5355\",\"icon\":\"fa fa-files-o\",\"url\":\"Admin\\/OutOrder\\/salesOutOrder\",\"id\":\"b9\"},\"b3\":{\"pid\":\"b\",\"title\":\"\\u4ed8\\u6b3e\\u5355\",\"icon\":\"fa fa-list-alt\",\"url\":\"Admin\\/PaymentOrder\\/index\",\"id\":\"b3\"},\"b4\":{\"pid\":\"b\",\"title\":\"\\u6536\\u6b3e\\u5355\",\"icon\":\"fa fa-floppy-o\",\"url\":\"Admin\\/GatheringOrder\\/index\",\"id\":\"b4\"},\"b5\":{\"pid\":\"b\",\"title\":\"\\u76d8\\u70b9\\u5217\\u8868\",\"icon\":\"fa fa-list-ol\",\"url\":\"Admin\\/GoodsCheck\\/index\",\"id\":\"b5\"},\"b6\":{\"pid\":\"b\",\"title\":\"\\u9500\\u552e\\u8ba2\\u5355\",\"icon\":\"fa fa-bookmark-o\",\"url\":\"Admin\\/SalesOrder\\/index\",\"id\":\"b6\"},\"b7\":{\"pid\":\"b\",\"title\":\"\\u6210\\u672c\\u8ba1\\u7b97\\u8868\",\"icon\":\"fa fa-bookmark\",\"url\":\"Admin\\/public\\/demo\",\"id\":\"b7\"},\"b10\":{\"pid\":\"b\",\"title\":\"\\u8d22\\u52a1\\u7ed3\\u8d26\",\"icon\":\"fa fa-bookmark\",\"url\":\"Admin\\/CloseAccounts\\/index\",\"id\":\"b10\"},\"c\":{\"pid\":\"1\",\"title\":\"\\u62a5\\u8868\\u7ba1\\u7406\",\"icon\":\"fa fa-bar-chart-o\",\"id\":\"c\"},\"c1\":{\"pid\":\"c\",\"title\":\"\\u5e93\\u623f\\u5373\\u65f6\\u67e5\\u8be2\",\"icon\":\"fa fa-eye\",\"url\":\"Admin\\/InstantInventory\\/index\",\"id\":\"c1\"},\"c2\":{\"pid\":\"c\",\"title\":\"\\u91c7\\u8d2d\\u62a5\\u8868\",\"icon\":\"fa fa-table\",\"url\":\"Admin\\/SummaryPurchase\\/index\",\"id\":\"c2\"},\"c3\":{\"pid\":\"c\",\"title\":\"\\u9500\\u552e\\u62a5\\u8868\",\"icon\":\"fa fa-building-o\",\"url\":\"Admin\\/SummarySales\\/index\",\"id\":\"c3\"},\"d\":{\"pid\":\"1\",\"title\":\"\\u57fa\\u7840\\u4fe1\\u606f\\u7ba1\\u7406\",\"icon\":\"fa fa-folder-open-o\",\"id\":\"d\"},\"d1\":{\"pid\":\"d\",\"title\":\"\\u4ed3\\u5e93\\u4fe1\\u606f\",\"icon\":\"fa fa-info-circle\",\"url\":\"Admin\\/StoreHouseInfo\\/index\",\"id\":\"d1\"},\"d2\":{\"pid\":\"d\",\"title\":\"\\u5546\\u54c1\\u4fe1\\u606f\",\"icon\":\"fa fa-info\",\"url\":\"Admin\\/goods\\/index\",\"id\":\"d2\"},\"d3\":{\"pid\":\"d\",\"title\":\"\\u5546\\u54c1\\u7c7b\\u578b\",\"icon\":\"fa fa-wrench\",\"url\":\"Admin\\/goodsType\\/index\",\"id\":\"d3\"},\"d4\":{\"pid\":\"d\",\"title\":\"\\u5ba2\\u6237\\u5217\\u8868\",\"icon\":\"fa fa-user-md\",\"url\":\"Admin\\/customer\\/index\",\"id\":\"d4\"},\"d5\":{\"pid\":\"d\",\"title\":\"\\u4e1a\\u52a1\\u5458\\u5217\\u8868\",\"icon\":\"fa fa-user\",\"url\":\"Admin\\/clerk\\/index\",\"id\":\"d5\"}}',1,1438651748,1505715698,0,1);
 
-/*Table structure for table `oc_admin_nav` */
 
 DROP TABLE IF EXISTS `oc_admin_nav`;
-
 CREATE TABLE `oc_admin_nav` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `group` varchar(11) NOT NULL DEFAULT '' COMMENT '分组',
@@ -181,14 +169,33 @@ CREATE TABLE `oc_admin_nav` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='前台导航表';
 
-/*Data for the table `oc_admin_nav` */
+INSERT INTO `oc_admin_nav` VALUES ('1', 'bottom', '0', '关于', 'link', '', '', '', '1449742225', '1449742255', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('2', 'bottom', '1', '关于我们', 'link', 'http://www.lingyun.net', '', '', '1449742312', '1449742312', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('4', 'bottom', '1', '服务产品', 'link', 'http://www.lingyun.net', '', '', '1449742597', '1449742651', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('5', 'bottom', '1', '商务合作', 'link', 'http://www.lingyun.net', '', '', '1449742664', '1449742664', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('6', 'bottom', '1', '加入我们', 'link', 'http://www.lingyun.net', '', '', '1449742678', '1449742697', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('7', 'bottom', '0', '帮助', 'link', '', '', '', '1449742688', '1449742688', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('8', 'bottom', '7', '用户协议', 'link', 'http://www.lingyun.net', '', '', '1449742706', '1449742706', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('9', 'bottom', '7', '意见反馈', 'link', 'http://www.lingyun.net', '', '', '1449742716', '1449742716', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('10', 'bottom', '7', '常见问题', 'link', 'http://www.lingyun.net', '', '', '1449742728', '1449742728', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('11', 'bottom', '0', '联系方式', 'link', '', '', '', '1449742742', '1449742742', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('12', 'bottom', '11', '联系我们', 'link', 'http://www.lingyun.net', '', '', '1449742752', '1449742752', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('13', 'bottom', '11', '新浪微博', 'link', 'http://weibo.com/u/5667168319', '', '', '1449742802', '1449742802', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('14', 'main', '0', '产品中心', 'page', '', '', '', '1457084559', '1457084559', '0', '0');
+INSERT INTO `oc_admin_nav` VALUES ('15', 'main', '0', '客户服务', 'page', '', '', '', '1457084572', '1457084572', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('16', 'main', '0', '案例展示', 'page', '', '', '', '1457084583', '1457084583', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('17', 'main', '0', '新闻动态', 'page', '', '', '', '1457084714', '1457084714', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('18', 'main', '0', 'weex中文网', 'link', 'http://weex-china.org', '_blank', '', '1457084725', '1489897549', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('19', 'wap_bottom', '0', '首页', 'link', '/', '', 'fa-home', '1458382401', '1458382401', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('20', 'wap_bottom', '0', '充值', 'link', 'Wallet/Recharge/index', '', 'fa-credit-card', '1458382603', '1461381689', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('21', 'wap_bottom', '0', '钱包', 'module', 'Wallet', '', 'fa-money', '1458382637', '1461381704', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('22', 'wap_bottom', '0', '我的', 'link', 'User/Center/index', '', 'fa-user', '1458382814', '1461207462', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('23', 'top', '0', '用户', 'module', 'User', '', 'fa fa-users', '1471174771', '1471174771', '0', '1');
+INSERT INTO `oc_admin_nav` VALUES ('24', 'top', '0', 'CMS', 'module', 'Cms', '', 'fa fa-newspaper-o', '1471174779', '1471174779', '0', '1');
 
-insert  into `oc_admin_nav`(`id`,`group`,`pid`,`title`,`type`,`value`,`target`,`icon`,`create_time`,`update_time`,`sort`,`status`) values (1,'bottom',0,'关于','link','','','',1449742225,1449742255,0,1),(2,'bottom',1,'关于我们','link','http://www.lingyun.net','','',1449742312,1449742312,0,1),(4,'bottom',1,'服务产品','link','http://www.lingyun.net','','',1449742597,1449742651,0,1),(5,'bottom',1,'商务合作','link','http://www.lingyun.net','','',1449742664,1449742664,0,1),(6,'bottom',1,'加入我们','link','http://www.lingyun.net','','',1449742678,1449742697,0,1),(7,'bottom',0,'帮助','link','','','',1449742688,1449742688,0,1),(8,'bottom',7,'用户协议','link','http://www.lingyun.net','','',1449742706,1449742706,0,1),(9,'bottom',7,'意见反馈','link','http://www.lingyun.net','','',1449742716,1449742716,0,1),(10,'bottom',7,'常见问题','link','http://www.lingyun.net','','',1449742728,1449742728,0,1),(11,'bottom',0,'联系方式','link','','','',1449742742,1449742742,0,1),(12,'bottom',11,'联系我们','link','http://www.lingyun.net','','',1449742752,1449742752,0,1),(13,'bottom',11,'新浪微博','link','http://weibo.com/u/5667168319','','',1449742802,1449742802,0,1),(14,'main',0,'产品中心','page','','','',1457084559,1457084559,0,0),(15,'main',0,'客户服务','page','','','',1457084572,1457084572,0,1),(16,'main',0,'案例展示','page','','','',1457084583,1457084583,0,1),(17,'main',0,'新闻动态','page','','','',1457084714,1457084714,0,1),(18,'main',0,'weex中文网','link','http://weex-china.org','_blank','',1457084725,1489897549,0,1),(19,'wap_bottom',0,'首页','link','/','','fa-home',1458382401,1458382401,0,1),(20,'wap_bottom',0,'充值','link','Wallet/Recharge/index','','fa-credit-card',1458382603,1461381689,0,1),(21,'wap_bottom',0,'钱包','module','Wallet','','fa-money',1458382637,1461381704,0,1),(22,'wap_bottom',0,'我的','link','User/Center/index','','fa-user',1458382814,1461207462,0,1),(23,'top',0,'用户','module','User','','fa fa-users',1471174771,1471174771,0,1),(24,'top',0,'CMS','module','Cms','','fa fa-newspaper-o',1471174779,1471174779,0,1);
 
-/*Table structure for table `oc_admin_post` */
 
 DROP TABLE IF EXISTS `oc_admin_post`;
-
 CREATE TABLE `oc_admin_post` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `cid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
@@ -204,12 +211,10 @@ CREATE TABLE `oc_admin_post` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章列表';
 
-/*Data for the table `oc_admin_post` */
 
-/*Table structure for table `oc_admin_session` */
+
 
 DROP TABLE IF EXISTS `oc_admin_session`;
-
 CREATE TABLE `oc_admin_session` (
   `session_id` varchar(255) NOT NULL,
   `session_expire` int(11) NOT NULL,
@@ -217,12 +222,10 @@ CREATE TABLE `oc_admin_session` (
   UNIQUE KEY `session_id` (`session_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='session存储表';
 
-/*Data for the table `oc_admin_session` */
 
-/*Table structure for table `oc_admin_slider` */
+
 
 DROP TABLE IF EXISTS `oc_admin_slider`;
-
 CREATE TABLE `oc_admin_slider` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '幻灯ID',
   `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
@@ -235,12 +238,10 @@ CREATE TABLE `oc_admin_slider` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='幻灯切换表';
 
-/*Data for the table `oc_admin_slider` */
 
-/*Table structure for table `oc_admin_theme` */
+
 
 DROP TABLE IF EXISTS `oc_admin_theme`;
-
 CREATE TABLE `oc_admin_theme` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(32) NOT NULL DEFAULT '' COMMENT '名称',
@@ -257,12 +258,10 @@ CREATE TABLE `oc_admin_theme` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='前台主题表';
 
-/*Data for the table `oc_admin_theme` */
 
-/*Table structure for table `oc_admin_upload` */
+
 
 DROP TABLE IF EXISTS `oc_admin_upload`;
-
 CREATE TABLE `oc_admin_upload` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'UID',
@@ -282,14 +281,12 @@ CREATE TABLE `oc_admin_upload` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文件上传表';
 
-/*Data for the table `oc_admin_upload` */
+INSERT INTO `oc_admin_upload` VALUES ('1', '1', 'logo.png', '/Application/Home/View/Public/img/default/logo.png', '', 'png', '51490', '1a564cb3b2f2cbb8e3fa81d9d87cfd9d', 'bf46e8dada8c65a51ff820d6ec4450c404a27537', 'Local', '0', '1449838885', '1449838885', '0', '1');
+INSERT INTO `oc_admin_upload` VALUES ('2', '1', 'demo.jpg', '/Uploads/2017-09-15/59babcf8f0285.jpg', '', 'jpg', '483159', 'b1c080d8832da254c7381bf896852550', '8416ff57fdd2f66baf6bbb1408a2d381a90a4831', 'Local', '0', '1505410296', '1505410296', '0', '1');
 
-insert  into `oc_admin_upload`(`id`,`uid`,`name`,`path`,`url`,`ext`,`size`,`md5`,`sha1`,`location`,`download`,`create_time`,`update_time`,`sort`,`status`) values (1,1,'logo.png','/Application/Home/View/Public/img/default/logo.png','','png',51490,'1a564cb3b2f2cbb8e3fa81d9d87cfd9d','bf46e8dada8c65a51ff820d6ec4450c404a27537','Local',0,1449838885,1449838885,0,1),(2,1,'demo.jpg','/Uploads/2017-09-15/59babcf8f0285.jpg','','jpg',483159,'b1c080d8832da254c7381bf896852550','8416ff57fdd2f66baf6bbb1408a2d381a90a4831','Local',0,1505410296,1505410296,0,1);
 
-/*Table structure for table `oc_admin_user` */
 
 DROP TABLE IF EXISTS `oc_admin_user`;
-
 CREATE TABLE `oc_admin_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'UID',
   `user_type` int(11) NOT NULL DEFAULT '1' COMMENT '用户类型',
@@ -312,14 +309,59 @@ CREATE TABLE `oc_admin_user` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户账号表';
 
-/*Data for the table `oc_admin_user` */
+INSERT INTO `oc_admin_user` VALUES ('1', '1', '超级管理员', 'admin', '21232f297a57a5a743894a0e4a801fc3', '', '0', '', '0', '0', '0', '0.00', '0', '', '1438651748', '1438651748', '1');
+INSERT INTO `oc_admin_user` VALUES ('2', '1', '张三', 'zhangsan', '180b9c6ea8326ead5a0a2f8024ab661d', '1163828436@qq.com', '0', '18799298676', '0', '0', '0', '0.00', '0', 'admin', '1503989309', '1503989309', '1');
 
-insert  into `oc_admin_user`(`id`,`user_type`,`nickname`,`username`,`password`,`email`,`email_bind`,`mobile`,`mobile_bind`,`avatar`,`score`,`money`,`reg_ip`,`reg_type`,`create_time`,`update_time`,`status`) values (1,1,'超级管理员','admin','1f9060bc2432d6f83dc244ed83943a83','',0,'',0,0,0,'0.00',0,'',1438651748,1438651748,1),(2,1,'张三','zhangsan','180b9c6ea8326ead5a0a2f8024ab661d','1163828436@qq.com',0,'18799298676',0,0,0,'0.00',0,'admin',1503989309,1503989309,1);
 
-/*Table structure for table `oc_storehouse_clerk` */
+
+DROP TABLE IF EXISTS `oc_ids`;
+CREATE TABLE `oc_ids` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) DEFAULT '',
+  `order_id` varchar(50) DEFAULT '',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(2) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+INSERT INTO `oc_ids` VALUES ('1', 'CGRKD', '5', '2017-09-19 23:07:55', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('2', 'CPRKD', '4', '2017-09-19 23:08:03', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('3', 'CLCKD', '1', '2017-09-19 23:08:10', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('4', 'XSCKD', '3', '2017-09-19 23:08:17', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('5', 'FKD', '2', '2017-09-19 23:08:24', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('6', 'SKD', '2', '2017-09-19 23:08:29', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('7', 'XSDD', '2', '2017-09-19 23:08:37', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('8', 'CPRKD', '5', '2017-09-19 23:15:56', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('9', 'CGRKD', '6', '2017-09-20 10:20:31', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('10', 'CGRKD', '7', '2017-09-20 10:20:43', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('11', 'CGRKD', '8', '2017-09-20 10:21:28', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('12', 'CGRKD', '9', '2017-09-20 10:22:28', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('13', 'CGRKD', '10', '2017-09-20 10:23:41', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('14', 'CGRKD', '11', '2017-09-20 10:23:51', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('15', 'CGRKD', '12', '2017-09-20 10:24:04', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('16', 'CGRKD', '13', '2017-09-20 10:24:28', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('17', 'CPRKD', '6', '2017-09-20 10:24:52', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('18', 'CGRKD', '14', '2017-09-20 10:25:16', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('19', 'CPRKD', '7', '2017-09-20 10:25:20', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('20', 'CPRKD', '8', '2017-09-20 10:26:10', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('21', 'CGRKD', '15', '2017-09-20 10:30:58', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('22', 'CGRKD', '16', '2017-09-20 10:31:54', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('23', 'CGRKD', '17', '2017-09-20 10:32:22', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('24', 'CGRKD', '18', '2017-09-20 10:32:29', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('25', 'CPRKD', '9', '2017-09-20 10:32:34', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('26', 'CLCKD', '2', '2017-09-20 10:32:36', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('27', 'CLCKD', '3', '2017-09-20 10:32:58', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('28', 'CGRKD', '19', '2017-09-20 10:33:08', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('29', 'CGRKD', '20', '2017-09-20 10:34:53', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('30', 'CGRKD', '21', '2017-09-20 10:35:38', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('31', 'CGRKD', '22', '2017-09-20 10:36:32', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('32', 'CPRKD', '10', '2017-09-20 10:39:04', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('33', 'XSCKD', '4', '2017-09-20 10:39:58', '0000-00-00 00:00:00', '1');
+
+
 
 DROP TABLE IF EXISTS `oc_storehouse_clerk`;
-
 CREATE TABLE `oc_storehouse_clerk` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `clerk_name` varchar(50) DEFAULT '' COMMENT '业务员名称',
@@ -330,14 +372,13 @@ CREATE TABLE `oc_storehouse_clerk` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_clerk` */
+INSERT INTO `oc_storehouse_clerk` VALUES ('1', '张三', '135886654896', '2017-09-05 08:57:58', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_clerk` VALUES ('2', '王文静', '19866545852', '2017-09-17 11:29:06', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_clerk` VALUES ('3', '李思静', '13566548652', '2017-09-17 11:29:23', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_clerk`(`id`,`clerk_name`,`clerk_phone`,`create_time`,`update_time`,`status`) values (1,'张三','135886654896','2017-09-05 08:57:58','0000-00-00 00:00:00',1),(2,'王文静','19866545852','2017-09-17 11:29:06','0000-00-00 00:00:00',1),(3,'李思静','13566548652','2017-09-17 11:29:23','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_close_accounts` */
 
 DROP TABLE IF EXISTS `oc_storehouse_close_accounts`;
-
 CREATE TABLE `oc_storehouse_close_accounts` (
   `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `close_date` date DEFAULT '0000-00-00' COMMENT '结账日期',
@@ -349,14 +390,11 @@ CREATE TABLE `oc_storehouse_close_accounts` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_close_accounts` */
+INSERT INTO `oc_storehouse_close_accounts` VALUES ('1', '2017-09-25', '2017-09-17 15:24:39', '0000-00-00 00:00:00', '1', 'admin', '超级管理员');
 
-insert  into `oc_storehouse_close_accounts`(`id`,`close_date`,`create_time`,`update_time`,`status`,`username`,`nickname`) values (1,'2017-09-25','2017-09-17 15:24:39','0000-00-00 00:00:00',1,'admin','超级管理员');
 
-/*Table structure for table `oc_storehouse_customer` */
 
 DROP TABLE IF EXISTS `oc_storehouse_customer`;
-
 CREATE TABLE `oc_storehouse_customer` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` varchar(11) DEFAULT '' COMMENT '客户编号',
@@ -372,14 +410,14 @@ CREATE TABLE `oc_storehouse_customer` (
   UNIQUE KEY `UNIQUE` (`customer_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_customer` */
+INSERT INTO `oc_storehouse_customer` VALUES ('1', 'BM1001', '财务部', '公司部门', '/', '13544565874', '公司部门', '2017-09-05 09:11:09', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('2', 'GYS1001', 'XXX建材有限公司', '公司部门', '河南省郑州市百合路118号', '13544565874', '供应商', '2017-09-07 04:38:23', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('3', 'KH0001', 'XXX市政局', '4X', '解放路', '13265656565', '客户', '2017-09-11 13:42:31', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('4', 'KH0002', '郑州市市政管理中心', '', '泰中路1256号', '13655465234', '客户', '2017-09-17 12:47:24', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_customer`(`id`,`customer_id`,`customer_name`,`customer_type`,`customer_address`,`customer_phone`,`types`,`create_time`,`update_time`,`status`) values (1,'BM1001','财务部','公司部门','/','13544565874','公司部门','2017-09-05 09:11:09','0000-00-00 00:00:00',1),(2,'GYS1001','XXX建材有限公司','公司部门','河南省郑州市百合路118号','13544565874','供应商','2017-09-07 04:38:23','0000-00-00 00:00:00',1),(3,'KH0001','XXX市政局','4X','解放路','13265656565','客户','2017-09-11 13:42:31','0000-00-00 00:00:00',1),(4,'KH0002','郑州市市政管理中心','','泰中路1256号','13655465234','客户','2017-09-17 12:47:24','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_entry_order` */
 
 DROP TABLE IF EXISTS `oc_storehouse_entry_order`;
-
 CREATE TABLE `oc_storehouse_entry_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_order_type_name` varchar(50) DEFAULT '' COMMENT '入库单类型',
@@ -429,14 +467,13 @@ CREATE TABLE `oc_storehouse_entry_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_entry_order` */
+INSERT INTO `oc_storehouse_entry_order` VALUES ('1', '采购入库单', 'CG000001', '', '150.00', '', '测试下雨', '', '0.00', '0.00', '0.00', '150.00', '100.00', '0000-00-00', '1', '2017-09-14', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '件', '900.00', '0.00', '0.00', '0.00', '0.00', '0', '50.00', '3.00', '150.00', '0.00', '0.00', '0.00', 'test', '2017-09-17 12:18:16', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_entry_order` VALUES ('4', '产品入库单', 'CPRKD00003', '', '25.00', '', 'SDFSDF', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-21', 'BM1001', '财务部', '产品仓', '', 'admin', '超级管理员', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '吨', '5000.00', '0.00', '0.00', '0.00', '0.00', '0', '5.00', '5.00', '25.00', '0.00', '0.00', '0.00', 'SDFSDWERW', '2017-09-17 17:42:46', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_entry_order` VALUES ('3', '产品入库单', 'CP000001', '', '8.00', '', 'sdfsdf ', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-21', 'BM1001', '财务部', '产品仓', '', 'admin', '超级管理员', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '500.00', '0.00', '0.00', '0.00', '0.00', '0', '8.00', '1.00', '8.00', '0.00', '0.00', '0.00', 'sdfsdf', '2017-09-17 13:33:21', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_entry_order`(`id`,`entry_order_type_name`,`entry_order_id`,`entry_order_invoice_number`,`entry_order_price`,`entry_order_payment_way`,`entry_order_remark`,`entry_order_payment_account`,`entry_order_deposit_rate`,`entry_order_tax_rate`,`entry_order_including_tax_price`,`entry_order_account_payable`,`entry_order_actual_payment`,`entry_order_payment_date`,`entry_order_is_audited`,`entry_order_date`,`customer_id`,`customer_name`,`storehouse_name`,`invoice_type`,`username`,`nickname`,`clerk_name`,`goods_id`,`goods_name`,`goods_spec`,`goods_min_unit`,`goods_rates`,`goods_actual_unit`,`goods_weight`,`goods_stock_balance`,`goods_actual_stock_balance`,`goods_cost_price`,`goods_order_quantity`,`goods_is_free`,`goods_entry_unit_price`,`goods_entry_total_quantity`,`goods_entry_total_price`,`goods_return_unit_price`,`goods_return_total_quantity`,`goods_return_total_price`,`goods_remark`,`create_time`,`update_time`,`status`) values (1,'采购入库单','CG000001','','150.00','','测试下雨','','0.00','0.00','0.00','150.00','100.00','0000-00-00',1,'2017-09-14','GYS1001','XXX建材有限公司','原料仓','','admin','超级管理员','','YCL0001','铸铁','500*500 B125','kg','300/件,500/箱,3000/吨','件','900.00','0.00','0.00','0.00','0.00',0,'50.00','3.00','150.00','0.00','0.00','0.00','test','2017-09-17 12:18:16','0000-00-00 00:00:00',1),(4,'产品入库单','CPRKD00003','','25.00','','SDFSDF','','0.00','0.00','0.00','0.00','0.00','0000-00-00',1,'2017-09-21','BM1001','财务部','产品仓','','admin','超级管理员','','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','吨','5000.00','0.00','0.00','0.00','0.00',0,'5.00','5.00','25.00','0.00','0.00','0.00','SDFSDWERW','2017-09-17 17:42:46','0000-00-00 00:00:00',1),(3,'产品入库单','CP000001','','8.00','','sdfsdf ','','0.00','0.00','0.00','0.00','0.00','0000-00-00',1,'2017-09-21','BM1001','财务部','产品仓','','admin','超级管理员','','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','箱','500.00','0.00','0.00','0.00','0.00',0,'8.00','1.00','8.00','0.00','0.00','0.00','sdfsdf','2017-09-17 13:33:21','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_entry_order_type` */
 
 DROP TABLE IF EXISTS `oc_storehouse_entry_order_type`;
-
 CREATE TABLE `oc_storehouse_entry_order_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_order_type_id` varchar(11) DEFAULT '' COMMENT '入库单类型编号',
@@ -447,12 +484,10 @@ CREATE TABLE `oc_storehouse_entry_order_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_entry_order_type` */
 
-/*Table structure for table `oc_storehouse_gathering_order` */
+
 
 DROP TABLE IF EXISTS `oc_storehouse_gathering_order`;
-
 CREATE TABLE `oc_storehouse_gathering_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `gathering_order_type_name` varchar(50) DEFAULT '' COMMENT '收款单类型',
@@ -492,14 +527,11 @@ CREATE TABLE `oc_storehouse_gathering_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_gathering_order` */
+INSERT INTO `oc_storehouse_gathering_order` VALUES ('1', '销售收款', 'SKD000001', '', '', '', '', '3.50', '0.00', '0.00', '0.00', '0.00', '3.50', '3.50', '2017-09-15', '1', '0000-00-00', 'KH0002', '郑州市市政管理中心', '', '', '', 'admin', '超级管理员', '2017-09-13', 'XS000001', '15.00', '13.50', '10.00', '3.50', '3.50', 'sdfsdfsd', '2017-09-17 13:48:38', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_gathering_order`(`id`,`gathering_order_type_name`,`gathering_order_id`,`gathering_order_invoice_number`,`gathering_order_payment_way`,`gathering_order_remark`,`gathering_order_payment_account`,`gathering_order_price`,`gathering_order_deposit_rate`,`gathering_order_deposit_after_price`,`gathering_order_tax_rate`,`gathering_order_including_tax_price`,`gathering_order_receivable_price`,`gathering_order_actual_payment`,`gathering_order_payment_date`,`gathering_order_is_audited`,`gathering_order_date`,`customer_id`,`customer_name`,`clerk_name`,`storehouse_name`,`invoice_type`,`username`,`nickname`,`out_order_date`,`out_order_id`,`out_order_price`,`out_order_account_receivable`,`already_clear_price`,`no_clear_price`,`now_clear_price`,`order_remark`,`create_time`,`update_time`,`status`) values (1,'销售收款','SKD000001','','','','','3.50','0.00','0.00','0.00','0.00','3.50','3.50','2017-09-15',1,'0000-00-00','KH0002','郑州市市政管理中心','','','','admin','超级管理员','2017-09-13','XS000001','15.00','13.50','10.00','3.50','3.50','sdfsdfsd','2017-09-17 13:48:38','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_gathering_order_clear` */
 
 DROP TABLE IF EXISTS `oc_storehouse_gathering_order_clear`;
-
 CREATE TABLE `oc_storehouse_gathering_order_clear` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `gathering_order_id` varchar(11) DEFAULT '' COMMENT '收款单编号',
@@ -515,12 +547,10 @@ CREATE TABLE `oc_storehouse_gathering_order_clear` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_gathering_order_clear` */
 
-/*Table structure for table `oc_storehouse_goods` */
+
 
 DROP TABLE IF EXISTS `oc_storehouse_goods`;
-
 CREATE TABLE `oc_storehouse_goods` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `goods_type_name` varchar(50) DEFAULT '' COMMENT '商品类型',
@@ -542,14 +572,12 @@ CREATE TABLE `oc_storehouse_goods` (
   UNIQUE KEY `UNIQUE` (`goods_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_goods` */
+INSERT INTO `oc_storehouse_goods` VALUES ('1', '产品', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '3500.00', '5.00', '10.00', '产品仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_goods` VALUES ('2', '原材料', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '2000.00', '3.00', '0.00', '原料仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_goods`(`id`,`goods_type_name`,`goods_id`,`goods_name`,`goods_spec`,`goods_min_unit`,`goods_rates`,`goods_stock_balance`,`goods_cost_price`,`goods_market_price`,`storehouse_name`,`username`,`nickname`,`create_time`,`update_time`,`status`) values (1,'产品','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','3500.00','5.00','10.00','产品仓','','','2017-09-14 17:26:08','0000-00-00 00:00:00',1),(2,'原材料','YCL0001','铸铁','500*500 B125','kg','300/件,500/箱,3000/吨','2000.00','3.00','0.00','原料仓','','','2017-09-14 17:26:08','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_goods_check` */
 
 DROP TABLE IF EXISTS `oc_storehouse_goods_check`;
-
 CREATE TABLE `oc_storehouse_goods_check` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `goods_check_id` varchar(50) DEFAULT '',
@@ -570,14 +598,12 @@ CREATE TABLE `oc_storehouse_goods_check` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_goods_check` */
+INSERT INTO `oc_storehouse_goods_check` VALUES ('1', 'PD000001', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '501.00', '500.00', '产品仓', '1', 'admin', '超级管理员', '2017-09-17 13:55:18', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_goods_check` VALUES ('2', 'PD000002', '', 'YCL0001', '铸铁', '500*500 B125', 'kg', '2100.00', '2000.00', '原料仓', '1', 'admin', '超级管理员', '2017-09-17 14:00:23', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_goods_check`(`id`,`goods_check_id`,`goods_type_name`,`goods_id`,`goods_name`,`goods_spec`,`goods_min_unit`,`goods_stock_balance`,`goods_check_balance`,`storehouse_name`,`goods_check_is_audited`,`username`,`nickname`,`create_time`,`update_time`,`status`) values (1,'PD000001','','CP0001','井盖','JQ-300*300','kg','501.00','500.00','产品仓',1,'admin','超级管理员','2017-09-17 13:55:18','0000-00-00 00:00:00',1),(2,'PD000002','','YCL0001','铸铁','500*500 B125','kg','2100.00','2000.00','原料仓',1,'admin','超级管理员','2017-09-17 14:00:23','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_goods_type` */
 
 DROP TABLE IF EXISTS `oc_storehouse_goods_type`;
-
 CREATE TABLE `oc_storehouse_goods_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `goods_type_id` varchar(11) DEFAULT '' COMMENT '商品类型编号',
@@ -588,14 +614,12 @@ CREATE TABLE `oc_storehouse_goods_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_goods_type` */
+INSERT INTO `oc_storehouse_goods_type` VALUES ('1', 'SP001', '原材料', '2017-09-05 09:13:26', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_goods_type` VALUES ('2', 'SP002', '产品', '2017-09-05 09:14:15', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_goods_type`(`id`,`goods_type_id`,`goods_type_name`,`create_time`,`update_time`,`status`) values (1,'SP001','原材料','2017-09-05 09:13:26','0000-00-00 00:00:00',1),(2,'SP002','产品','2017-09-05 09:14:15','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_info` */
 
 DROP TABLE IF EXISTS `oc_storehouse_info`;
-
 CREATE TABLE `oc_storehouse_info` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `storehouse_id` varchar(11) DEFAULT '' COMMENT '仓库编号',
@@ -606,14 +630,12 @@ CREATE TABLE `oc_storehouse_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_info` */
+INSERT INTO `oc_storehouse_info` VALUES ('2', 'CK0002', '产品仓', '2017-09-05 08:12:30', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_info` VALUES ('3', 'CK0001', '原料仓', '2017-09-13 11:36:38', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_info`(`id`,`storehouse_id`,`storehouse_name`,`create_time`,`update_time`,`status`) values (2,'CK0002','产品仓','2017-09-05 08:12:30','0000-00-00 00:00:00',1),(3,'CK0001','原料仓','2017-09-13 11:36:38','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_out_order` */
 
 DROP TABLE IF EXISTS `oc_storehouse_out_order`;
-
 CREATE TABLE `oc_storehouse_out_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `out_order_type_name` varchar(50) DEFAULT '' COMMENT '出库单类型',
@@ -663,14 +685,13 @@ CREATE TABLE `oc_storehouse_out_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_out_order` */
+INSERT INTO `oc_storehouse_out_order` VALUES ('1', '材料出库单', 'CL000001', '', '3.00', '', '实验室', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-15', 'BM1001', '财务部', '原料仓', '', 'admin', '超级管理员', '', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '件', '300.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '1.00', '3.00', '0.00', '0.00', '0.00', '似的士大夫士大夫', '2017-09-17 13:25:30', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_out_order` VALUES ('2', '销售出库单', 'XS000001', '', '15.00', '', 'sdfsdfsd', '', '0.00', '10.00', '1.50', '13.50', '10.00', '0000-00-00', '1', '2017-09-13', 'KH0002', '郑州市市政管理中心', '产品仓', '', 'admin', '超级管理员', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '1500.00', '0.00', '0.00', '0.00', '0.00', '0', '5.00', '3.00', '15.00', '0.00', '0.00', '0.00', 'sdf', '2017-09-17 13:37:14', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_out_order` VALUES ('3', '销售出库单', 'XSCKD00002', '', '32.00', '', '', '', '0.00', '1.00', '0.32', '31.68', '31.68', '0000-00-00', '1', '2017-09-21', 'KH0001', 'XXX市政局', '产品仓', '', 'admin', '超级管理员', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '2000.00', '0.00', '0.00', '0.00', '0.00', '0', '8.00', '4.00', '32.00', '0.00', '0.00', '0.00', 'sdfsfdsdf', '2017-09-17 17:41:24', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_out_order`(`id`,`out_order_type_name`,`out_order_id`,`out_order_invoice_number`,`out_order_price`,`out_order_payment_way`,`out_order_remark`,`out_order_payment_account`,`out_order_deposit_rate`,`out_order_tax_rate`,`out_order_including_tax_price`,`out_order_account_receivable`,`out_order_actual_payment`,`out_order_payment_date`,`out_order_is_audited`,`out_order_date`,`customer_id`,`customer_name`,`storehouse_name`,`invoice_type`,`username`,`nickname`,`clerk_name`,`goods_id`,`goods_name`,`goods_spec`,`goods_min_unit`,`goods_rates`,`goods_actual_unit`,`goods_weight`,`goods_stock_balance`,`goods_actual_stock_balance`,`goods_cost_price`,`goods_order_quantity`,`goods_is_free`,`goods_out_unit_price`,`goods_out_total_quantity`,`goods_out_total_price`,`goods_return_unit_price`,`goods_return_total_quantity`,`goods_return_total_price`,`goods_remark`,`create_time`,`update_time`,`status`) values (1,'材料出库单','CL000001','','3.00','','实验室','','0.00','0.00','0.00','0.00','0.00','0000-00-00',1,'2017-09-15','BM1001','财务部','原料仓','','admin','超级管理员','','YCL0001','铸铁','500*500 B125','kg','300/件,500/箱,3000/吨','件','300.00','0.00','0.00','0.00','0.00',0,'3.00','1.00','3.00','0.00','0.00','0.00','似的士大夫士大夫','2017-09-17 13:25:30','0000-00-00 00:00:00',1),(2,'销售出库单','XS000001','','15.00','','sdfsdfsd','','0.00','10.00','1.50','13.50','10.00','0000-00-00',1,'2017-09-13','KH0002','郑州市市政管理中心','产品仓','','admin','超级管理员','','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','箱','1500.00','0.00','0.00','0.00','0.00',0,'5.00','3.00','15.00','0.00','0.00','0.00','sdf','2017-09-17 13:37:14','0000-00-00 00:00:00',1),(3,'销售出库单','XSCKD00002','','32.00','','','','0.00','1.00','0.32','31.68','31.68','0000-00-00',1,'2017-09-21','KH0001','XXX市政局','产品仓','','admin','超级管理员','','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','箱','2000.00','0.00','0.00','0.00','0.00',0,'8.00','4.00','32.00','0.00','0.00','0.00','sdfsfdsdf','2017-09-17 17:41:24','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_out_order_type` */
 
 DROP TABLE IF EXISTS `oc_storehouse_out_order_type`;
-
 CREATE TABLE `oc_storehouse_out_order_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `out_order_type_id` varchar(11) DEFAULT '' COMMENT '出库单类型编号',
@@ -681,12 +702,10 @@ CREATE TABLE `oc_storehouse_out_order_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_out_order_type` */
 
-/*Table structure for table `oc_storehouse_payment_order` */
+
 
 DROP TABLE IF EXISTS `oc_storehouse_payment_order`;
-
 CREATE TABLE `oc_storehouse_payment_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `payment_order_type_name` varchar(50) DEFAULT '' COMMENT '付款单类型',
@@ -726,14 +745,11 @@ CREATE TABLE `oc_storehouse_payment_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_payment_order` */
+INSERT INTO `oc_storehouse_payment_order` VALUES ('1', '预付款', 'FKD000001', '', '', '', '', '50.00', '0.00', '0.00', '0.00', '0.00', '50.00', '50.00', '2017-09-30', '1', '0000-00-00', 'GYS1001', 'XXX建材有限公司', '', '', 'admin', '超级管理员', '', '2017-09-14', 'CG000001', '150.00', '150.00', '100.00', '50.00', '50.00', '测试下雨', '2017-09-17 13:42:55', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_payment_order`(`id`,`payment_order_type_name`,`payment_order_id`,`payment_order_invoice_number`,`payment_order_payment_way`,`payment_order_remark`,`payment_order_payment_account`,`payment_order_price`,`payment_order_deposit_rate`,`payment_order_deposit_after_price`,`payment_order_tax_rate`,`payment_order_including_tax_price`,`payment_order_should_payment_price`,`payment_order_actual_payment`,`payment_order_payment_date`,`payment_order_is_audited`,`payment_order_date`,`customer_id`,`customer_name`,`storehouse_name`,`invoice_type`,`username`,`nickname`,`clerk_name`,`entry_order_date`,`entry_order_id`,`entry_order_price`,`entry_order_account_payable`,`already_clear_price`,`no_clear_price`,`now_clear_price`,`order_remark`,`create_time`,`update_time`,`status`) values (1,'预付款','FKD000001','','','','','50.00','0.00','0.00','0.00','0.00','50.00','50.00','2017-09-30',1,NULL,'GYS1001','XXX建材有限公司','','','admin','超级管理员','','2017-09-14','CG000001','150.00','150.00','100.00','50.00','50.00','测试下雨','2017-09-17 13:42:55','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_payment_order_clear` */
 
 DROP TABLE IF EXISTS `oc_storehouse_payment_order_clear`;
-
 CREATE TABLE `oc_storehouse_payment_order_clear` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `payment_order_id` varchar(11) DEFAULT '' COMMENT '收款单编号',
@@ -749,12 +765,10 @@ CREATE TABLE `oc_storehouse_payment_order_clear` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_payment_order_clear` */
 
-/*Table structure for table `oc_storehouse_sales_order` */
+
 
 DROP TABLE IF EXISTS `oc_storehouse_sales_order`;
-
 CREATE TABLE `oc_storehouse_sales_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `sales_order_id` varchar(11) DEFAULT '' COMMENT '订单编号',
@@ -792,83 +806,39 @@ CREATE TABLE `oc_storehouse_sales_order` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-/*Data for the table `oc_storehouse_sales_order` */
+INSERT INTO `oc_storehouse_sales_order` VALUES ('3', 'XSDD0000001', 'dfgsfsdf', '2017-10-01', '1', '2017-09-30', 'KH0001', 'XXX市政局', 'admin', '超级管理员', '', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '2000.00', '0.00', '0.00', '0.00', '0.00', '0', '5.50', '4.00', '22.00', '0.00', '0.00', '0.00', 'sdfsfdsdf', '2017-09-17 16:57:01', '0000-00-00 00:00:00', '1');
 
-insert  into `oc_storehouse_sales_order`(`id`,`sales_order_id`,`sales_order_remark`,`sales_order_give_date`,`sales_order_is_audited`,`sales_order_date`,`customer_id`,`customer_name`,`username`,`nickname`,`clerk_name`,`goods_id`,`goods_name`,`goods_spec`,`goods_min_unit`,`goods_rates`,`goods_actual_unit`,`goods_weight`,`goods_stock_balance`,`goods_actual_stock_balance`,`goods_cost_price`,`goods_order_quantity`,`goods_is_free`,`goods_sales_unit_price`,`goods_sales_total_quantity`,`goods_sales_total_price`,`goods_return_unit_price`,`goods_return_total_quantity`,`goods_return_total_price`,`goods_remark`,`create_time`,`update_time`,`status`) values (3,'XSDD0000001','dfgsfsdf','2017-10-01',1,'2017-09-30','KH0001','XXX市政局','admin','超级管理员','','CP0001','井盖','JQ-300*300','kg','500/箱,1000/吨','箱','2000.00','0.00','0.00','0.00','0.00',0,'5.50','4.00','22.00','0.00','0.00','0.00','sdfsfdsdf','2017-09-17 16:57:01','0000-00-00 00:00:00',1);
 
-/*Table structure for table `oc_storehouse_entry_order_view` */
+DROP VIEW  IF EXISTS `oc_storehouse_entry_order_view`;
+CREATE  VIEW `oc_storehouse_entry_order_view` AS (SELECT `oc_storehouse_entry_order`.`entry_order_date` AS `entry_order_date`,`oc_storehouse_entry_order`.`entry_order_id` AS `entry_order_id`,`oc_storehouse_entry_order`.`customer_id` AS `customer_id`,`oc_storehouse_entry_order`.`customer_name` AS `customer_name`,`oc_storehouse_entry_order`.`entry_order_price` AS `entry_order_price`,`oc_storehouse_entry_order`.`entry_order_account_payable` AS `entry_order_account_payable`,`oc_storehouse_entry_order`.`entry_order_actual_payment` AS `already_clear_price`,(`oc_storehouse_entry_order`.`entry_order_account_payable` - `oc_storehouse_entry_order`.`entry_order_actual_payment`) AS `no_clear_price`,`oc_storehouse_entry_order`.`entry_order_remark` AS `order_remark` FROM `oc_storehouse_entry_order` WHERE ((`oc_storehouse_entry_order`.`entry_order_is_audited` = '1') AND (`oc_storehouse_entry_order`.`status` = '1') AND (`oc_storehouse_entry_order`.`entry_order_type_name` LIKE '%采购%')) GROUP BY `oc_storehouse_entry_order`.`entry_order_id` ORDER BY `oc_storehouse_entry_order`.`entry_order_date` DESC) ;
 
-DROP TABLE IF EXISTS `oc_storehouse_entry_order_view`;
 
-/*!50001 DROP VIEW IF EXISTS `oc_storehouse_entry_order_view` */;
-/*!50001 DROP TABLE IF EXISTS `oc_storehouse_entry_order_view` */;
 
-/*!50001 CREATE TABLE  `oc_storehouse_entry_order_view`(
- `entry_order_date` date ,
- `entry_order_id` varchar(11) ,
- `customer_id` varchar(50) ,
- `customer_name` varchar(50) ,
- `entry_order_price` decimal(10,2) ,
- `entry_order_account_payable` decimal(10,2) ,
- `already_clear_price` decimal(10,2) ,
- `no_clear_price` decimal(11,2) ,
- `order_remark` varchar(50)
-)*/;
+DROP VIEW  IF EXISTS `oc_storehouse_out_order_view`;
+CREATE VIEW `oc_storehouse_out_order_view` AS (SELECT `oc_storehouse_out_order`.`out_order_date` AS `out_order_date`,`oc_storehouse_out_order`.`out_order_id` AS `out_order_id`,`oc_storehouse_out_order`.`customer_id` AS `customer_id`,`oc_storehouse_out_order`.`customer_name` AS `customer_name`,`oc_storehouse_out_order`.`out_order_price` AS `out_order_price`,`oc_storehouse_out_order`.`out_order_account_receivable` AS `out_order_account_receivable`,`oc_storehouse_out_order`.`out_order_actual_payment` AS `already_clear_price`,(`oc_storehouse_out_order`.`out_order_account_receivable` - `oc_storehouse_out_order`.`out_order_actual_payment`) AS `no_clear_price`,`oc_storehouse_out_order`.`out_order_remark` AS `order_remark` FROM `oc_storehouse_out_order` WHERE ((`oc_storehouse_out_order`.`out_order_is_audited` = '1') AND (`oc_storehouse_out_order`.`status` = '1') AND (`oc_storehouse_out_order`.`out_order_type_name` LIKE '%销售%')) GROUP BY `oc_storehouse_out_order`.`out_order_id` ORDER BY `oc_storehouse_out_order`.`out_order_date` DESC) ;
 
-/*Table structure for table `oc_storehouse_out_order_view` */
 
-DROP TABLE IF EXISTS `oc_storehouse_out_order_view`;
-
-/*!50001 DROP VIEW IF EXISTS `oc_storehouse_out_order_view` */;
-/*!50001 DROP TABLE IF EXISTS `oc_storehouse_out_order_view` */;
-
-/*!50001 CREATE TABLE  `oc_storehouse_out_order_view`(
- `out_order_date` date ,
- `out_order_id` varchar(11) ,
- `customer_id` varchar(50) ,
- `customer_name` varchar(50) ,
- `out_order_price` decimal(10,2) ,
- `out_order_account_receivable` decimal(10,2) ,
- `already_clear_price` decimal(10,2) ,
- `no_clear_price` decimal(11,2) ,
- `order_remark` varchar(50)
-)*/;
-
-/*View structure for view oc_storehouse_entry_order_view */
-
-/*!50001 DROP TABLE IF EXISTS `oc_storehouse_entry_order_view` */;
-/*!50001 DROP VIEW IF EXISTS `oc_storehouse_entry_order_view` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_storehouse_entry_order_view` AS (select `oc_storehouse_entry_order`.`entry_order_date` AS `entry_order_date`,`oc_storehouse_entry_order`.`entry_order_id` AS `entry_order_id`,`oc_storehouse_entry_order`.`customer_id` AS `customer_id`,`oc_storehouse_entry_order`.`customer_name` AS `customer_name`,`oc_storehouse_entry_order`.`entry_order_price` AS `entry_order_price`,`oc_storehouse_entry_order`.`entry_order_account_payable` AS `entry_order_account_payable`,`oc_storehouse_entry_order`.`entry_order_actual_payment` AS `already_clear_price`,(`oc_storehouse_entry_order`.`entry_order_account_payable` - `oc_storehouse_entry_order`.`entry_order_actual_payment`) AS `no_clear_price`,`oc_storehouse_entry_order`.`entry_order_remark` AS `order_remark` from `oc_storehouse_entry_order` where ((`oc_storehouse_entry_order`.`entry_order_is_audited` = '1') and (`oc_storehouse_entry_order`.`status` = '1') and (`oc_storehouse_entry_order`.`entry_order_type_name` like '%采购%')) group by `oc_storehouse_entry_order`.`entry_order_id` order by `oc_storehouse_entry_order`.`entry_order_date` desc) */;
-
-/*View structure for view oc_storehouse_out_order_view */
-
-/*!50001 DROP TABLE IF EXISTS `oc_storehouse_out_order_view` */;
-/*!50001 DROP VIEW IF EXISTS `oc_storehouse_out_order_view` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_storehouse_out_order_view` AS (select `oc_storehouse_out_order`.`out_order_date` AS `out_order_date`,`oc_storehouse_out_order`.`out_order_id` AS `out_order_id`,`oc_storehouse_out_order`.`customer_id` AS `customer_id`,`oc_storehouse_out_order`.`customer_name` AS `customer_name`,`oc_storehouse_out_order`.`out_order_price` AS `out_order_price`,`oc_storehouse_out_order`.`out_order_account_receivable` AS `out_order_account_receivable`,`oc_storehouse_out_order`.`out_order_actual_payment` AS `already_clear_price`,(`oc_storehouse_out_order`.`out_order_account_receivable` - `oc_storehouse_out_order`.`out_order_actual_payment`) AS `no_clear_price`,`oc_storehouse_out_order`.`out_order_remark` AS `order_remark` from `oc_storehouse_out_order` where ((`oc_storehouse_out_order`.`out_order_is_audited` = '1') and (`oc_storehouse_out_order`.`status` = '1') and (`oc_storehouse_out_order`.`out_order_type_name` like '%销售%')) group by `oc_storehouse_out_order`.`out_order_id` order by `oc_storehouse_out_order`.`out_order_date` desc) */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
+DROP TRIGGER IF EXISTS oc_storehouse_goods_check_trigger;
 DELIMITER $$
 CREATE
     TRIGGER `opencmf_corethink`.`oc_storehouse_goods_check_trigger` BEFORE UPDATE ON `oc_storehouse_goods_check`
     FOR EACH ROW BEGIN
-	IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
-	     UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
-	END IF;
+    IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
+         UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
+    END IF;
     END$$
 DELIMITER ;
 
 
+
+
+DROP TRIGGER IF EXISTS oc_storehouse_out_order_trigger;
 DELIMITER $$
 CREATE TRIGGER `oc_storehouse_out_order_trigger` BEFORE UPDATE ON `oc_storehouse_out_order`
     FOR EACH ROW BEGIN
-	IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
-	     UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
-	END IF;
+    IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
+         UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
+    END IF;
     END$$
 DELIMITER ;
+
