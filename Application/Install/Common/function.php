@@ -209,25 +209,16 @@ function create_tables($db, $prefix = '')
     $orginal = C('ORIGINAL_TABLE_PREFIX');
     $sql     = str_replace(" `{$orginal}", " `{$prefix}", $sql);
 
-    $trigger1= " 
-DELIMITER $$
-CREATE TRIGGER `opencmf_corethink`.`oc_storehouse_goods_check_trigger` BEFORE UPDATE ON `oc_storehouse_goods_check`
-    FOR EACH ROW BEGIN
-    IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
+    $trigger1= "CREATE TRIGGER oc_storehouse_goods_check_trigger BEFORE UPDATE ON `oc_storehouse_goods_check` FOR EACH ROW 
+IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
-    END IF;
-    END$$
-DELIMITER ;";
+END IF";
 
-    $trigger2= " 
-DELIMITER $$
-CREATE TRIGGER `oc_storehouse_out_order_trigger` BEFORE UPDATE ON `oc_storehouse_out_order`
-    FOR EACH ROW BEGIN
-    IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
+    $trigger2= "CREATE TRIGGER oc_storehouse_out_order_trigger BEFORE UPDATE ON `oc_storehouse_out_order` FOR EACH ROW 
+IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
-    END IF;
-    END$$
-DELIMITER ;";
+    END IF";
+
     //开始安装
     show_msg('开始安装数据库...');
     foreach ($sql as $value) {
@@ -249,18 +240,30 @@ DELIMITER ;";
             $db->execute($value);
         }
     }
-    if (false !== $db->mysql_db_query($trigger1)) {
+
+
+
+    $Model = new \Think\Model();
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_goods_check_trigger");
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_out_order_trigger");
+    if ($Model->execute($trigger1)==0) {
         show_msg( 'oc_storehouse_goods_check_trigger...成功');
+        
+        if ($Model->execute($trigger2)==0) {
+            show_msg( 'oc_storehouse_out_order_trigger...成功');
+        } else {
+            show_msg( 'oc_storehouse_out_order_trigger...失败！', 'error');
+            session('error', true);
+        }
+
     } else {
         show_msg( 'oc_storehouse_goods_check_trigger...失败！', 'error');
-//        session('error', true);
+        session('error', true);
     }
-    if (false !== $db->execute($trigger2)) {
-        show_msg( 'oc_storehouse_out_order_trigger...成功');
-    } else {
-        show_msg( 'oc_storehouse_out_order_trigger...失败！', 'error');
-//        session('error', true);
-    }
+
+
+
+
 }
 
 /**

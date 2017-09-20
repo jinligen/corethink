@@ -168,7 +168,7 @@ SQL;
         if (session('error')) {
             $this->error('安装出错', 'index');
         } else {
-//            $this->redirect('complete');
+            $this->redirect('complete');
         }
     }
 
