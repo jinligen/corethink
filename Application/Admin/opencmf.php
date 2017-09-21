@@ -142,7 +142,7 @@ return array(
         ),
         'a6' => array(
             'pid'   => 'a',
-            'title' => '数据备份/还原',
+            'title' => '数据备份',
             'icon'  => 'fa fa-book',
             'url'   => 'admin/database/index',
         ),

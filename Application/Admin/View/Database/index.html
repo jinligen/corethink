@@ -10,6 +10,9 @@
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
     <style id="style1">
 
+        body{
+            padding-bottom: 100px;
+        }
         .nav-btn {
             display: flex;
             flex-direction: row;
@@ -36,7 +39,7 @@
         &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="backup()">开始备份</button>
         &nbsp;
-        <button class="layui-btn layui-btn-primary layui-btn-small" @click="backdown()">开始还原</button>
+        <!--<button class="layui-btn layui-btn-primary layui-btn-small" @click="backdown()">开始还原</button>-->
         &nbsp;
     </div>
 
@@ -47,12 +50,12 @@
                     <thead>
                         <tr>
                             <th>
-                                <div :style="{ width: 250 + 'px'}"style="text-align: center">
+                                <div :style="{ width: 350 + 'px'}"style="text-align: center">
                                     表名
                                 </div>
                             </th>
                             <th>
-                                <div :style="{ width: 50 + 'px'}"style="text-align: center">
+                                <div :style="{ width: 100 + 'px'}"style="text-align: center">
                                     数据量
                                 </div>
                             </th>
@@ -62,15 +65,15 @@
                                 </div>
                             </th>
                             <th>
-                                <div :style="{ width: 150 + 'px'}"style="text-align: center">
+                                <div :style="{ width: 200 + 'px'}"style="text-align: center">
                                     创建时间
                                 </div>
                             </th>
-                            <th>
-                                <div :style="{ width: 200 + 'px'}"style="text-align: center">
-                                    备份时间
-                                </div>
-                            </th>
+                            <!--<th>-->
+                                <!--<div :style="{ width: 200 + 'px'}"style="text-align: center">-->
+                                    <!--备份时间-->
+                                <!--</div>-->
+                            <!--</th>-->
 
                         </tr>
 
@@ -84,12 +87,12 @@
                     <tbody>
                     <tr v-for="(item, index) in tableInfo">
                         <td>
-                            <div :style="{ width: 250 + 'px'}">
+                            <div :style="{ width: 350 + 'px'}">
                                 {{item.name}}
                             </div>
                         </td>
                         <td>
-                            <div :style="{ width: 50 + 'px'}">
+                            <div :style="{ width: 100 + 'px'}">
                                 {{item.rows}}
                             </div>
                         </td>
@@ -99,15 +102,15 @@
                             </div>
                         </td>
                         <td>
-                            <div :style="{ width: 150 + 'px'}">
+                            <div :style="{ width: 200 + 'px'}">
                                 {{item.create_time}}
                             </div>
                         </td>
-                        <td>
-                            <div :style="{ width: 200 + 'px'}">
-                                {{item.backup_time}}
-                            </div>
-                        </td>
+                        <!--<td>-->
+                            <!--<div :style="{ width: 200 + 'px'}">-->
+                                <!--{{item.backup_time}}-->
+                            <!--</div>-->
+                        <!--</td>-->
                     </tr>
                     </tbody>
                 </table>
@@ -171,6 +174,7 @@ console.log(_date)
 
                     layer.closeAll()
                     $('#upload_target').remove()
+                    $('#msg').html('<span>准备...</span>');
                     $.ajax({
                         url: '/corethink/admin.php?s=/admin/database/export',
                         type: 'POST', //GET
@@ -211,6 +215,7 @@ console.log(_date)
                 }, function(){
                     layer.closeAll()
                     $('#upload_target').remove()
+
                     var tables = []
                     for(var i = 0,leng = _list.length;i<leng;i++){
                         tables.push(_list[i].name)

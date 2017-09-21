@@ -245,6 +245,7 @@ class ModuleController extends AdminController
         if (!$config_file) {
             $this->error('不存在安装文件');
         }
+
         $config_info = include $config_file;
         $data        = $config_info['info'];
 
@@ -280,8 +281,10 @@ class ModuleController extends AdminController
             // 将key值赋给id
             foreach ($config_info['admin_menu'] as $key => &$val) {
                 $val['id'] = (string) $key;
+
+
             }
-            $data['admin_menu'] = json_encode($config_info['admin_menu']);
+            $data['admin_menu'] = json_encode($config_info['admin_menu'],JSON_UNESCAPED_UNICODE);
         }
 
         // 获取用户中心导航
@@ -293,6 +296,7 @@ class ModuleController extends AdminController
 
         $data['id'] = $id;
         $data       = $module_object->create($data);
+//        $this->error($data);exit;
         if ($data) {
             $id = $module_object->save($data);
             if ($id) {

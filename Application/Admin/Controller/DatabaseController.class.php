@@ -375,6 +375,10 @@ DELIMITER ;";
 
         if($flag=='1'){
             $this->echoRetrun("备份结束！");
+            $date_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/date.text';
+            $date_path = str_replace('/', '\\\\', $date_path);
+
+            file_put_contents($date_path, json_encode(date('Y-m-d', NOW_TIME)));
         }else{
             $this->echoRetrun("备份失败！");
         }
