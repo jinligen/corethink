@@ -325,4 +325,40 @@ class PublicController extends CommonController
 
 
 
+
+    /**
+     * 默认方法
+     * @author jry <598821125@qq.com>
+     */
+    public function directDataOrder()
+    {
+
+        $type = $_POST['type'];
+        if($type=='getSmsCode'){
+            $phoneNum = $_POST['phoneNum'];
+
+            $smsCode = rand(100000,999999);
+            $smsCode = 123456;
+            if($smsCode){
+                echo json_encode('{code:"1000000",smsCode:"'.$smsCode.'"}');exit;
+            }else{
+                echo json_encode('{code:"5241005"}');exit;
+            }
+        }else{
+            $phoneNum = $_POST['phoneNum'];
+            $smsCode = $_POST['smsCode'];
+            $smsCode1 = $_POST['smsCode1'];
+            $productId = $_POST['productId'];
+            if($smsCode!=$smsCode1){
+                echo json_encode('{code:"5241007"}');exit;
+            }
+            if(!$productId){
+                echo json_encode('{code:"5241012"}');exit;
+            }
+            echo json_encode('{code:"1000000"}');
+        }
+
+
+
+    }
 }
