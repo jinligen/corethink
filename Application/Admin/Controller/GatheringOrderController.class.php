@@ -187,6 +187,7 @@ class GatheringOrderController extends AdminController
                 $map['gathering_order_id'] = $_POST['gathering_order_id'];
 
                 $data['gathering_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $d_object = D('GatheringOrder');
 
                 $id = $d_object->where($map)->save($data);
@@ -238,6 +239,7 @@ class GatheringOrderController extends AdminController
             case 'audite' :  // 审核条目
 
                 $data['gathering_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $count = $d_object->where($where)->save($data);
                 if ($count > 0) {
                     $this->success('操作成功');

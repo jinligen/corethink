@@ -321,6 +321,7 @@ class OutOrderController extends AdminController
                 $map['out_order_id'] = $_POST['out_order_id'];
 
                 $data['out_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $d_object = D('OutOrder');
 
                 $id = $d_object->where($map)->save($data);
@@ -371,6 +372,7 @@ class OutOrderController extends AdminController
                 $map['out_order_id'] = $_POST['out_order_id'];
 
                 $data['out_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $d_object = D('OutOrder');
 
                 $id = $d_object->where($map)->save($data);
@@ -422,6 +424,7 @@ class OutOrderController extends AdminController
             case 'audite' :  // 审核条目
 
                 $data['out_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $count = $d_object->where($where)->save($data);
                 if ($count > 0) {
                     $this->success('操作成功');

@@ -27,16 +27,16 @@ class CustomerController extends AdminController
             $d_object = D('Customer');
 
             if($_POST['type']=='export'){
-                $list = $d_object->field('types,customer_id,customer_name,customer_type,customer_address,customer_phone,create_time')->select();
+                $list = $d_object->field('types,customer_id,customer_name,customer_type,customer_contacts,customer_phone,customer_address,create_time')->select();
                 $filename = '客户列表';
-                $head = array("分类","客户编号","客户名称","客户类别","地址","电话","创建时间");
+                $head = array("分类","客户编号","客户名称","客户类别","联系人","电话","地址","创建时间");
                 if($list){
                     D('Module')->export($list,$filename,$head);
                 }
 
             }elseif($_POST['type']=='import'){
                 $table='Customer';
-                $data = array("types","customer_id","customer_name","customer_type","customer_address","customer_phone");
+                $data = array("types","customer_id","customer_name","customer_type","customer_contacts","customer_phone","customer_address");
                 D('Module')->import($table,$data);
 
                 redirect(U('index'), 0, '');

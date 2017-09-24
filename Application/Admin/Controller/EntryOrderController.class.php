@@ -328,6 +328,7 @@ class EntryOrderController extends AdminController
                 $map['entry_order_id'] = $_POST['entry_order_id'];
 
                 $data['entry_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $d_object = D('EntryOrder');
 
                 $id = $d_object->where($map)->save($data);
@@ -382,6 +383,7 @@ class EntryOrderController extends AdminController
 
 
                 $data['entry_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $d_object = D('EntryOrder');
 
                 $id = $d_object->where($map)->save($data);
@@ -433,6 +435,7 @@ class EntryOrderController extends AdminController
             case 'audite' :  // 审核条目
 
                 $data['entry_order_is_audited'] = 1;
+                $data['audited_date'] = date('Y-m-d');
                 $count = $d_object->where($where)->save($data);
                 if ($count > 0) {
                     $this->success('操作成功');

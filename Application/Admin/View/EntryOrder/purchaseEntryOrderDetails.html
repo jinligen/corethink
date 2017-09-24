@@ -233,29 +233,36 @@
         </div>
         <div class="form-head-row">
             <div class="form-item " style="">
-                <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                <span class="title" style="">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</span>
+                <div class="input-content "  >
+                    <div class="data-show" style="">&nbsp;{{headInfo.customer_contacts}}</div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</span>
+                <div class="input-content "  >
+                    <div class="data-show" style="">&nbsp;{{headInfo.customer_phone}}</div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%; ">
+                        {{headInfo.entry_order_remark}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
                 <div class="input-content " style=" flex: 9">
-                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_remark}}</div>
-
+                    <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
                 </div>
             </div>
-
-            <div class="form-item " style="">
-                <span class="title" style="">&nbsp;</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                    </div>
-                </div>
-            </div>
-            <div class="form-item " style="">
-                <span class="title" style="">&nbsp;</span>
-                <div class="input-content ">
-                    <div class="data-select" style=" width: 100%;">
-                    </div>
-                </div>
-            </div>
-
-
 
         </div>
 
@@ -483,7 +490,7 @@
                         制单人: {$_user_auth.nickname}
                     </div>
                     <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
-                        审核时间: {$_user_auth.audited_date}
+                        审核时间: {{headInfo.audited_date}}
                     </div>
                 </div>
             </div>
@@ -585,14 +592,36 @@
             </div>
             <div class="form-head-row">
                 <div class="form-item " style="">
-                    <span class="title" style="flex: 1">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
-                    <div class="input-content " style=" flex: 9">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_remark}}</div>
+                    <span class="title" style="">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.customer_contacts}}</div>
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</span>
+                    <div class="input-content "  >
+                        <div class="data-show" style="">&nbsp;{{headInfo.customer_phone}}</div>
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
+                    <div class="input-content "  >
+                        <div class="data-select" style=" width: 100%; ">
+                            {{headInfo.entry_order_remark}}
+                        </div>
 
                     </div>
                 </div>
 
-
+            </div>
+            <div class="form-head-row">
+                <div class="form-item " style="">
+                    <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
+                    <div class="input-content " style=" flex: 9">
+                        <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
+                    </div>
+                </div>
 
             </div>
 
@@ -701,7 +730,7 @@
                     制单人: {$_user_auth.nickname}
                 </div>
                 <div class="layui-col-xs3 layui-col-sm3 layui-col-md3">
-                    审核时间: {$_user_auth.audited_date}
+                    审核时间: {{headInfo.audited_date}}
                 </div>
             </div>
         </div>
@@ -749,6 +778,9 @@
             entry_order_type_name: '{$entry_order_type_name}',
             customer_id: '',
             customer_name: '',
+            customer_contacts: '',
+            customer_phone: '',
+            customer_address: '',
             entry_order_date: '',
             entry_order_id: '',
             storehouse_name: '',
@@ -918,7 +950,7 @@
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
                 LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);
                 LODOP.SET_PRINT_STYLEA(0, "LinkedItem", 1);
-                LODOP.ADD_PRINT_HTM(30, 0, 750, 150, strAllStyle + $('#print-headinfo').html());
+                LODOP.ADD_PRINT_HTM(30, 0, 750, 200, strAllStyle + $('#print-headinfo').html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 2);
                 LODOP.SET_PRINT_STYLEA(0, "ItemType", 1);

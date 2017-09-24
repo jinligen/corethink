@@ -36,12 +36,12 @@ class IdsModel extends Model
 
         $ret_order_id = $list && count($list) > 0 ? $this->lookForId($list, $order_id) : $order_id;
 
- 
+        $ret_order_id = $ret_order_id?$ret_order_id:1;
 
         $data['type'] = $type;
 
         $data['order_id'] = $ret_order_id;
- 
+  
         $id = $this->add($data);
         return $id ? $type.str_pad($ret_order_id,8,"0",STR_PAD_LEFT) : '';
 
