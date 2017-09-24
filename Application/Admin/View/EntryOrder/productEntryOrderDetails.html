@@ -262,7 +262,7 @@
                         </td>
 
                         <td>
-                            <div class="input-content " :style="{ width: thead[6].width + 'px'}"
+                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
                             >
                                 <div class="data-show">&nbsp;{{item.goods_entry_total_quantity}}</div>
                                 <div class="data-select" style="display: none;">
@@ -277,30 +277,30 @@
 
                             </div>
                         </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[5].width + 'px'}"
-                            >
-                                <div class="data-show">&nbsp;{{item.goods_entry_unit_price}}
-                                </div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_entry_unit_price"
-                                           @change="unitPriceChang(index)"/>
-                                </div>
-                            </div>
-                        </td>
+                        <!--<td>-->
+                            <!--<div class="input-content " :style="{ width: thead[5].width + 'px'}"-->
+                            <!--&gt;-->
+                                <!--<div class="data-show">&nbsp;{{item.goods_entry_unit_price}}-->
+                                <!--</div>-->
+                                <!--<div class="data-select" style="display: none;">-->
+                                    <!--<input type="number" v-model="item.goods_entry_unit_price"-->
+                                           <!--@change="unitPriceChang(index)"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<div class="input-content " :style="{ width: thead[7].width + 'px'}"-->
+                            <!--&gt;-->
+                                <!--<div class="data-show">&nbsp;{{item.goods_entry_total_price}}-->
+                                <!--</div>-->
+                                <!--<div class="data-select" style="display: none;">-->
+                                    <!--<input type="number" v-model="item.goods_entry_total_price"-->
+                                           <!--@change="totalPriceChang(index)"/>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</td>-->
                         <td>
                             <div class="input-content " :style="{ width: thead[7].width + 'px'}"
-                            >
-                                <div class="data-show">&nbsp;{{item.goods_entry_total_price}}
-                                </div>
-                                <div class="data-select" style="display: none;">
-                                    <input type="number" v-model="item.goods_entry_total_price"
-                                           @change="totalPriceChang(index)"/>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-content " :style="{ width: thead[8].width + 'px'}"
                             >
                                 <div class="data-show">&nbsp;{{item.goods_remark}}</div>
                                 <div class="data-select" style="display: none;">
@@ -485,10 +485,10 @@
                     <td width="5%">
                         <div align=center><b>序号</b></div>
                     </td>
-                    <td width="15%">
+                    <td width="20%">
                         <div align=center><b>商品编号</b></div>
                     </td>
-                    <td width="20%">
+                    <td width="25%">
                         <div align=center><b>名称</b></div>
                     </td>
                     <td width="10%">
@@ -504,14 +504,14 @@
                     <td width="10%">
                         <div align=center><b>重量</b></div>
                     </td>
-                    <td width="5%">
-                        <div align=center><b>单价</b></div>
-                    </td>
+                    <!--<td width="5%">-->
+                        <!--<div align=center><b>单价</b></div>-->
+                    <!--</td>-->
 
-                    <td width="10%">
-                        <div align=center><b>金额</b></div>
-                    </td>
-                    <td width="15%">
+                    <!--<td width="10%">-->
+                        <!--<div align=center><b>金额</b></div>-->
+                    <!--</td>-->
+                    <td width="20%">
                         <div align=center><b>备注</b></div>
                     </td>
                 </tr>
@@ -539,32 +539,32 @@
                     <td>
                         {{item.goods_weight+item.goods_min_unit}}
                     </td>
-                    <td>
-                        {{item.goods_entry_unit_price}}
-                    </td>
-                    <td>
-                        {{item.goods_entry_total_price}}
-                    </td>
+                    <!--<td>-->
+                        <!--{{item.goods_entry_unit_price}}-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--{{item.goods_entry_total_price}}-->
+                    <!--</td>-->
                     <td>
                         {{item.goods_remark}}
                     </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td ><b>合计</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>{{headInfo.entry_order_price}}</b></td>
-                    <td ><b>&nbsp;</b></td>
+                <!--<tfoot>-->
+                <!--<tr>-->
+                    <!--<td ><b>合计</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--&lt;!&ndash;<td ><b>&nbsp;</b></td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td ><b>&nbsp;</b></td>&ndash;&gt;-->
+                    <!--<td ><b>{{headInfo.entry_order_price}}</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
 
-                </tr>
-                </tfoot>
+                <!--</tr>-->
+                <!--</tfoot>-->
             </table>
         </div>
         <div   id="table-foot">
@@ -610,8 +610,8 @@
         {title: '单位', width: 100},
         {title: '数量', width: 100},
         {title: '重量', width: 100},
-        {title: '单价', width: 100},
-        {title: '金额', width: 100},
+//        {title: '单价', width: 100},
+//        {title: '金额', width: 100},
         {title: '备注', width: 100}
 
     ];

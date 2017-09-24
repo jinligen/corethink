@@ -323,67 +323,8 @@ CREATE TABLE `oc_ids` (
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(2) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_ids` VALUES ('1', 'CGRKD', '5', '2017-09-19 23:07:55', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('2', 'CPRKD', '4', '2017-09-19 23:08:03', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('3', 'CLCKD', '1', '2017-09-19 23:08:10', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('4', 'XSCKD', '3', '2017-09-19 23:08:17', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('5', 'FKD', '2', '2017-09-19 23:08:24', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('6', 'SKD', '2', '2017-09-19 23:08:29', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('7', 'XSDD', '2', '2017-09-19 23:08:37', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('8', 'CPRKD', '5', '2017-09-19 23:15:56', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('9', 'CGRKD', '6', '2017-09-20 10:20:31', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('10', 'CGRKD', '7', '2017-09-20 10:20:43', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('11', 'CGRKD', '8', '2017-09-20 10:21:28', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('12', 'CGRKD', '9', '2017-09-20 10:22:28', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('13', 'CGRKD', '10', '2017-09-20 10:23:41', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('14', 'CGRKD', '11', '2017-09-20 10:23:51', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('15', 'CGRKD', '12', '2017-09-20 10:24:04', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('16', 'CGRKD', '13', '2017-09-20 10:24:28', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('17', 'CPRKD', '6', '2017-09-20 10:24:52', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('18', 'CGRKD', '14', '2017-09-20 10:25:16', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('19', 'CPRKD', '7', '2017-09-20 10:25:20', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('20', 'CPRKD', '8', '2017-09-20 10:26:10', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('21', 'CGRKD', '15', '2017-09-20 10:30:58', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('22', 'CGRKD', '16', '2017-09-20 10:31:54', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('23', 'CGRKD', '17', '2017-09-20 10:32:22', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('24', 'CGRKD', '18', '2017-09-20 10:32:29', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('25', 'CPRKD', '9', '2017-09-20 10:32:34', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('26', 'CLCKD', '2', '2017-09-20 10:32:36', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('27', 'CLCKD', '3', '2017-09-20 10:32:58', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('28', 'CGRKD', '19', '2017-09-20 10:33:08', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('29', 'CGRKD', '20', '2017-09-20 10:34:53', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('30', 'CGRKD', '21', '2017-09-20 10:35:38', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('31', 'CGRKD', '22', '2017-09-20 10:36:32', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('32', 'CPRKD', '10', '2017-09-20 10:39:04', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('33', 'XSCKD', '4', '2017-09-20 10:39:58', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('34', 'FKD', '3', '2017-09-21 21:16:22', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('35', 'CGRKD', '2', '2017-09-21 21:18:49', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('36', 'CGRKD', '3', '2017-09-21 21:34:13', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('37', 'CGRKD', '4', '2017-09-21 22:29:06', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('38', 'CGRKD', '23', '2017-09-21 22:29:13', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('39', 'XSDD', '3', '2017-09-21 22:31:33', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('40', 'CGRKD', '24', '2017-09-23 20:37:00', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('41', 'CLCKD', '4', '2017-09-23 20:47:44', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('42', 'CPRKD', '11', '2017-09-23 21:21:41', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('43', 'XSCKD', '5', '2017-09-23 21:21:57', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('44', 'CGRKD', '25', '2017-09-23 21:51:52', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('45', 'CGRKD', '26', '2017-09-23 22:11:23', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('46', 'CGRKD', '27', '2017-09-23 22:13:09', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('47', 'FKD', '4', '2017-09-23 22:14:45', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('48', 'XSCKD', '6', '2017-09-23 22:30:31', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('49', 'CPRKD', '12', '2017-09-23 22:30:44', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('50', 'CLCKD', '5', '2017-09-23 22:30:50', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('51', 'SKD', '3', '2017-09-23 22:49:25', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('52', 'CGRKD', '28', '2017-09-24 16:11:14', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('53', 'CGRKD', '29', '2017-09-24 16:17:13', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('54', 'FKD', '5', '2017-09-24 16:18:09', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('55', 'CGRKD', '1', '2017-09-24 16:28:58', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('56', 'CGRKD', '30', '2017-09-24 16:31:24', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('57', 'CGRKD', '31', '2017-09-24 16:33:41', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('58', 'CPRKD', '13', '2017-09-24 16:39:19', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_ids` VALUES ('59', 'CGRKD', '32', '2017-09-24 16:48:31', '0000-00-00 00:00:00', '1');
 
 
 
@@ -426,8 +367,9 @@ CREATE TABLE `oc_storehouse_customer` (
   `customer_id` varchar(11) DEFAULT '' COMMENT '客户编号',
   `customer_name` varchar(50) DEFAULT '' COMMENT '客户名称',
   `customer_type` varchar(50) DEFAULT '' COMMENT '客户类别',
-  `customer_address` varchar(50) DEFAULT '' COMMENT '用户地址',
+  `customer_contacts` varchar(20) DEFAULT '' COMMENT '联系人',
   `customer_phone` varchar(15) DEFAULT '' COMMENT '客户电话',
+  `customer_address` varchar(50) DEFAULT '' COMMENT '用户地址',
   `types` varchar(50) DEFAULT '' COMMENT '类别：如供应商、部门、客户',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -436,10 +378,10 @@ CREATE TABLE `oc_storehouse_customer` (
   UNIQUE KEY `UNIQUE` (`customer_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_customer` VALUES ('1', 'BM1001', '财务部', '公司部门', '/', '13544565874', '公司部门', '2017-09-05 09:11:09', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_customer` VALUES ('2', 'GYS1001', 'XXX建材有限公司', '公司部门', '河南省郑州市百合路118号', '13544565874', '供应商', '2017-09-07 04:38:23', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_customer` VALUES ('3', 'KH0001', 'XXX市政局', '4X', '解放路', '13265656565', '客户', '2017-09-11 13:42:31', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_customer` VALUES ('4', 'KH0002', '郑州市市政管理中心', '', '泰中路1256号', '13655465234', '客户', '2017-09-17 12:47:24', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('1', 'BM1001', '财务部', '公司部门', '', '13544565874', '/', '公司部门', '2017-09-05 09:11:09', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('2', 'GYS1001', 'XXX建材有限公司', '公司部门', '', '13544565874', '河南省郑州市百合路118号', '供应商', '2017-09-07 04:38:23', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('3', 'KH0001', 'XXX市政局', '4X', '', '13265656565', '解放路', '客户', '2017-09-11 13:42:31', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_customer` VALUES ('4', 'KH0002', '郑州市市政管理中心', '', '', '13655465234', '泰中路1256号', '客户', '2017-09-17 12:47:24', '0000-00-00 00:00:00', '1');
 
 
 
@@ -447,7 +389,7 @@ DROP TABLE IF EXISTS `oc_storehouse_entry_order`;
 CREATE TABLE `oc_storehouse_entry_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_order_type_name` varchar(50) DEFAULT '' COMMENT '入库单类型',
-  `entry_order_id` varchar(11) DEFAULT '' COMMENT '入库单编号',
+  `entry_order_id` varchar(50) DEFAULT '' COMMENT '入库单编号',
   `entry_order_invoice_number` varchar(50) DEFAULT '' COMMENT '发票号码',
   `entry_order_price` decimal(10,2) DEFAULT '0.00' COMMENT '单据金额',
   `entry_order_payment_way` varchar(10) DEFAULT '' COMMENT '支付方式',
@@ -455,6 +397,7 @@ CREATE TABLE `oc_storehouse_entry_order` (
   `entry_order_payment_account` varchar(20) DEFAULT '' COMMENT '支付账户',
   `entry_order_deposit_rate` decimal(4,2) DEFAULT '0.00' COMMENT '折扣率',
   `entry_order_tax_rate` decimal(4,2) DEFAULT '0.00' COMMENT '税率',
+  `entry_order_before_payment` decimal(10,2) DEFAULT '0.00' COMMENT '预付金额',
   `entry_order_including_tax_price` decimal(10,2) DEFAULT '0.00' COMMENT '含税金额',
   `entry_order_account_payable` decimal(10,2) DEFAULT '0.00' COMMENT '应付金额',
   `entry_order_actual_payment` decimal(10,2) DEFAULT '0.00' COMMENT '实际支付',
@@ -463,6 +406,9 @@ CREATE TABLE `oc_storehouse_entry_order` (
   `entry_order_date` date DEFAULT '0000-00-00' COMMENT '单据发生日期',
   `customer_id` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 编号',
   `customer_name` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 名称',
+  `customer_contacts` varchar(20) DEFAULT '',
+  `customer_phone` varchar(15) DEFAULT '',
+  `customer_address` varchar(50) DEFAULT '',
   `storehouse_name` varchar(50) DEFAULT '' COMMENT '所属仓库',
   `invoice_type` varchar(50) DEFAULT '' COMMENT '发票类型',
   `username` varchar(50) DEFAULT '' COMMENT '操作人（英文）',
@@ -493,15 +439,8 @@ CREATE TABLE `oc_storehouse_entry_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_entry_order` VALUES ('1', '采购入库单', 'CG000001', '', '150.00', '', '测试下雨', '', '0.00', '0.00', '0.00', '150.00', '100.00', '0000-00-00', '1', '2017-09-14', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '件', '900.00', '0.00', '0.00', '0.00', '0.00', '0', '50.00', '3.00', '150.00', '0.00', '0.00', '0.00', 'test', '2017-09-17 12:18:16', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('4', '产品入库单', 'CPRKD00003', '', '25.00', '', 'SDFSDF', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-21', 'BM1001', '财务部', '产品仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '吨', '5000.00', '0.00', '0.00', '0.00', '0.00', '0', '5.00', '5.00', '25.00', '0.00', '0.00', '0.00', 'SDFSDWERW', '2017-09-17 17:42:46', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('3', '产品入库单', 'CP000001', '', '8.00', '', 'sdfsdf ', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-21', 'BM1001', '财务部', '产品仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '500.00', '0.00', '0.00', '0.00', '0.00', '0', '8.00', '1.00', '8.00', '0.00', '0.00', '0.00', 'sdfsdf', '2017-09-17 13:33:21', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('5', '采购入库单', 'CGRKD000000', '', '30.00', '', '', '', '0.00', '6.00', '1.80', '28.20', '0.00', '0000-00-00', '1', '2017-08-26', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '张三', '', '0000-00-00', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', 'kg', '10.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '10.00', '30.00', '0.00', '0.00', '0.00', '', '2017-09-24 16:24:29', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('6', '采购入库单', 'CGRKD000000', '', '6.00', '', '', '', '0.00', '0.00', '0.00', '6.00', '0.00', '0000-00-00', '0', '2017-09-29', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '王文静', '', '0000-00-00', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', 'kg', '2.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '2.00', '6.00', '0.00', '0.00', '0.00', '', '2017-09-24 16:29:43', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('7', '采购入库单', 'CGRKD000002', '', '24.00', '', '', '', '0.00', '0.00', '0.00', '24.00', '0.00', '0000-00-00', '0', '2017-09-15', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '王文静', '', '0000-00-00', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', 'kg', '8.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '8.00', '24.00', '0.00', '0.00', '0.00', '', '2017-09-24 16:32:30', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_entry_order` VALUES ('8', '采购入库单', 'CGRKD000001', '', '9.00', '', '', '', '0.00', '4.00', '0.36', '8.64', '5.00', '0000-00-00', '1', '2017-09-14', 'GYS1001', 'XXX建材有限公司', '原料仓', '', 'admin', '超级管理员', '李思静', '财务部', '2017-09-24', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', 'kg', '3.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '3.00', '9.00', '0.00', '0.00', '0.00', '', '2017-09-24 16:34:45', '0000-00-00 00:00:00', '1');
 
 
 
@@ -523,7 +462,7 @@ DROP TABLE IF EXISTS `oc_storehouse_gathering_order`;
 CREATE TABLE `oc_storehouse_gathering_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `gathering_order_type_name` varchar(50) DEFAULT '' COMMENT '收款单类型',
-  `gathering_order_id` varchar(11) DEFAULT '' COMMENT '收款单编号',
+  `gathering_order_id` varchar(50) DEFAULT '' COMMENT '收款单编号',
   `gathering_order_invoice_number` varchar(50) DEFAULT '' COMMENT '发票号码',
   `gathering_order_payment_way` varchar(10) DEFAULT '' COMMENT '支付方式',
   `gathering_order_remark` varchar(50) DEFAULT '' COMMENT '摘要',
@@ -559,9 +498,8 @@ CREATE TABLE `oc_storehouse_gathering_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_gathering_order` VALUES ('1', '销售收款', 'SKD000001', '', '', '', '', '3.50', '0.00', '0.00', '0.00', '0.00', '3.50', '3.50', '2017-09-15', '1', '0000-00-00', 'KH0002', '郑州市市政管理中心', '', '', '', 'admin', '超级管理员', '', '0000-00-00', '2017-09-13', 'XS000001', '15.00', '13.50', '10.00', '3.50', '3.50', 'sdfsdfsd', '2017-09-17 13:48:38', '0000-00-00 00:00:00', '1');
 
 
 
@@ -588,7 +526,7 @@ DROP TABLE IF EXISTS `oc_storehouse_goods`;
 CREATE TABLE `oc_storehouse_goods` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `goods_type_name` varchar(50) DEFAULT '' COMMENT '商品类型',
-  `goods_id` varchar(11) DEFAULT '' COMMENT '商品编号',
+  `goods_id` varchar(50) DEFAULT '' COMMENT '商品编号',
   `goods_name` varchar(50) DEFAULT '' COMMENT '商品名称',
   `goods_spec` varchar(50) DEFAULT '' COMMENT '商品规格',
   `goods_min_unit` varchar(10) DEFAULT '' COMMENT '商品最小计量单位',
@@ -607,7 +545,7 @@ CREATE TABLE `oc_storehouse_goods` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 INSERT INTO `oc_storehouse_goods` VALUES ('1', '产品', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '3500.00', '5.00', '10.00', '产品仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_goods` VALUES ('2', '原材料', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '2000.00', '3.00', '0.00', '原料仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_goods` VALUES ('2', '原材料', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '1997.00', '3.00', '0.00', '原料仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
 
 
 
@@ -673,7 +611,7 @@ DROP TABLE IF EXISTS `oc_storehouse_out_order`;
 CREATE TABLE `oc_storehouse_out_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `out_order_type_name` varchar(50) DEFAULT '' COMMENT '出库单类型',
-  `out_order_id` varchar(11) DEFAULT '' COMMENT '出库单编号',
+  `out_order_id` varchar(50) DEFAULT '' COMMENT '出库单编号',
   `out_order_invoice_number` varchar(50) DEFAULT '' COMMENT '发票号码',
   `out_order_price` decimal(10,2) DEFAULT '0.00' COMMENT '单据金额',
   `out_order_payment_way` varchar(10) DEFAULT '' COMMENT '支付方式',
@@ -681,6 +619,7 @@ CREATE TABLE `oc_storehouse_out_order` (
   `out_order_payment_account` varchar(20) DEFAULT '' COMMENT '支付账户',
   `out_order_deposit_rate` decimal(4,2) DEFAULT '0.00' COMMENT '折扣率',
   `out_order_tax_rate` decimal(4,2) DEFAULT '0.00' COMMENT '税率',
+  `out_order_before_payment` decimal(10,2) DEFAULT '0.00' COMMENT '预付金额',
   `out_order_including_tax_price` decimal(10,2) DEFAULT '0.00' COMMENT '含税金额',
   `out_order_account_receivable` decimal(10,2) DEFAULT '0.00' COMMENT '应收金额',
   `out_order_actual_payment` decimal(10,2) DEFAULT '0.00' COMMENT '实际支付',
@@ -689,6 +628,9 @@ CREATE TABLE `oc_storehouse_out_order` (
   `out_order_date` date DEFAULT '0000-00-00' COMMENT '单据发生日期',
   `customer_id` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 编号',
   `customer_name` varchar(50) DEFAULT '' COMMENT '客户/供应商/部门 名称',
+  `customer_contacts` varchar(20) DEFAULT '',
+  `customer_phone` varchar(15) DEFAULT '',
+  `customer_address` varchar(50) DEFAULT '',
   `storehouse_name` varchar(50) DEFAULT '' COMMENT '所属仓库',
   `invoice_type` varchar(50) DEFAULT '' COMMENT '发票类型',
   `username` varchar(50) DEFAULT '' COMMENT '操作人（英文）',
@@ -719,11 +661,8 @@ CREATE TABLE `oc_storehouse_out_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_out_order` VALUES ('1', '材料出库单', 'CL000001', '', '3.00', '', '实验室', '', '0.00', '0.00', '0.00', '0.00', '0.00', '0000-00-00', '1', '2017-09-15', 'BM1001', '财务部', '原料仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '件', '300.00', '0.00', '0.00', '0.00', '0.00', '0', '3.00', '1.00', '3.00', '0.00', '0.00', '0.00', '似的士大夫士大夫', '2017-09-17 13:25:30', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_out_order` VALUES ('2', '销售出库单', 'XS000001', '', '15.00', '', 'sdfsdfsd', '', '0.00', '10.00', '1.50', '13.50', '10.00', '0000-00-00', '1', '2017-09-13', 'KH0002', '郑州市市政管理中心', '产品仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '1500.00', '0.00', '0.00', '0.00', '0.00', '0', '5.00', '3.00', '15.00', '0.00', '0.00', '0.00', 'sdf', '2017-09-17 13:37:14', '0000-00-00 00:00:00', '1');
-INSERT INTO `oc_storehouse_out_order` VALUES ('3', '销售出库单', 'XSCKD00002', '', '32.00', '', '', '', '0.00', '1.00', '0.32', '31.68', '31.68', '0000-00-00', '1', '2017-09-21', 'KH0001', 'XXX市政局', '产品仓', '', 'admin', '超级管理员', '', '', '0000-00-00', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '箱', '2000.00', '0.00', '0.00', '0.00', '0.00', '0', '8.00', '4.00', '32.00', '0.00', '0.00', '0.00', 'sdfsfdsdf', '2017-09-17 17:41:24', '0000-00-00 00:00:00', '1');
 
 
 
@@ -745,7 +684,7 @@ DROP TABLE IF EXISTS `oc_storehouse_payment_order`;
 CREATE TABLE `oc_storehouse_payment_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `payment_order_type_name` varchar(50) DEFAULT '' COMMENT '付款单类型',
-  `payment_order_id` varchar(11) DEFAULT '' COMMENT '付款单编号',
+  `payment_order_id` varchar(50) DEFAULT '' COMMENT '付款单编号',
   `payment_order_invoice_number` varchar(50) DEFAULT '' COMMENT '发票号码',
   `payment_order_payment_way` varchar(10) DEFAULT '' COMMENT '支付方式',
   `payment_order_remark` varchar(50) DEFAULT '' COMMENT '摘要',
@@ -781,9 +720,8 @@ CREATE TABLE `oc_storehouse_payment_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_payment_order` VALUES ('1', '预付款', 'FKD000001', '', '', '', '', '50.00', '0.00', '0.00', '0.00', '0.00', '50.00', '50.00', '2017-09-30', '1', '0000-00-00', 'GYS1001', 'XXX建材有限公司', '', '', 'admin', '超级管理员', '', '', '0000-00-00', '2017-09-14', 'CG000001', '150.00', '150.00', '100.00', '50.00', '50.00', '测试下雨', '2017-09-17 13:42:55', '0000-00-00 00:00:00', '1');
 
 
 
@@ -809,7 +747,7 @@ CREATE TABLE `oc_storehouse_payment_order_clear` (
 DROP TABLE IF EXISTS `oc_storehouse_sales_order`;
 CREATE TABLE `oc_storehouse_sales_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `sales_order_id` varchar(11) DEFAULT '' COMMENT '订单编号',
+  `sales_order_id` varchar(50) DEFAULT '' COMMENT '订单编号',
   `sales_order_remark` varchar(50) DEFAULT '' COMMENT '摘要',
   `sales_order_give_date` date DEFAULT '0000-00-00' COMMENT '交付日期',
   `sales_order_is_audited` int(2) DEFAULT '0' COMMENT '是否审核',

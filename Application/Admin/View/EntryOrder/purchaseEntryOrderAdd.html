@@ -191,13 +191,44 @@
             </div>
 
             <div class="form-item " style="">
+                <span class="title" style="">预付金额:</span>
+                <div class="input-content ">
+
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_before_payment"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-item " style="">
                 <span class="title" style="">应付金额:</span>
                 <div class="input-content ">
-                    <span style="display: none">{{headInfo.entry_order_account_payable=parseFloat(headInfo.entry_order_price - headInfo.entry_order_including_tax_price).toFixed(2)}}</span>
+                    <span style="display: none">{{headInfo.entry_order_account_payable=(parseFloat(headInfo.entry_order_price) + parseFloat(headInfo.entry_order_including_tax_price) - parseFloat(headInfo.entry_order_before_payment==''?0:headInfo.entry_order_before_payment)).toFixed(2)}}</span>
 
                     <div class="data-select" style=" width: 100%;">
                         <input type="text" style="" v-model="headInfo.entry_order_account_payable"/>
                     </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.customer_contacts"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</span>
+                <div class="input-content "  >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.customer_phone"/>
+                    </div>
+
                 </div>
             </div>
 
@@ -210,40 +241,30 @@
                 </div>
             </div>
 
+
+
         </div>
         <div class="form-head-row">
-            <div class="form-item " style="">
-                <span class="title" style="">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</span>
-                <div class="input-content "  >
-                    <div class="data-show" style="">&nbsp;{{headInfo.customer_contacts}}</div>
-                </div>
-            </div>
-            <div class="form-item " style="">
-                <span class="title" style="">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</span>
-                <div class="input-content "  >
-                    <div class="data-show" style="">&nbsp;{{headInfo.customer_phone}}</div>
-                </div>
-            </div>
 
             <div class="form-item " style="">
                 <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
                 <div class="input-content "  >
-                    <div class="data-select" style=" width: 100%; ">
-                        {{headInfo.entry_order_remark}}
+
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.entry_order_remark"/>
                     </div>
 
                 </div>
             </div>
-
-        </div>
-        <div class="form-head-row">
-            <div class="form-item " style="">
+            <div class="form-item " style="flex: 2.05">
                 <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
                 <div class="input-content " style=" flex: 9">
-                    <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
+
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.customer_address"/>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div id="div2">
@@ -561,6 +582,15 @@
                 </div>
 
                 <div class="form-item " style="">
+                    <span class="title" style="">预付金额:</span>
+                    <div class="input-content ">
+
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_before_payment}}</div>
+
+                    </div>
+
+                </div>
+                <div class="form-item " style="">
                     <span class="title" style="">应付金额:</span>
                     <div class="input-content ">
 
@@ -568,14 +598,6 @@
 
                     </div>
 
-                </div>
-
-                <div class="form-item " style="">
-                    <span class="title" style="">本次支付:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
-
-                    </div>
                 </div>
 
 
@@ -596,6 +618,17 @@
                 </div>
 
                 <div class="form-item " style="">
+                    <span class="title" style="">本次支付:</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-head-row">
+
+                <div class="form-item " style="">
                     <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
                     <div class="input-content "  >
                         <div class="data-select" style=" width: 100%; ">
@@ -605,17 +638,14 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
-                    <div class="input-content " style=" flex: 9">
-                        <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
+                <div class="form-item " style="flex: 2.05">
+                    <span class="title" style="max-width:70px">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
+                    <div class="input-content " style="">
+                        <div class="data-show" style=" width: 100%;text-align: left;">&nbsp;{{headInfo.customer_address}}</div>
                     </div>
                 </div>
 
             </div>
-
         </div>
         <div id="print-table">
             <table border=1 cellSpacing=0 cellPadding=1 width="100%" style="border-collapse:collapse;"
@@ -780,7 +810,7 @@
             entry_order_tax_rate:0,
             entry_order_including_tax_price:0,
             entry_order_account_payable:0,
-
+            entry_order_before_payment:0,
             department:'',
             clerk_id:'',
             clerk_name:'',
@@ -1125,6 +1155,7 @@
                         return flag
                     },
                     success: function (data, textStatus, jqXHR) {
+                        console.log(data)
                         var data = eval('(' + data + ')');
 
                         if (data.error == '0000') {

@@ -214,7 +214,12 @@ IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
 END IF";
 
-    $trigger2= "CREATE TRIGGER oc_storehouse_out_order_trigger BEFORE UPDATE ON `oc_storehouse_out_order` FOR EACH ROW 
+    $trigger2= "CREATE TRIGGER oc_storehouse_entry_order_trigger BEFORE UPDATE ON `oc_storehouse_entry_order` FOR EACH ROW 
+IF old.entry_order_is_audited = '0' AND new.entry_order_is_audited = '1' THEN
+         UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance + new.goods_weight WHERE goods_id =  new.goods_id;
+    END IF";
+
+    $trigger3= "CREATE TRIGGER oc_storehouse_out_order_trigger BEFORE UPDATE ON `oc_storehouse_out_order` FOR EACH ROW 
 IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
     END IF";
@@ -246,13 +251,21 @@ IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
     $Model = new \Think\Model();
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_goods_check_trigger");
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_out_order_trigger");
+    
     if ($Model->execute($trigger1)==0) {
         show_msg( 'oc_storehouse_goods_check_trigger...成功');
         
         if ($Model->execute($trigger2)==0) {
-            show_msg( 'oc_storehouse_out_order_trigger...成功');
+            show_msg( 'oc_storehouse_entry_order_trigger...成功');
+
+            if ($Model->execute($trigger3)==0) {
+                show_msg( 'oc_storehouse_out_order_trigger...成功');
+            } else {
+                show_msg( 'oc_storehouse_out_order_trigger...失败！', 'error');
+                session('error', true);
+            }
         } else {
-            show_msg( 'oc_storehouse_out_order_trigger...失败！', 'error');
+            show_msg( 'oc_storehouse_entry_order_trigger...失败！', 'error');
             session('error', true);
         }
 

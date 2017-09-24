@@ -172,6 +172,7 @@
         </div>
 
 
+
         <div class="form-head-row">
             <div class="form-item " style="">
                 <span class="title" style="">所属仓库:</span>
@@ -211,6 +212,15 @@
             </div>
 
             <div class="form-item " style="">
+                <span class="title" style="">预付金额:</span>
+                <div class="input-content ">
+
+                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_before_payment}}</div>
+
+                </div>
+
+            </div>
+            <div class="form-item " style="">
                 <span class="title" style="">应付金额:</span>
                 <div class="input-content ">
 
@@ -218,14 +228,6 @@
 
                 </div>
 
-            </div>
-
-            <div class="form-item " style="">
-                <span class="title" style="">本次支付:</span>
-                <div class="input-content ">
-                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
-
-                </div>
             </div>
 
 
@@ -246,6 +248,17 @@
             </div>
 
             <div class="form-item " style="">
+                <span class="title" style="">本次支付:</span>
+                <div class="input-content ">
+                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="form-head-row">
+
+            <div class="form-item " style="">
                 <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
                 <div class="input-content "  >
                     <div class="data-select" style=" width: 100%; ">
@@ -255,9 +268,7 @@
                 </div>
             </div>
 
-        </div>
-        <div class="form-head-row">
-            <div class="form-item " style="">
+            <div class="form-item " style="flex: 2.05">
                 <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
                 <div class="input-content " style=" flex: 9">
                     <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
@@ -499,7 +510,7 @@
         </div>
     </div>
 
-    <div class="print-content" style="display: none">
+    <div class="print-content" style="display: none ">
         <div id="print-headinfo">
             <div class="layui-row order-title" style=" ">
                 <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">采&nbsp;&nbsp;购&nbsp;&nbsp;入&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
@@ -529,6 +540,7 @@
                     </div>
                 </div>
             </div>
+
 
 
             <div class="form-head-row">
@@ -570,6 +582,15 @@
                 </div>
 
                 <div class="form-item " style="">
+                    <span class="title" style="">预付金额:</span>
+                    <div class="input-content ">
+
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_before_payment}}</div>
+
+                    </div>
+
+                </div>
+                <div class="form-item " style="">
                     <span class="title" style="">应付金额:</span>
                     <div class="input-content ">
 
@@ -577,14 +598,6 @@
 
                     </div>
 
-                </div>
-
-                <div class="form-item " style="">
-                    <span class="title" style="">本次支付:</span>
-                    <div class="input-content ">
-                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
-
-                    </div>
                 </div>
 
 
@@ -605,6 +618,17 @@
                 </div>
 
                 <div class="form-item " style="">
+                    <span class="title" style="">本次支付:</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_actual_payment}}</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-head-row">
+
+                <div class="form-item " style="">
                     <span class="title" style="">摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要:</span>
                     <div class="input-content "  >
                         <div class="data-select" style=" width: 100%; ">
@@ -614,12 +638,10 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="form-head-row">
-                <div class="form-item " style="">
-                    <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
-                    <div class="input-content " style=" flex: 9">
-                        <div class="data-show" style="">&nbsp;{{headInfo.customer_address}}</div>
+                <div class="form-item " style="flex: 2.05">
+                    <span class="title" style="max-width:70px">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
+                    <div class="input-content " style="">
+                        <div class="data-show" style=" width: 100%;text-align: left;">&nbsp;{{headInfo.customer_address}}</div>
                     </div>
                 </div>
 
@@ -789,7 +811,7 @@
             entry_order_remark: '',
             entry_order_tax_rate:0,
             entry_order_including_tax_price:0,
-            entry_order_account_payable:0
+            entry_order_account_payable:0,
         },
         tableInfo: [],
         tableData: []
