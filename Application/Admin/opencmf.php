@@ -245,6 +245,13 @@ return array(
             'url'   => 'Admin/SummarySales/index',
         ),
 
+        'c4'  => array(
+            'pid'   => 'c',
+            'title' => '库存商品明细账',
+            'icon'  => 'fa fa-building-o',
+            'url'   => 'Admin/BaoBiao/index',
+        ),
+
 
         'd'  => array(
             'pid'   => '1',
