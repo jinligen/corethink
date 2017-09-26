@@ -107,4 +107,28 @@ class BaoBiaoController extends AdminController
     }
 
 
+    /**
+     *供应商对账单
+     * @author jry <598821125@qq.com>
+     */
+    public function supplierBill()
+    {
+
+        $this->display();
+
+    }
+
+
+    /**
+     *客户对账单
+     * @author jry <598821125@qq.com>
+     */
+    public function customerBill()
+    {
+
+        $this->display();
+
+    }
+
+
 }

@@ -284,6 +284,18 @@ return array(
             'icon'  => 'fa fa-list-alt',
             'url'   => 'Admin/BaoBiao/paymentOrder',
         ),
+        'c11'  => array(
+            'pid'   => 'c',
+            'title' => '供应商对账单',
+            'icon'  => 'fa fa-list-alt',
+            'url'   => 'Admin/BaoBiao/supplierBill',
+        ),
+        'c12'  => array(
+            'pid'   => 'c',
+            'title' => '客户对账单',
+            'icon'  => 'fa fa-list-alt',
+            'url'   => 'Admin/BaoBiao/customerBill',
+        ),
 
         'd'  => array(
             'pid'   => '1',
