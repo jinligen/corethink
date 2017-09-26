@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>产品入库单时序薄</title>
+    <title>材料出库单时序薄</title>
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
     <link rel="stylesheet" href="__ADMIN_CSS__/common.css">
@@ -103,11 +103,9 @@
 <div class=" " id="page" style="width: 70%;margin: 0 15%;">
 
     <div class=" demoTable nav-btn ">
-        <a class="layui-btn layui-btn-small   " href="/corethink/admin.php?s=/admin/BaoBiao/index.html">返回</a>
+        <button class="layui-btn layui-btn-small   " onclick="exporExcel('材料出库单时序薄','#print-table')">导出</button>
         &nbsp;
-        <button class="layui-btn layui-btn-small   " onclick="exporExcel('产品入库单时序薄','#print-table')">导出</button>
-        &nbsp;
-        <button class="layui-btn layui-btn-small   " @click="query()">查询</button>
+        <button class="layui-btn layui-btn-small  layui-btn-warm " @click="query()">查询</button>
         &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="reload()">刷新</button>
         &nbsp;
@@ -117,7 +115,7 @@
     <div id="div1">
 
         <div class="layui-row" style=" text-align: center">
-            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">产&nbsp;&nbsp;品&nbsp;&nbsp;入&nbsp;&nbsp;库&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">材&nbsp;&nbsp;料&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
         </div>
 
         <div class="form-head-row">
@@ -127,10 +125,10 @@
                 <div class="input-content ">
                     <div class="data-select">
                         <input type="date" id="date" style="display: inline-block;width: 130px ;text-align: right;"
-                               v-model="headInfo.order_date"/>
+                               v-model="headInfo.start_date"/>
                         <span style="margin-right: 30px">-</span>
                         <input type="date" id="date1" style="display: inline-block;width: 130px;text-align: center"
-                               v-model="headInfo.order_date"/>
+                               v-model="headInfo.end_date"/>
                     </div>
                 </div>
             </div>
@@ -226,16 +224,16 @@
                 <thead>
                 <tr>
                     <th colspan="12" style="text-align: center;">
-                        <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">产&nbsp;&nbsp;品&nbsp;&nbsp;入&nbsp;&nbsp;库&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
+                        <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">材&nbsp;&nbsp;料&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
                     </th>
                 </tr>
                 <tr>
                     <th colspan="12" style="text-align: center;">
                         <div   style="">
                             日期:
-                            {{headInfo.order_date}}
+                            {{headInfo.start_date}}
                             <span style="margin: 0  30px">-</span>
-                            {{headInfo.order_date}}
+                            {{headInfo.end_date}}
                         </div>
                         <div class="input-content ">
                             <div class="data-select">
@@ -286,23 +284,21 @@
         scrollTop: 0,
         scrollLeft: 0,
         headInfo: {
-            order_id: '',
-            order_date: '',
-            goods_min_unit: '',
-            goods_name: '',
-            goods_spec: '',
+
+            start_date: '',
+            end_date:''
         },
         thead: [
             {key: "order_date", title: "单据日期", width: "100px"},
             {key: "order_id", title: "单据编号", width: "150px"},
             {key: "customer_name", title: "部门", width: "100px"},
             {key: "storehouse_name", title: "仓库名称", width: "100px"},
-            {key: "entry_order_is_audited", title: "审核状态", width: "100px"},
+            {key: "out_order_is_audited", title: "审核状态", width: "100px"},
             {key: "goods_id", title: "商品代码", width: "100px"},
             {key: "goods_name", title: "商品名称", width: "100px"},
             {key: "goods_spec", title: "规格型号", width: "100px"},
             {key: "goods_actual_unit", title: "单位", width: "100px"},
-            {key: "goods_entry_total_quantity", title: "数量", width: "100px"},
+            {key: "goods_out_total_quantity", title: "数量", width: "100px"},
             {key: "goods_weight", title: "重量", width: "100px"},
             {key: "nickname", title: "制单人", width: "100px"},
 
@@ -313,12 +309,12 @@
                 order_id: '333333',
                 customer_name: 'sdfsdf',
                 storehouse_name: 'e3rer',
-                entry_order_is_audited: 'hrg',
+                out_order_is_audited: 'hrg',
                 goods_id: 'sfd',
                 goods_name: 'sfdsd',
                 goods_spec: 'sdf',
                 goods_actual_unit: '23',
-                goods_entry_total_quantity: 'sdf',
+                goods_out_total_quantity: 'sdf',
                 goods_weight: 'sdf',
                 nickname: 'sdf'
             },
@@ -381,12 +377,12 @@
                         order_id: '',
                         customer_name: '',
                         storehouse_name: '',
-                        entry_order_is_audited: '',
+                        out_order_is_audited: '',
                         goods_id: '',
                         goods_name: '',
                         goods_spec: '',
                         goods_actual_unit: '',
-                        goods_entry_total_quantity: '',
+                        goods_out_total_quantity: '',
                         goods_weight: '',
                         nickname: ''
                     },)
@@ -409,7 +405,7 @@
 
                 $('.print-content').show()
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
-                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
+//                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
                 LODOP.ADD_PRINT_TABLE( 60, 30, 750, 500, $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
@@ -431,52 +427,6 @@
     });
 
 
-
-    /**
-     * @params: FileName:导出Excel的文件名称，excel:需要导出的table
-     * 如果没有table列表，只有json数据的话，将json数据拼接成table字符串模板即可
-     * **/
-    function exporExcel(FileName,e){
-        var excelFile = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:x='urn:schemas-microsoft-com:office:excel' xmlns='http://www.w3.org/TR/REC-html40'>";
-        excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
-        excelFile += '<meta http-equiv="content-type" content="application/vnd.ms-excel';
-        excelFile += '; charset=UTF-8">';
-        excelFile += "<head>";
-        excelFile += "<!--[if gte mso 9]>";
-        excelFile += "<xml>";
-        excelFile += "<x:ExcelWorkbook>";
-        excelFile += "<x:ExcelWorksheets>";
-        excelFile += "<x:ExcelWorksheet>";
-        excelFile += "<x:Name>";
-        excelFile += "{worksheet}";
-        excelFile += "</x:Name>";
-        excelFile += "<x:WorksheetOptions>";
-        excelFile += "<x:DisplayGridlines/>";
-        excelFile += "</x:WorksheetOptions>";
-        excelFile += "</x:ExcelWorksheet>";
-        excelFile += "</x:ExcelWorksheets>";
-        excelFile += "</x:ExcelWorkbook>";
-        excelFile += "</xml>";
-        excelFile += "<![endif]-->";
-        excelFile += "</head>";
-        excelFile += "<body>";
-        excelFile += $(e).html();
-        excelFile += "</body>";
-        excelFile += "</html>";
-
-
-        var uri = 'data:application/vnd.ms-excel;charset=utf-8,' + encodeURIComponent(excelFile);
-
-        var link = document.createElement("a");
-        link.href = uri;
-
-        link.style = "visibility:hidden";
-        link.download = FileName ;  //格式默认为.xls
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
 
 </script>
 

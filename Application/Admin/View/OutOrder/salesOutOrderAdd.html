@@ -196,7 +196,7 @@
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">预付金额:</span>
+                <span class="title" style="">预收金额:</span>
                 <div class="input-content ">
 
                     <div class="data-select" style=" width: 100%;">
@@ -206,7 +206,7 @@
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">应付金额:</span>
+                <span class="title" style="">应收金额:</span>
                 <div class="input-content ">
                     <span style="display: none">{{headInfo.out_order_account_receivable=(parseFloat(headInfo.out_order_price) + parseFloat(headInfo.out_order_including_tax_price) - parseFloat(headInfo.out_order_before_payment==''?0:headInfo.out_order_before_payment)).toFixed(2)}}</span>
 
@@ -238,7 +238,7 @@
             </div>
 
             <div class="form-item " style="">
-                <span class="title" style="">本次支付:</span>
+                <span class="title" style="">本次收款:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
                         <input type="number" style="" v-model="headInfo.out_order_actual_payment"/>
@@ -533,7 +533,7 @@
 
     </div>
 
-    <div class="print-content" style="display:  ">
+    <div class="print-content" style="display: none ">
         <div id="print-headinfo">
             <div class="layui-row" style=" text-align: center">
                 <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
@@ -601,7 +601,7 @@
                 </div>
 
                 <div class="form-item " style="">
-                    <span class="title" style="">预付金额:</span>
+                    <span class="title" style="">预收金额:</span>
                     <div class="input-content ">
 
                         <div class="data-show" style="">&nbsp;{{headInfo.out_order_before_payment}}</div>
@@ -610,7 +610,7 @@
 
                 </div>
                 <div class="form-item " style="">
-                    <span class="title" style="">应付金额:</span>
+                    <span class="title" style="">应收金额:</span>
                     <div class="input-content ">
 
                         <div class="data-show" style="">&nbsp;{{headInfo.out_order_account_receivable}}</div>
@@ -638,7 +638,7 @@
 
 
                 <div class="form-item " style="">
-                    <span class="title" style="">本次支付:</span>
+                    <span class="title" style="">本次收款:</span>
                     <div class="input-content ">
                         <div class="data-show" style="">&nbsp;{{headInfo.out_order_actual_payment}}</div>
 
@@ -1433,7 +1433,7 @@
                     type: 2,
                     skin: 'CLYM-style',
                     area: ['800px', '560px'],
-                    title: '应付账单列表',
+                    title: '应收账单列表',
                     content: '/corethink/admin.php?s=/admin/public/salesOrderList/customer_id/'+self.headInfo.customer_id,
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系

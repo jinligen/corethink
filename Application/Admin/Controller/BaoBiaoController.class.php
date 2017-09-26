@@ -23,7 +23,7 @@ class BaoBiaoController extends AdminController
     public function index()
     {
 
-        $this->display();
+        $this->display('kuCunMingXiZhang');
          
     }
 
@@ -31,6 +31,75 @@ class BaoBiaoController extends AdminController
      * 库存商品明细账
      */
     public function kuCunMingXiZhang()
+    {
+
+        $this->display();
+
+    }
+
+
+    /**
+     *采购入库单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function purchaceEntryOrder()
+    {
+
+        $this->display();
+
+    }
+
+    /**
+     *产品入库单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function productEntryOrder()
+    {
+
+        $this->display();
+
+    }
+
+    /**
+     *材料出库单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function materialOutOrder()
+    {
+
+        $this->display();
+
+    }
+
+    /**
+     *产品出库单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function productOutOrder()
+    {
+
+        $this->display();
+
+    }
+
+
+    /**
+     *付款单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function paymentOrder()
+    {
+
+        $this->display();
+
+    }
+
+
+    /**
+     *收款单时序薄
+     * @author jry <598821125@qq.com>
+     */
+    public function gatheringOrder()
     {
 
         $this->display();

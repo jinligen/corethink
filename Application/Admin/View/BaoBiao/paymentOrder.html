@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>付款单时序薄</title>
+    <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
+    <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <link rel="stylesheet" href="__ADMIN_CSS__/common.css">
+    <style id="style1">
+
+
+        .nav-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .form-head-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-bottom: 5px;
+            padding: 0 20px;
+            font-size: 14px
+        }
+
+        .form-head-row .form-item {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+        }
+
+        .form-head-row .form-item .title {
+            width: 80px;
+
+        }
+
+        .form-head-row .form-item .input-content {
+            position: relative;
+            flex: 4.5;
+        }
+
+        .form-head-row .form-item .input-content .data-show {
+            width: 100%;
+        }
+
+        #table thead tr th, #table tr td {
+            /*padding: 0 !important;*/
+            border: solid 2px black;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        tr th div, tr td div {
+            position: relative;
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            width: 100%;
+            margin: 0;
+            text-align: center;
+        }
+
+        .data-select input, .data-select select {
+            display: block;
+            margin: 0;
+            width: 100%;
+            height: 26px;
+            border: none;
+        }
+
+        .data-select i {
+            position: absolute;
+            z-index: 11;
+            right: 0px;
+            top: 3px;
+            background-color: #eee;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 20px;
+            line-height: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class=" " id="page" style="width: 70%;margin: 0 15%;">
+
+    <div class=" demoTable nav-btn ">
+        <button class="layui-btn layui-btn-small  " onclick="exporExcel('付款单时序薄','#print-table')">导出</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-small  layui-btn-warm " @click="query()">查询</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-normal layui-btn-small" @click="reload()">刷新</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-primary layui-btn-small" @click="print()">打印</button>
+    </div>
+
+    <div id="div1">
+
+        <div class="layui-row" style=" text-align: center">
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">付&nbsp;&nbsp;款&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
+        </div>
+
+        <div class="form-head-row">
+            <div class="form-item "></div>
+            <div class="form-item " style="flex: 1.5;justify-content: center;text-align: center">
+                <span class="title" style="">日期:</span>
+                <div class="input-content ">
+                    <div class="data-select">
+                        <input type="date" id="date" style="display: inline-block;width: 130px ;text-align: right;"
+                               v-model="headInfo.start_date"/>
+                        <span style="margin-right: 30px">-</span>
+                        <input type="date" id="date1" style="display: inline-block;width: 130px;text-align: center"
+                               v-model="headInfo.end_date"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item "></div>
+        </div>
+
+
+    </div>
+
+    <div id="div2">
+        <div class="layui-form layui-border-box layui-table-view" style="width:100%; height: 650px !important;">
+            <div class="layui-table-header" id="fixed-header">
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                    <thead>
+                    <tr>
+                        <th v-for="(item, index) in thead">
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
+                            </div>
+                        </th>
+                    </tr>
+
+                    </thead>
+                </table>
+            </div>
+
+            <div class="layui-table-body layui-table-main" style=" height: 585px !important;" id="scroll">
+
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                    <tbody>
+                    <tr v-for="(list_item, index) in list">
+                        <td v-for="(thead_item, index) in thead">
+                            <div :style="{ width: thead_item.width }">
+                                {{list_item[thead_item.key]}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="layui-table-fixed layui-table-fixed-l">
+                <div class="layui-table-header">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <thead>
+                        <tr>
+                            <th>
+                                <div style=" width: 100px">
+                                    单据日期
+                                </div>
+                            </th>
+                            <th>
+                                <div style=" width: 150px">
+                                    单据编号
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="layui-table-body" style="height: 570px !important;; ">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <tbody>
+                        <tr v-for="(list_item, index) in list">
+                            <td>
+                                <div style=" width: 100px">
+                                    {{list_item['order_date']}}
+                                </div>
+                            </td>
+                            <td>
+                                <div style=" width: 150px">
+                                    {{list_item['order_id']}}
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="print-content" style="display:  none">
+
+        <div id="print-table">
+            <table id="table" border=1 cellSpacing=0 cellPadding=1 width="100%" style="border-collapse:collapse;"
+                   bordercolor="#333333">
+                <thead>
+                <tr>
+                    <th colspan="14" style="text-align: center;">
+                        <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">付&nbsp;&nbsp;款&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="14" style="text-align: center;">
+                        <div   style="">
+                            日期:
+                            {{headInfo.start_date}}
+                            <span style="margin: 0  30px">-</span>
+                            {{headInfo.end_date}}
+                        </div>
+
+                    </th>
+                </tr>
+                <tr>
+                    <th >
+                        <div style="width: 40px">
+                            序号
+                        </div>
+                    </th>
+                    <th v-for="(item, index) in thead">
+                        <div style="width: 70px">
+                            {{item.title}}
+                        </div>
+                    </th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr v-for="(list_item, index) in list">
+                    <td >
+                        <div>
+                            {{index+1}}
+                        </div>
+                    </td>
+                    <td v-for="(thead_item, index) in thead">
+                        <div>
+                            {{list_item[thead_item.key]}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>
+
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
+<script src="__PUBLIC__/libs/vue/vue.js"></script>
+<!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
+<script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
+
+<script>
+    var LODOP; //声明为全局变量
+
+
+    var _data = {
+        scrollTop: 0,
+        scrollLeft: 0,
+        headInfo: {
+            start_date: '',
+            end_date:''
+        },
+        thead: [
+            {key: "order_date", title: "单据日期", width: "100px"},
+            {key: "order_id", title: "单据编号", width: "150px"},
+            {key: "customer_name", title: "供应商", width: "100px"},
+            {key: "payment_order_should_payment_price", title: "应付金额", width: "100px"},
+            {key: "payment_order_deposit_after_price", title: "折扣额", width: "100px"},
+            {key: "payment_order_deposit_rate", title: "整单折扣", width: "100px"},
+            {key: "payment_order_is_audited", title: "审核状态", width: "100px"},
+            {key: "payment_order_price", title: "单据金额", width: "100px"},
+            {key: "already_clear_price", title: "已核销", width: "100px"},
+            {key: "no_clear_price", title: "未核销", width: "100px"},
+            {key: "now_clear_price", title: "本次核销", width: "100px"},
+            {key: "payment_order_actual_payment", title: "实付金额", width: "100px"},
+            {key: "nickname", title: "制单人", width: "100px"},
+
+        ],
+        list: [
+            {
+                order_date: '2017-09-05',
+                order_id: '333333',
+                customer_name: 'sdfsdf',
+                payment_order_receivable_price: 'e3rer',
+                payment_order_deposit_after_price: 'hrg',
+                payment_order_deposit_rate: 'sfd',
+                payment_order_is_audited: 'sfdsd',
+                payment_order_price: 'sdf',
+                already_clear_price: '23',
+                no_clear_price: 'sdf',
+                now_clear_price: 'sdf',
+                payment_order_actual_payment: 'sdf',
+                nickname: 'sdf'
+            },
+
+        ]
+    };
+
+
+    var vm = new Vue({
+        el: '#page',
+        data: _data,
+        watch: {
+            scrollTop: {
+                handler: function (val, oldVal) {
+                    $('.layui-table-fixed-l .layui-table-body table').css('margin-top', -val + 'px')
+                    $('.layui-table-fixed-r .layui-table-body table').css('margin-top', -val + 'px')
+
+                },
+            },
+            scrollLeft: {
+                handler: function (val, oldVal) {
+                    $('#fixed-header table').css('margin-left', -val + 'px')
+                },
+            },
+        },
+        methods: {
+            init: function () {
+                this.deleteItem(-1)
+            },
+            dataInputShow: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-select').css('display', 'inline-block');
+                $(ele).children('.data-select').children('input').focus();
+            },
+            dataInputHide: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-show').css('display', 'inline-block');
+            },
+            deleteItem: function (index) {
+
+                if (index >= 0) {
+                    this.list.splice(index, 1);
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    if (this.list[i].item === '') {
+                        this.list.splice(i, 1)
+                    }
+                }
+
+
+                var leng = this.list.length % 10 === 0 ? (this.list.length === 0 ? 10 : 0) : 10 - this.list.length % 10;
+
+
+                for (var i = 0; i < leng + 15; i++) {
+                    this.list.push({
+                        order_date: '',
+                        order_id: '',
+                        customer_name: '',
+                        payment_order_receivable_price: '',
+                        payment_order_deposit_after_price: '',
+                        payment_order_deposit_rate: '',
+                        payment_order_is_audited: '',
+                        payment_order_price: '',
+                        already_clear_price: '',
+                        no_clear_price: '',
+                        now_clear_price: '',
+                        payment_order_actual_payment: '',
+                        nickname: ''
+                    })
+                }
+
+            },
+            reload: function () { //刷新
+                location.reload();
+            },
+            query: function () {
+
+            },
+            print: function () { //打印
+                LODOP = getLodop();
+                LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_分页打印综合表格");
+
+                var strMainStyle = '<link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css"  media="all">'
+                strMainStyle += '<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/main.css">'
+                var strAllStyle = strMainStyle + "<style>" + document.getElementById("style1").innerHTML + "</style>";
+
+                $('.print-content').show()
+                LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
+//                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
+
+                LODOP.ADD_PRINT_TABLE( 60, 30, 750, 600, strAllStyle +   $("#print-table").html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 3);
+
+                $('.print-content').hide()
+                LODOP.PREVIEW();
+            },
+
+        }
+    })
+
+    vm.init();
+
+    $("#scroll").scroll(function () {
+        vm.scrollTop = $(this).scrollTop()
+        vm.scrollLeft = $(this).scrollLeft()
+
+    });
+
+
+
+</script>
+
+</html>

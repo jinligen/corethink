@@ -245,9 +245,45 @@ return array(
             'pid'   => 'c',
             'title' => '库存商品明细账',
             'icon'  => 'fa fa-building-o',
-            'url'   => 'Admin/BaoBiao/index',
+            'url'   => 'Admin/BaoBiao/kuCunMingXiZhang',
+        ),
+        'c5'  => array(
+            'pid'   => 'c',
+            'title' => '采购入库单序时簿',
+            'icon'  => 'fa fa-file-o',
+            'url'   => 'Admin/BaoBiao/purchaceEntryOrder',
+        ),
+        'c6'  => array(
+            'pid'   => 'c',
+            'title' => '产品入库单序时簿',
+            'icon'  => 'fa fa-file-o',
+            'url'   => 'Admin/BaoBiao/productEntryOrder',
+        ),
+        'c7'  => array(
+            'pid'   => 'c',
+            'title' => '材料出库单序时簿',
+            'icon'  => 'fa fa-files-o',
+            'url'   => 'Admin/BaoBiao/materialOutOrder',
+        ),
+        'c8'  => array(
+            'pid'   => 'c',
+            'title' => '销售出库单序时簿',
+            'icon'  => 'fa fa-files-o',
+            'url'   => 'Admin/BaoBiao/productOutOrder',
         ),
 
+        'c9'  => array(
+            'pid'   => 'c',
+            'title' => '收款单序时簿',
+            'icon'  => 'fa fa-floppy-o',
+            'url'   => 'Admin/BaoBiao/gatheringOrder',
+        ),
+        'c10'  => array(
+            'pid'   => 'c',
+            'title' => '付款单序时簿',
+            'icon'  => 'fa fa-list-alt',
+            'url'   => 'Admin/BaoBiao/paymentOrder',
+        ),
 
         'd'  => array(
             'pid'   => '1',
@@ -286,48 +322,8 @@ return array(
         ),
 
 
-        'e'  => array(
-            'pid'   => '1',
-            'title' => '时序薄管理',
-            'icon'  => 'fa fa-th-list',
-        ),
-        'e1'  => array(
-            'pid'   => 'e',
-            'title' => '采购入库单序时簿',
-            'icon'  => 'fa fa-file-o',
-            'url'   => 'Admin/TimeSlice/purchaceEntryOrder',
-        ),
-        'e2'  => array(
-            'pid'   => 'e',
-            'title' => '产品入库单序时簿',
-            'icon'  => 'fa fa-file-o',
-            'url'   => 'Admin/TimeSlice/productEntryOrder',
-        ),
-        'e3'  => array(
-            'pid'   => 'e',
-            'title' => '材料出库单序时簿',
-            'icon'  => 'fa fa-files-o',
-            'url'   => 'Admin/TimeSlice/materialOutOrder',
-        ),
-        'e4'  => array(
-            'pid'   => 'e',
-            'title' => '销售出库单序时簿',
-            'icon'  => 'fa fa-files-o',
-            'url'   => 'Admin/TimeSlice/productOutOrder',
-        ),
 
-        'e5'  => array(
-            'pid'   => 'e',
-            'title' => '收款单序时簿',
-            'icon'  => 'fa fa-floppy-o',
-            'url'   => 'Admin/TimeSlice/paymentOrder',
-        ),
-        'e6'  => array(
-            'pid'   => 'e',
-            'title' => '付款单序时簿',
-            'icon'  => 'fa fa-list-alt',
-            'url'   => 'Admin/TimeSlice/gatheringOrder',
-        ),
+
 
 
     ),
