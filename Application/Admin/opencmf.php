@@ -161,57 +161,54 @@ return array(
             'icon'  => 'fa fa-file-o',
             'url'   => 'Admin/EntryOrder/purchaseEntryOrder',
         ),
-        'b8'  => array(
+        'b2'  => array(
             'pid'   => 'b',
             'title' => '产品入库单',
             'icon'  => 'fa fa-file-o',
             'url'   => 'Admin/EntryOrder/productEntryOrder',
         ),
-        'b2'  => array(
+        'b3'  => array(
             'pid'   => 'b',
             'title' => '材料出库单',
             'icon'  => 'fa fa-files-o',
             'url'   => 'Admin/OutOrder/materialOutOrder',
         ),
-        'b9'  => array(
+        'b4'  => array(
             'pid'   => 'b',
             'title' => '销售出库单',
             'icon'  => 'fa fa-files-o',
             'url'   => 'Admin/OutOrder/salesOutOrder',
         ),
-        'b3'  => array(
+        'b5'  => array(
             'pid'   => 'b',
             'title' => '付款单',
             'icon'  => 'fa fa-list-alt',
             'url'   => 'Admin/PaymentOrder/index',
         ),
-        'b4'  => array(
+        'b6'  => array(
             'pid'   => 'b',
             'title' => '收款单',
             'icon'  => 'fa fa-floppy-o',
             'url'   => 'Admin/GatheringOrder/index',
         ),
-        'b5'  => array(
+        'b7'  => array(
             'pid'   => 'b',
             'title' => '盘点列表',
             'icon'  => 'fa fa-list-ol',
             'url'   => 'Admin/GoodsCheck/index',
         ),
-        'b6'  => array(
+        'b8'  => array(
             'pid'   => 'b',
             'title' => '销售订单',
             'icon'  => 'fa fa-bookmark-o',
             'url'   => 'Admin/SalesOrder/index',
         ),
-        'b7'  => array(
+        'b9'  => array(
             'pid'   => 'b',
             'title' => '成本计算表',
             'icon'  => 'fa fa-bookmark',
             'url'   => 'Admin/public/demo',
         ),
-
-
-
         'b10'  => array(
             'pid'   => 'b',
             'title' => '财务结账',
@@ -244,7 +241,6 @@ return array(
             'icon'  => 'fa fa-building-o',
             'url'   => 'Admin/SummarySales/index',
         ),
-
         'c4'  => array(
             'pid'   => 'c',
             'title' => '库存商品明细账',
@@ -288,6 +284,51 @@ return array(
             'icon'  => 'fa fa-user',
             'url'   => 'Admin/clerk/index',
         ),
+
+
+        'e'  => array(
+            'pid'   => '1',
+            'title' => '时序薄管理',
+            'icon'  => 'fa fa-th-list',
+        ),
+        'e1'  => array(
+            'pid'   => 'e',
+            'title' => '采购入库单序时簿',
+            'icon'  => 'fa fa-file-o',
+            'url'   => 'Admin/TimeSlice/purchaceEntryOrder',
+        ),
+        'e2'  => array(
+            'pid'   => 'e',
+            'title' => '产品入库单序时簿',
+            'icon'  => 'fa fa-file-o',
+            'url'   => 'Admin/TimeSlice/productEntryOrder',
+        ),
+        'e3'  => array(
+            'pid'   => 'e',
+            'title' => '材料出库单序时簿',
+            'icon'  => 'fa fa-files-o',
+            'url'   => 'Admin/TimeSlice/materialOutOrder',
+        ),
+        'e4'  => array(
+            'pid'   => 'e',
+            'title' => '销售出库单序时簿',
+            'icon'  => 'fa fa-files-o',
+            'url'   => 'Admin/TimeSlice/productOutOrder',
+        ),
+
+        'e5'  => array(
+            'pid'   => 'e',
+            'title' => '收款单序时簿',
+            'icon'  => 'fa fa-floppy-o',
+            'url'   => 'Admin/TimeSlice/paymentOrder',
+        ),
+        'e6'  => array(
+            'pid'   => 'e',
+            'title' => '付款单序时簿',
+            'icon'  => 'fa fa-list-alt',
+            'url'   => 'Admin/TimeSlice/gatheringOrder',
+        ),
+
 
     ),
 );

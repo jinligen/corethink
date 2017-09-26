@@ -162,13 +162,13 @@
                                             <volist name="_ns._child" id="_ns_first" key="fkey">
                                                 <?php if(strpos($_auth_list, '"'.$_ns_first[id].'"') || $_is_super_admin): ?>
                                                     <li>
-                                                        <a data-toggle="collapse" href="#navside-collapse-{$_ns.id}-{$fkey}">
+                                                        <a data-toggle="collapse" class="collapsed" aria-expanded="false" href="#navside-collapse-{$_ns.id}-{$fkey}">
                                                             <i class="{$_ns_first.icon}"></i>
                                                             <span class="nav-label">{$_ns_first.title}</span>
                                                             <span class="fa arrow"></span>
                                                         </a>
                                                         <notempty name="_ns_first._child">
-                                                            <ul class="nav navside-nav navside-second collapse in" id="navside-collapse-{$_ns.id}-{$fkey}">
+                                                            <ul class="nav navside-nav navside-second collapse" aria-expanded="false" style="height: 0px;" id="navside-collapse-{$_ns.id}-{$fkey}">
                                                                 <volist name="_ns_first._child" id="_ns_second" key="skey">
                                                                     <?php if(strpos($_auth_list, '"'.$_ns_second[id].'"') || $_is_super_admin): ?>
                                                                         <li>
