@@ -26,7 +26,7 @@
             justify-content: space-around;
             align-items: center;
             flex-wrap: nowrap;
-            margin-bottom: 5px;
+            margin-bottom: 0;
             padding: 0 20px;
             font-size: 14px
         }
@@ -147,6 +147,40 @@
 
         <div class="form-head-row">
             <div class="form-item " style="">
+                <span class="title" style="">发票类型:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <select v-model="headInfo.storehouse_name">
+                            <option value="">请选择</option>
+                            <volist name="_storehouse_name" id="vo">
+                                <option value="{$vo}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">支付方式:</span>
+                <div class="input-content ">
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style=" width: 80px;display: inline-block;text-align: center" v-model="headInfo.entry_order_tax_rate"/>%
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">支付账户:</span>
+                <div class="input-content ">
+                    <span style="display: none">{{headInfo.entry_order_including_tax_price=parseFloat(headInfo.entry_order_price*headInfo.entry_order_tax_rate/100).toFixed(2)}}</span>
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="number" style="" v-model="headInfo.entry_order_including_tax_price"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-head-row">
+            <div class="form-item " style="">
                 <span class="title" style="">所属仓库:</span>
                 <div class="input-content ">
                     <div class="data-select" style=" width: 100%;">
@@ -179,6 +213,7 @@
             </div>
 
         </div>
+
         <div class="form-head-row">
 
             <div class="form-item " style="">

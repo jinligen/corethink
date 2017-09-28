@@ -43,4 +43,8 @@ class IndexController extends HomeController
         $this->assign('meta_title', $info['title']);
         $this->display();
     }
+    public function test()
+    {
+        echo json_encode('test');
+    }
 }
