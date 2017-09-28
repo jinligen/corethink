@@ -243,9 +243,9 @@ return array(
         ),
         'c4'  => array(
             'pid'   => 'c',
-            'title' => '库存商品明细账',
-            'icon'  => 'fa fa-building-o',
-            'url'   => 'Admin/BaoBiao/kuCunMingXiZhang',
+            'title' => '商品库存业务汇总表',
+            'icon'  => 'fa fa-columns',
+            'url'   => 'Admin/BaoBiao/shangPinKuCunHuiZongBiao',
         ),
         'c5'  => array(
             'pid'   => 'c',
@@ -296,6 +296,25 @@ return array(
             'icon'  => 'fa fa-list-alt',
             'url'   => 'Admin/BaoBiao/customerBill',
         ),
+        'c13'  => array(
+            'pid'   => 'c',
+            'title' => '库存商品明细账',
+            'icon'  => 'fa fa-columns',
+            'url'   => 'Admin/BaoBiao/kuCunMingXiZhang',
+        ),
+        'c14'  => array(
+            'pid'   => 'c',
+            'title' => '应付账款明细表',
+            'icon'  => 'fa fa-columns',
+            'url'   => 'Admin/BaoBiao/yingFuMingXiZhang',
+        ),
+        'c15'  => array(
+            'pid'   => 'c',
+            'title' => '应收账款明细表',
+            'icon'  => 'fa fa-columns',
+            'url'   => 'Admin/BaoBiao/yingShouMingXiZhang',
+        ),
+
 
         'd'  => array(
             'pid'   => '1',

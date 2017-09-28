@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商品库存业务汇总表</title>
+    <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
+    <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+    <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
+    <style id="style1">
+
+
+        .nav-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .form-head-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin-bottom: 5px;
+            padding: 0 20px;
+            font-size: 14px
+        }
+
+        .form-head-row .form-item {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin: 0 5px;
+        }
+
+        .form-head-row .form-item .title {
+            width: 80px;
+
+        }
+
+        .form-head-row .form-item .input-content {
+            position: relative;
+            flex: 4.5;
+        }
+
+        .form-head-row .form-item .input-content .data-show {
+            width: 100%;
+        }
+
+        #table thead tr th, #table tr td {
+            /*padding: 0 !important;*/
+            border: solid 2px black;
+            text-align: center;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        tr th div, tr td div {
+            position: relative;
+            display: inline-block;
+            height: 25px;
+            line-height: 25px;
+            width: 100%;
+            margin: 0;
+            text-align: center;
+        }
+
+        .data-select input, .data-select select {
+            display: block;
+            margin: 0;
+            width: 100%;
+            height: 26px;
+            border: none;
+        }
+
+        .data-select i {
+            position: absolute;
+            z-index: 11;
+            right: 0px;
+            top: 3px;
+            background-color: #eee;
+            border-radius: 3px;
+            cursor: pointer;
+            height: 20px;
+            line-height: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class=" " id="page" style="width: 90%;margin: 0 5%;">
+
+
+    <div class=" demoTable nav-btn ">
+        <button class="layui-btn layui-btn-small   " onclick="exporExcel('材料出库单时序薄','#print-table')">导出</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-small  layui-btn-warm " @click="query()">查询</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-normal layui-btn-small" @click="reload()">刷新</button>
+        &nbsp;
+        <button class="layui-btn layui-btn-primary layui-btn-small" @click="print()">打印</button>
+    </div>
+
+    <div id="div1">
+
+        <div class="layui-row" style=" text-align: center">
+            <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">商&nbsp;&nbsp;品&nbsp;&nbsp;库&nbsp;&nbsp;存&nbsp;&nbsp;业&nbsp;&nbsp;务&nbsp;&nbsp;汇&nbsp;&nbsp;总&nbsp;&nbsp;表</span>
+        </div>
+        <div class="form-head-row">
+            <div class="form-item "></div>
+            <div class="form-item " style="flex: 1.5;justify-content: center;text-align: center">
+                <span class="title" style="">日期:</span>
+                <div class="input-content ">
+                    <div class="data-select">
+                        <input type="date" id="date" style="display: inline-block;width: 130px ;text-align: right;"
+                               v-model="headInfo.start_date"/>
+                        <span style="margin-right: 30px">-</span>
+                        <input type="date" id="date1" style="display: inline-block;width: 130px;text-align: center"
+                               v-model="headInfo.end_date"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item "></div>
+        </div>
+
+
+
+    </div>
+
+    <div id="div2">
+        <div class="layui-form layui-border-box layui-table-view" style="width:100%; height: 685px !important;">
+            <div class="layui-table-header" id="fixed-header">
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
+                    <thead>
+                    <tr>
+                        <th v-for="(item, index) in thead0" rowspan="2">
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
+                            </div>
+                        </th>
+                        <th v-for="(item, index) in thead1" colspan="3">
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
+                            </div>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th v-for="(item, index) in thead2" >
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+            <div class="layui-table-body layui-table-main" style=" height: 585px !important;" id="scroll">
+
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                    <tbody>
+                    <tr v-for="(list_item, index) in list">
+                        <td v-for="(thead_item, index) in thead0">
+                            <div :style="{ width: thead_item.width }">
+                                {{list_item[thead_item.key]}}
+                            </div>
+                        </td>
+                        <td v-for="(thead_item, index) in thead2">
+                            <div :style="{ width: thead_item.width }">
+                                {{list_item[thead_item.key]}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="layui-table-fixed layui-table-fixed-l">
+                <div class="layui-table-header">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <thead>
+                        <tr>
+                            <th>
+                                <div style=" width: 100px;height: 61px;line-height: 61px">
+                                    商品代码
+                                </div>
+                            </th>
+                            <th>
+                                <div style=" width: 100px;height: 61px;line-height: 61px">
+                                    商品名称
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="layui-table-body" style="height: 570px !important;; ">
+                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
+                        <tbody>
+                        <tr v-for="(list_item, index) in list">
+                            <td>
+                                <div style=" width: 100px">
+                                    {{list_item['goods_id']}}
+                                </div>
+                            </td>
+                            <td>
+                                <div style=" width: 100px">
+                                    {{list_item['goods_name']}}
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="print-content" style="display: none">
+        <div id="print-table">
+            <table id="table" border=1 cellSpacing=0 cellPadding=1 width="100%" style="border-collapse:collapse;"
+                   bordercolor="#333333">
+                <thead>
+                <tr>
+                    <th colspan="34" style="text-align: center;">
+                        <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">商&nbsp;&nbsp;品&nbsp;&nbsp;库&nbsp;&nbsp;存&nbsp;&nbsp;业&nbsp;&nbsp;务&nbsp;&nbsp;汇&nbsp;&nbsp;总&nbsp;&nbsp;表</span>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="34" style="text-align: center;">
+                        <div   style="">
+                            日期:
+                            {{headInfo.start_date}}
+                            <span style="margin: 0  30px">-</span>
+                            {{headInfo.end_date}}
+                        </div>
+
+                    </th>
+                </tr>
+
+                <tr>
+                    <th rowspan="2">
+                        <div style="width: 40px" >
+                            序号
+                        </div>
+                    </th>
+                    <th v-for="(item, index) in thead0" rowspan="2">
+                        <div style="width: 100px">
+                            {{item.title}}
+                        </div>
+                    </th>
+                    <th v-for="(item, index) in thead1" colspan="3">
+                        <div style="width: 150px">
+                            {{item.title}}
+                        </div>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th v-for="(item, index) in thead2" >
+                        <div style="width: 50px">
+                            {{item.title}}
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr v-for="(list_item, index) in list">
+                    <td >
+                        <div>
+                            {{index+1}}
+                        </div>
+                    </td>
+                    <td v-for="(thead_item, index) in thead0">
+                        <div style="width: 100px">
+                            {{list_item[thead_item.key]}}
+                        </div>
+                    </td>
+                    <td v-for="(thead_item, index) in thead2">
+                        <div style="width: 50px">
+                            {{list_item[thead_item.key]}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
+<script src="__PUBLIC__/libs/vue/vue.js"></script>
+<!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
+<script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
+<script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
+
+<script>
+    var LODOP; //声明为全局变量
+
+
+    var _data = {
+        scrollTop:0,
+        scrollLeft:0,
+        headInfo: {
+            order_id:'',
+            order_date:'',
+            goods_min_unit:'',
+            goods_name:'',
+            goods_spec:'',
+        },
+        thead0: [
+            {key: "goods_id", title: "商品代码", width: "100px"},
+            {key: "goods_name", title: "商品名称", width: "100px"},
+            {key: "goods_spec", title: "规格型号", width: "100px"},
+            {key: "goods_actual_unit", title: "单位", width: "100px"},
+
+        ],
+        thead1: [
+            {title: "期初结存", width: "300px"},
+            {title: "采购入库", width: "300px"},
+            {title: "盘盈入库", width: "300px"},
+            {title: "产品入库", width: "300px"},
+            {title: "入库合计", width: "300px"},
+
+            {title: "销售出库", width: "300px"},
+            {title: "盘亏出库", width: "300px"},
+            {title: "材料出库", width: "300px"},
+            {title: "出库合计", width: "300px"},
+            {title: "期末结存", width: "300px"},
+        ],
+        thead2: [
+            {key: "start_quantity", title: "数量", width: "100px"},
+            {key: "start_weight", title: "重量", width: "100px"},
+            {key: "start_price", title: "金额", width: "100px"},
+
+            {key: "material_entry_quantity", title: "数量", width: "100px"},
+            {key: "material_entry_weight", title: "重量", width: "100px"},
+            {key: "material_entry_price", title: "金额", width: "100px"},
+
+            {key: "inventory_profit_quantity", title: "数量", width: "100px"},
+            {key: "inventory_profit_weight", title: "重量", width: "100px"},
+            {key: "inventory_profit_price", title: "金额", width: "100px"},
+
+            {key: "product_entry_quantity", title: "数量", width: "100px"},
+            {key: "product_entry_weight", title: "重量", width: "100px"},
+            {key: "product_entry_price", title: "金额", width: "100px"},
+
+            {key: "total_entry_quantity", title: "数量", width: "100px"},
+            {key: "total_entry_weight", title: "重量", width: "100px"},
+            {key: "total_entry_price", title: "金额", width: "100px"},
+
+
+            {key: "material_out_quantity", title: "数量", width: "100px"},
+            {key: "material_out_weight", title: "重量", width: "100px"},
+            {key: "material_out_price", title: "金额", width: "100px"},
+
+            {key: "inventory_losses_quantity", title: "数量", width: "100px"},
+            {key: "inventory_losses_weight", title: "重量", width: "100px"},
+            {key: "inventory_losses_price", title: "金额", width: "100px"},
+
+            {key: "product_out_quantity", title: "数量", width: "100px"},
+            {key: "product_out_weight", title: "重量", width: "100px"},
+            {key: "product_out_price", title: "金额", width: "100px"},
+
+            {key: "total_out_quantity", title: "数量", width: "100px"},
+            {key: "total_out_weight", title: "重量", width: "100px"},
+            {key: "total_out_price", title: "金额", width: "100px"},
+
+            {key: "end_quantity", title: "数量", width: "100px"},
+            {key: "end_weight", title: "重量", width: "100px"},
+            {key: "end_price", title: "金额", width: "100px"},
+
+        ],
+        list:[
+            {
+                goods_id:'123',
+                goods_name:'',
+                goods_spec:'',
+                goods_actual_unit:'',
+                start_quantity:'',
+                start_weight:'',
+                start_price:'',
+                material_entry_quantity:'',
+                material_entry_weight:'',
+                material_entry_price:'',
+                inventory_profit_quantity:'',
+                inventory_profit_weight:'',
+                inventory_profit_price:'',
+                product_entry_quantity:'',
+                product_entry_weight:'',
+                product_entry_price:'',
+                total_entry_quantity:'',
+                total_entry_weight:'',
+                total_entry_price:'',
+                material_out_quantity:'',
+                material_out_weight:'',
+                material_out_price:'',
+                inventory_losses_quantity:'',
+                inventory_losses_weight:'',
+                inventory_losses_price:'',
+                product_out_quantity:'',
+                product_out_weight:'',
+                product_out_price:'',
+                total_out_quantity:'',
+                total_out_weight:'',
+                total_out_price:'',
+                end_quantity:'',
+                end_weight:'',
+                end_price:'',
+            },
+
+        ]
+    };
+
+
+    var vm = new Vue({
+        el: '#page',
+        data: _data,
+        watch: {
+            scrollTop: {
+                handler: function (val, oldVal) {
+                    $('.layui-table-fixed-l .layui-table-body table').css('margin-top',-val + 'px')
+                    $('.layui-table-fixed-r .layui-table-body table').css('margin-top',-val + 'px')
+
+                },
+            },
+            scrollLeft: {
+                handler: function (val, oldVal) {
+                    $('#fixed-header table').css('margin-left',-val + 'px')
+                },
+            },
+        },
+        methods: {
+            init: function () {
+                this.deleteItem(-1)
+            },
+            dataInputShow: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-select').css('display', 'inline-block');
+                $(ele).children('.data-select').children('input').focus();
+            },
+            dataInputHide: function (event) {
+                var ele = event.currentTarget;
+                $(ele).children('div').hide();
+                $(ele).children('.data-show').css('display', 'inline-block');
+            },
+            deleteItem: function (index) {
+
+                if (index >= 0) {
+                    this.list.splice(index, 1);
+                }
+
+                for (var i = 0; i < this.list.length; i++) {
+                    if (this.list[i].item === '') {
+                        this.list.splice(i, 1)
+                    }
+                }
+
+
+                var leng = this.list.length % 10 === 0 ? (this.list.length  === 0 ?10:0) : 10 - this.list.length % 10;
+
+
+                for (var i = 0; i < leng +15; i++) {
+                    this.list.push({
+                        goods_id:'123',
+                        goods_name:'',
+                        goods_spec:'',
+                        goods_actual_unit:'',
+                        start_quantity:'',
+                        start_weight:'',
+                        start_price:'',
+                        material_entry_quantity:'',
+                        material_entry_weight:'',
+                        material_entry_price:'',
+                        inventory_profit_quantity:'',
+                        inventory_profit_weight:'',
+                        inventory_profit_price:'',
+                        product_entry_quantity:'',
+                        product_entry_weight:'',
+                        product_entry_price:'',
+                        total_entry_quantity:'',
+                        total_entry_weight:'',
+                        total_entry_price:'',
+                        material_out_quantity:'',
+                        material_out_weight:'',
+                        material_out_price:'',
+                        inventory_losses_quantity:'',
+                        inventory_losses_weight:'',
+                        inventory_losses_price:'',
+                        product_out_quantity:'',
+                        product_out_weight:'',
+                        product_out_price:'',
+                        total_out_quantity:'',
+                        total_out_weight:'',
+                        total_out_price:'',
+                        end_quantity:'',
+                        end_weight:'',
+                        end_price:'',
+                    })
+                }
+
+            },
+            reload: function () { //刷新
+                location.reload();
+            },
+            query:function () {
+
+            },
+            print: function () { //打印
+                LODOP = getLodop();
+                LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_分页打印综合表格");
+
+                var strMainStyle = '<link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css"  media="all">'
+                strMainStyle += '<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/main.css">'
+                var strAllStyle = strMainStyle + "<style>" + document.getElementById("style1").innerHTML + "</style>";
+
+                $('.print-content').show()
+                LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
+//                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
+
+                LODOP.ADD_PRINT_TABLE($('#print-headinfo').height() + 30, 10, 750, 400,strAllStyle + $("#print-table").html());
+                LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
+                LODOP.SET_PRINT_STYLEA(0, "Horient", 3);
+
+                $('.print-content').hide()
+                LODOP.PREVIEW();
+            },
+            selectGoodsList: function () {
+                var self = this;
+                var childPageBody;
+                layer.open({
+                    type: 2,
+                    skin: 'CLYM-style',
+                    area: ['800px', '560px'],
+                    title: '商品列表',
+                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/产品',
+                    success: function (layero, index) {
+                        childPageBody = layer.getChildFrame('body', index);//建立父子联系
+                    },
+                    end: function () {
+                        var ret = childPageBody.find('textarea#retData')
+                        var retInfo = ret.val()
+                        if (retInfo != '') {
+                            retInfo = JSON.parse(retInfo)
+                            var tableData = [];
+
+                            for (var i = 0; i < self.tableInfo.length; i++) {
+                                if (self.tableInfo[i].goods_id != '') {
+                                    tableData.push(self.tableInfo[i])
+                                }
+                            }
+
+                            for (var i = 0, leng = retInfo.length; i < leng; i++) {
+                                var j = 0;
+                                var l = self.tableInfo.length;
+
+                                for (; j < l; j++) {
+
+                                    if (self.tableInfo[j].goods_id == retInfo[i].goods_id) {
+                                        break;
+                                    }
+                                }
+                                console.log(j)
+                                if (j == l) {
+                                    tableData.push({
+                                        goods_id: retInfo[i].goods_id,
+                                        goods_name: retInfo[i].goods_name,
+                                        goods_spec: retInfo[i].goods_spec,
+                                        goods_actual_unit: retInfo[i].goods_min_unit,
+                                        goods_entry_unit_price: retInfo[i].goods_cost_price,
+                                        goods_entry_total_quantity: 0,
+                                        goods_entry_total_price: 0,
+                                        goods_rates: retInfo[i].goods_rates,
+                                        goods_min_unit: retInfo[i].goods_min_unit,
+                                        goods_weight: 0,
+                                        goods_remark: '',
+
+                                    });
+                                }
+                            }
+                            console.log(tableData);
+                            self.tableInfo = tableData;
+                            self.deleteItem(-1);
+                        }
+
+
+                    }
+                });
+            },
+        }
+    })
+
+    vm.init();
+
+    $("#scroll").scroll(function(){
+        vm.scrollTop = $(this).scrollTop()
+        vm.scrollLeft = $(this).scrollLeft()
+
+    });
+</script>
+
+</html>

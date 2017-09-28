@@ -183,6 +183,13 @@ class ConfigController extends AdminController
 
         // 设置Tab导航数据列表
         $config_group_list = C('CONFIG_GROUP_LIST'); // 获取配置分组
+        $config_group_list = array(
+            "1"=> "基本",
+            "2"=> "系统",
+            "3"=> "开发",
+            "4"=> "部署",
+            "5"=> "授权"
+        );
         foreach ($config_group_list as $key => $val) {
             $tab_list[$key]['title'] = $val;
             $tab_list[$key]['href']  = U('group', array('group' => $key));
@@ -193,7 +200,7 @@ class ConfigController extends AdminController
             $data['name']    = 'config[' . $data['name'] . ']';
             $data['options'] = parse_attr($data['options']);
         }
-
+//echo var_dump($config_group_list);exit;
         // 使用FormBuilder快速建立表单页面。
         $builder = new \Common\Builder\FormBuilder();
         $builder->setMetaTitle('系统设置') // 设置页面标题
