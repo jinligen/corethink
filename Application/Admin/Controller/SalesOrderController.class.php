@@ -149,7 +149,7 @@ class SalesOrderController extends AdminController
 
 
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
-            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
+            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate(),JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)); //最近结账日期
             $this->display();
         }
 
@@ -202,7 +202,7 @@ class SalesOrderController extends AdminController
 
             $list = D('storehouse_sales_order')->where($map1)->select();
 
-            $this->assign('_list',  json_encode($list));
+            $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 
             $this->display();
         }

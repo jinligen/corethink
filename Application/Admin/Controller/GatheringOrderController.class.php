@@ -154,7 +154,7 @@ class GatheringOrderController extends AdminController
             $this->assign('_order_id', ($order_id)); //系统生成单据编号
 
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
-            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
+            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate(),JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)); //最近结账日期
             $this->display();
         }
 
@@ -210,7 +210,7 @@ class GatheringOrderController extends AdminController
 
             $list = D('storehouse_gathering_order')->where($map1)->select();
 
-            $this->assign('_list',  json_encode($list));
+            $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 
 //            echo var_dump($list);exit;
             $this->display();

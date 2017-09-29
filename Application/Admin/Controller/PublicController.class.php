@@ -107,7 +107,7 @@ class PublicController extends CommonController
         $map['goods_type_name'] = array('like','%'.$goods_type_name.'%');
         $map['storehouse_name'] = array('like','%'.$storehouse_name.'%');
         $list = D('storehouse_goods')->where($map)->select();
-        $this->assign('_list',  json_encode($list));
+        $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump(json_encode($list));exit;
         $this->display();
     }
@@ -123,7 +123,7 @@ class PublicController extends CommonController
         $map['types'] = array('like','%'.$type.'%');
         $list = D('storehouse_customer')->where($map)->select();
 
-        $this->assign('_list',  json_encode($list));
+        $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump( $type);exit;
         $this->display();
     }
@@ -138,7 +138,7 @@ class PublicController extends CommonController
 
         $list = D('storehouse_clerk')->select();
 
-        $this->assign('_list',  json_encode($list));
+        $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump( $type);exit;
         $this->display();
     }
@@ -153,7 +153,7 @@ class PublicController extends CommonController
         $map['types'] = array('like','%部门%');
         $list = D('storehouse_customer')->where($map)->select();
 
-        $this->assign('_list',  json_encode($list));
+        $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump( $type);exit;
         $this->display();
     }
@@ -168,7 +168,7 @@ class PublicController extends CommonController
 
         $list = D('order_payment_way')->select();
 
-        $this->assign('_list',  json_encode($list));
+        $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump( $list);exit;
         $this->display();
     }
@@ -187,7 +187,7 @@ class PublicController extends CommonController
         $map['no_clear_price'] = array('GT','0');
         $list = D('storehouse_entry_order_view')->where($map)->select();
 //echo $list;exit;
-        $this->assign('_list', json_encode($list));
+        $this->assign('_list', json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
         $this->display();
     }
     
@@ -204,7 +204,7 @@ class PublicController extends CommonController
         $map['no_clear_price'] = array('GT','0');
         $list = D('storehouse_out_order_view')->where($map)->select();
 //        echo $list;exit;
-        $this->assign('_list', json_encode($list));
+        $this->assign('_list', json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
         $this->display();
     }
 
@@ -221,7 +221,7 @@ class PublicController extends CommonController
         $map['customer_id'] = array('like','%'.$type.'%');
         $list = D('storehouse_sales_order')->where($map)->select();
 //echo $list;exit;
-        $this->assign('_list', json_encode($list));
+        $this->assign('_list', json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
         $this->display();
     }
 

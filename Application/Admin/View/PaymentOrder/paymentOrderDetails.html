@@ -632,7 +632,7 @@
     },1000);
     var LODOP; //声明为全局变量
 
-    var _list =   eval('(' + '{$_list}' + ')');
+    var _list =   JSON.parse('{$_list}');
 
     var thead = [ //标题栏
         {title: 'ID', width: 100},

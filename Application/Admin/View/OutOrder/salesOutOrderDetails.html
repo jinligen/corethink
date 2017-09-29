@@ -134,6 +134,8 @@
         <div class="layui-row order-title" style=" text-align: center">
             <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
             <img src="__PUBLIC__/imgs/audited.png"   :style="{ display: (headInfo.out_order_is_audited==1?'block':'none')}"/>
+            <img src="__PUBLIC__/imgs/price-clear.png"  :style="{ display: (headInfo.out_order_account_receivable==headInfo.out_order_actual_payment?'block':'none'),right:'50px'}"/>
+
         </div>
         <div class="form-head-row">
             <div class="form-item " style="">
@@ -542,6 +544,7 @@
             <div class="layui-row order-title" style=" text-align: center">
                 <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">销&nbsp;&nbsp;售&nbsp;&nbsp;出&nbsp;&nbsp;库&nbsp;&nbsp;单</span>
                 <img src="__PUBLIC__/imgs/audited.png"   :style="{ display: (headInfo.out_order_is_audited==1?'block':'none')}"/>
+                <img src="__PUBLIC__/imgs/price-clear.png"  :style="{ display: (headInfo.out_order_account_receivable==headInfo.out_order_actual_payment?'block':'none'),right:'50px'}"/>
             </div>
 
             <div class="form-head-row">
@@ -838,7 +841,7 @@
         $('#page').show()
     },1000);
     var LODOP; //声明为全局变量
-    var _list =   eval('(' + '{$_list}' + ')');
+    var _list =   JSON.parse('{$_list}');
 
     var thead = [ //标题栏
         {title: 'ID', width: 50},

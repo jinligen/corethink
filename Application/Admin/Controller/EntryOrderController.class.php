@@ -38,7 +38,7 @@ class EntryOrderController extends AdminController
 
         $field = 'id,
                    customer_name,
-                   entry_order_payment_date,
+                   entry_order_date,
                    entry_order_id,
                    storehouse_name,
                    entry_order_price,
@@ -76,7 +76,7 @@ class EntryOrderController extends AdminController
 
             ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('customer_name', '供应商')
-            ->addTableColumn('entry_order_payment_date', '采购日期')
+            ->addTableColumn('entry_order_date', '单据发生日期')
             ->addTableColumn('entry_order_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
             ->addTableColumn('entry_order_price', '单据金额')
@@ -110,7 +110,7 @@ class EntryOrderController extends AdminController
 
         $field = 'id,
                    customer_name,
-                   entry_order_payment_date,
+                   entry_order_date,
                    entry_order_id,
                    storehouse_name,
                    entry_order_price,
@@ -148,7 +148,7 @@ class EntryOrderController extends AdminController
 
         ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('customer_name', '部门')
-            ->addTableColumn('entry_order_payment_date', '日期')
+            ->addTableColumn('entry_order_date', '日期')
             ->addTableColumn('entry_order_id', '单据编号')
             ->addTableColumn('storehouse_name', '所在仓库')
             ->addTableColumn('entry_order_remark', '摘要')
@@ -230,7 +230,7 @@ class EntryOrderController extends AdminController
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
             $this->assign('_invoice_type', D('Admin/Module')->getInvoiceTypeList()); //发票类型列表
 
-            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
+            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate(),JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)); //最近结账日期
 
 
             $this->display();
@@ -296,7 +296,7 @@ class EntryOrderController extends AdminController
             // 使用FormBuilder快速建立表单页面。
             $this->assign('entry_order_type_name', '产品入库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
-            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
+            $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate(),JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)); //最近结账日期
             $this->display();
         }
     }
@@ -352,7 +352,7 @@ class EntryOrderController extends AdminController
 
             $list = D('storehouse_entry_order')->where($map1)->select();
 
-            $this->assign('_list',  json_encode($list));
+            $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 
             $this->display();
         }
@@ -407,7 +407,7 @@ class EntryOrderController extends AdminController
 
             $list = D('storehouse_entry_order')->where($map1)->select();
 
-            $this->assign('_list',  json_encode($list));
+            $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 
             $this->display();
         }

@@ -55,10 +55,10 @@ class DatabaseController extends AdminController
             foreach ($list as $key=> $value){
                 $list[$key]['backup_time'] = $list[$key]['create_time'];
             }
-            $json_string = json_encode($list);
+            $json_string = json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
             file_put_contents($file_path, $json_string);
             $date =json_encode(date('Y-m-d', NOW_TIME)) ;
-            $list = json_encode($list);
+            $list = json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
         }
 
         $this->assign('_date', $date);
@@ -158,7 +158,7 @@ class DatabaseController extends AdminController
                 foreach ($data as $key=> $value){
                     $data[$key]['backup_time'] = $data[$key]['create_time'];
                 }
-                $json_string = json_encode($data);
+                $json_string = json_encode($data,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
                 file_put_contents($file_path, $json_string);
 
             }
@@ -191,7 +191,7 @@ class DatabaseController extends AdminController
             session('backup_config', null);
 
             $this->deldir($file_path);
-            $json_string = json_encode($data);
+            $json_string = json_encode($data,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
             file_put_contents($file_path, $json_string);
             file_put_contents($date_path, json_encode(date('Y-m-d', NOW_TIME)));
 

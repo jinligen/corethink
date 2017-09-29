@@ -269,7 +269,7 @@ return array(
             'pid'   => 'c',
             'title' => '销售出库单序时簿',
             'icon'  => 'fa fa-files-o',
-            'url'   => 'Admin/BaoBiao/productOutOrder',
+            'url'   => 'Admin/BaoBiao/salesOutOrder',
         ),
 
         'c9'  => array(
