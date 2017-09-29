@@ -228,6 +228,7 @@ class EntryOrderController extends AdminController
             // 使用FormBuilder快速建立表单页面。
             $this->assign('entry_order_type_name', '采购入库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
+            $this->assign('_invoice_type', D('Admin/Module')->getInvoiceTypeList()); //发票类型列表
 
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
 

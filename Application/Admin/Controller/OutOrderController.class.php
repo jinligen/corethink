@@ -227,6 +227,8 @@ class OutOrderController extends AdminController
             // 使用FormBuilder快速建立表单页面。
             $this->assign('out_order_type_name', '销售出库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
+            $this->assign('_invoice_type', D('Admin/Module')->getInvoiceTypeList()); //发票类型列表
+
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
             $this->display();
         }
@@ -291,6 +293,7 @@ class OutOrderController extends AdminController
             
             $this->assign('out_order_type_name', '材料出库单'); //页面标题
             $this->assign('_storehouse_name', D('Admin/StoreHouseInfo')->getList()); //仓库列表
+
             $this->assign('_closeDate', json_encode(D('Admin/CloseAccounts')->getCloseDate())); //最近结账日期
             $this->display();
         }

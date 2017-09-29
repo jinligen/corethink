@@ -224,6 +224,16 @@ IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
     END IF";
 
+    $trigger4= "CREATE TRIGGER oc_storehouse_payment_order_trigger BEFORE UPDATE ON `oc_storehouse_payment_order` FOR EACH ROW 
+IF old.payment_order_is_audited = '0' AND new.payment_order_is_audited = '1' THEN
+         UPDATE oc_storehouse_entry_order SET entry_order_actual_payment = entry_order_actual_payment + new.now_clear_price WHERE entry_order_id =  new.entry_order_id;
+    END IF";
+
+    $trigger5= "CREATE TRIGGER oc_storehouse_gathering_order_trigger BEFORE UPDATE ON `oc_storehouse_gathering_order` FOR EACH ROW 
+IF old.gathering_order_is_audited = '0' AND new.gathering_order_is_audited = '1' THEN
+         UPDATE oc_storehouse_out_order SET out_order_actual_payment = out_order_actual_payment + new.now_clear_price WHERE out_order_id =  new.out_order_id;
+    END IF";
+
     //开始安装
     show_msg('开始安装数据库...');
     foreach ($sql as $value) {
@@ -250,27 +260,36 @@ IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
 
     $Model = new \Think\Model();
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_goods_check_trigger");
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_entry_order_trigger");
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_out_order_trigger");
-    
-    if ($Model->execute($trigger1)==0) {
-        show_msg( 'oc_storehouse_goods_check_trigger...成功');
-        
-        if ($Model->execute($trigger2)==0) {
-            show_msg( 'oc_storehouse_entry_order_trigger...成功');
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_payment_order_trigger");
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_gathering_order_trigger");
 
-            if ($Model->execute($trigger3)==0) {
-                show_msg( 'oc_storehouse_out_order_trigger...成功');
-            } else {
-                show_msg( 'oc_storehouse_out_order_trigger...失败！', 'error');
-                session('error', true);
-            }
-        } else {
-            show_msg( 'oc_storehouse_entry_order_trigger...失败！', 'error');
-            session('error', true);
-        }
-
-    } else {
-        show_msg( 'oc_storehouse_goods_check_trigger...失败！', 'error');
+    $execute_trigger1 = $Model->execute($trigger1);
+    $execute_trigger2 = $Model->execute($trigger2);
+    $execute_trigger3 = $Model->execute($trigger3);
+    $execute_trigger4 = $Model->execute($trigger4);
+    $execute_trigger5 = $Model->execute($trigger5);
+    $temp = '';
+    if($execute_trigger1!=0){
+        $temp .= 'oc_storehouse_goods_check_trigger';
+    }
+    if($execute_trigger2!=0){
+        $temp .= 'oc_storehouse_entry_order_trigger';
+    }
+    if($execute_trigger3!=0){
+        $temp .= 'oc_storehouse_out_order_trigger';
+    }
+    if($execute_trigger4!=0){
+        $temp .= 'oc_storehouse_payment_order_trigger';
+    }
+    if($execute_trigger5!=0){
+        $temp .= 'oc_storehouse_gathering_order_trigger';
+    }
+    if($temp==''){
+        show_msg( '所有触发器创建成功...');
+    }else{
+        show_msg( $temp.'...失败！', 'error');
         session('error', true);
     }
 

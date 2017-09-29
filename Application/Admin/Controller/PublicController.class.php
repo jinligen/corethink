@@ -158,6 +158,21 @@ class PublicController extends CommonController
         $this->display();
     }
 
+    /**
+     * 获取支付方式列表
+     * @param  integer $id 验证码ID
+     * @return boolean 检测结果
+     */
+    public function paymentWayList()
+    {
+
+        $list = D('order_payment_way')->select();
+
+        $this->assign('_list',  json_encode($list));
+//        echo  var_dump( $list);exit;
+        $this->display();
+    }
+
 
     /**
      * 获取应付列表
@@ -168,7 +183,8 @@ class PublicController extends CommonController
     {
 
         $type = $_GET['customer_id'];
-        $map['customer_id'] = array('like','%'.$type.'%'); 
+        $map['customer_id'] = array('like','%'.$type.'%');
+        $map['no_clear_price'] = array('GT','0');
         $list = D('storehouse_entry_order_view')->where($map)->select();
 //echo $list;exit;
         $this->assign('_list', json_encode($list));
@@ -185,8 +201,9 @@ class PublicController extends CommonController
 
         $type = $_GET['customer_id'];
         $map['customer_id'] = array('like','%'.$type.'%');
+        $map['no_clear_price'] = array('GT','0');
         $list = D('storehouse_out_order_view')->where($map)->select();
-
+//        echo $list;exit;
         $this->assign('_list', json_encode($list));
         $this->display();
     }

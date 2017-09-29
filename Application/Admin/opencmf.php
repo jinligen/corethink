@@ -352,6 +352,18 @@ return array(
             'url'   => 'Admin/clerk/index',
         ),
 
+//        'd6'  => array(
+//            'pid'   => 'd',
+//            'title' => '发票类型列表',
+//            'icon'  => 'fa fa-strikethrough',
+//            'url'   => 'Admin/InvoiceType/index',
+//        ),
+        'd7'  => array(
+            'pid'   => 'd',
+            'title' => '支付方式列表',
+            'icon'  => 'fa fa-strikethrough',
+            'url'   => 'Admin/PaymentWay/index',
+        ),
 
 
 

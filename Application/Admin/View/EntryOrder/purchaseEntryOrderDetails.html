@@ -171,6 +171,34 @@
             </div>
         </div>
 
+        <div class="form-head-row">
+            <div class="form-item " style="">
+                <span class="title" style="">发票类型:</span>
+                <div class="input-content ">
+                    <div class="data-show" style="">&nbsp;{{headInfo.invoice_type}}</div>
+
+                </div>
+            </div>
+            <div class="form-item " style="">
+                <span class="title" style="">支付方式:</span>
+                <div class="input-content ">
+
+                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_way}}</div>
+
+                </div>
+            </div>
+
+            <div class="form-item " style="">
+                <span class="title" style="">支付账户:</span>
+                <div class="input-content ">
+
+                    <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_account}}</div>
+
+                </div>
+            </div>
+
+        </div>
+
 
 
         <div class="form-head-row">
@@ -545,6 +573,34 @@
 
             <div class="form-head-row">
                 <div class="form-item " style="">
+                    <span class="title" style="">发票类型:</span>
+                    <div class="input-content ">
+                        <div class="data-show" style="">&nbsp;{{headInfo.invoice_type}}</div>
+
+                    </div>
+                </div>
+                <div class="form-item " style="">
+                    <span class="title" style="">支付方式:</span>
+                    <div class="input-content ">
+
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_way}}</div>
+
+                    </div>
+                </div>
+
+                <div class="form-item " style="">
+                    <span class="title" style="">支付账户:</span>
+                    <div class="input-content ">
+
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_payment_account}}</div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-head-row">
+                <div class="form-item " style="">
                     <span class="title" style="">所属仓库:</span>
                     <div class="input-content ">
                         <div class="data-show" style="">&nbsp;{{headInfo.storehouse_name}}</div>
@@ -575,9 +631,7 @@
                 <div class="form-item " style="">
                     <span class="title" style="">单据金额:</span>
                     <div class="input-content ">
-                        <div class="data-select" style=" width: 100%;">
-                            <input type="text" style="" v-model="headInfo.entry_order_price"/>
-                        </div>
+                        <div class="data-show" style="">&nbsp;{{headInfo.entry_order_price}}</div>
                     </div>
                 </div>
 

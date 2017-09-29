@@ -72,7 +72,7 @@ INSERT INTO `oc_admin_config` VALUES ('15', '导航分组', 'NAV_GROUP_LIST', 'm
 INSERT INTO `oc_admin_config` VALUES ('16', '配置分组', 'CONFIG_GROUP_LIST', '1:基本2:系统3:开发4:部署5:授权', '2', 'array', '', '配置分组', '1379228036', '1426930700', '7', '1');
 INSERT INTO `oc_admin_config` VALUES ('17', '开发模式', 'DEVELOP_MODE', '0', '3', 'select', '1:开启0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', '1432393583', '1432393583', '1', '1');
 INSERT INTO `oc_admin_config` VALUES ('18', '是否显示页面Trace', 'SHOW_PAGE_TRACE', '0', '3', 'select', '0:关闭1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '2', '1');
-INSERT INTO `oc_admin_config` VALUES ('19', '系统加密KEY', 'AUTH_KEY', 'zpTwC-}Y;{mAn}@v`k?H.=xKGr,p$FssGrMqdbmA<{>f?FOu%RRRD%/vFye^!USh', '3', 'textarea', '', '轻易不要修改此项，否则容易造成用户无法登录；如要修改，务必备份原key', '1438647773', '1438647815', '3', '1');
+INSERT INTO `oc_admin_config` VALUES ('19', '系统加密KEY', 'AUTH_KEY', '=q_`;C"+iE@NrkzvJCo`)IP"UfaO^NoP&na%)}YjYlpr==o~[v(+%z"#{OcuxM}[', '3', 'textarea', '', '轻易不要修改此项，否则容易造成用户无法登录；如要修改，务必备份原key', '1438647773', '1438647815', '3', '1');
 INSERT INTO `oc_admin_config` VALUES ('20', 'URL模式', 'URL_MODEL', '3', '4', 'select', '0:普通模式1:PATHINFO模式2:REWRITE模式3:兼容模式', '', '1438423248', '1438423248', '1', '1');
 INSERT INTO `oc_admin_config` VALUES ('21', '静态文件独立域名', 'STATIC_DOMAIN', '', '4', 'text', '', '静态文件独立域名一般用于在用户无感知的情况下平和的将网站图片自动存储到腾讯万象优图、又拍云等第三方服务。', '1438564784', '1438564784', '2', '1');
 INSERT INTO `oc_admin_config` VALUES ('22', '开启子域名配置', 'APP_SUB_DOMAIN_DEPLOY', '0', '4', 'radio', '1:是0:否', '是否开启子域名配置', '1467549933', '1467549933', '3', '1');
@@ -148,7 +148,7 @@ CREATE TABLE `oc_admin_module` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='模块功能表';
 
-INSERT INTO `oc_admin_module` VALUES ('1', 'Admin', '系统', '', 'fa fa-cog', '#3CA6F1', '核心系统', '南京科斯克网络科技有限公司', '1.3.0', '', '', '{"1":{"pid":"0","title":"系统","icon":"fa fa-cog","level":"system","id":"1"},"a":{"pid":"1","title":"系统功能","icon":"fa fa-folder-open-o","id":"a"},"a1":{"pid":"a","title":"系统设置","icon":"fa fa-wrench","url":"Admin\/Config\/group","id":"a1"},"a11":{"pid":"a1","title":"修改设置","url":"Admin\/Config\/groupSave","id":"a11"},"a2":{"pid":"a","title":"用户列表","icon":"fa fa-user","url":"Admin\/User\/index","id":"a2"},"a21":{"pid":"a2","title":"新增","url":"Admin\/User\/add","id":"a21"},"a22":{"pid":"a2","title":"编辑","url":"Admin\/User\/edit","id":"a22"},"a23":{"pid":"a2","title":"设置状态","url":"Admin\/User\/setStatus","id":"a23"},"a3":{"pid":"a","title":"用户分组","icon":"fa fa-lock","url":"Admin\/Access\/index","id":"a3"},"a31":{"pid":"a3","title":"新增","url":"Admin\/Access\/add","id":"a31"},"a32":{"pid":"a3","title":"编辑","url":"Admin\/Access\/edit","id":"a32"},"a33":{"pid":"a3","title":"设置状态","url":"Admin\/Access\/setStatus","id":"a33"},"a4":{"pid":"a","title":"角色管理","icon":"fa fa-sitemap","url":"Admin\/Group\/index","id":"a4"},"a41":{"pid":"a4","title":"新增","url":"Admin\/Group\/add","id":"a41"},"a42":{"pid":"a4","title":"编辑","url":"Admin\/Group\/edit","id":"a42"},"a43":{"pid":"a4","title":"设置状态","url":"Admin\/Group\/setStatus","id":"a43"},"a5":{"pid":"a","title":"功能模块","icon":"fa fa-th-large","url":"Admin\/Module\/index","id":"a5"},"a51":{"pid":"a5","title":"安装","url":"Admin\/Module\/install","id":"a51"},"a52":{"pid":"a5","title":"卸载","url":"Admin\/Module\/uninstall","id":"a52"},"a53":{"pid":"a5","title":"更新信息","url":"Admin\/Module\/updateInfo","id":"a53"},"a54":{"pid":"a5","title":"设置状态","url":"Admin\/Module\/setStatus","id":"a54"},"a6":{"pid":"a","title":"数据备份","icon":"fa fa-book","url":"admin\/database\/index","id":"a6"},"b":{"pid":"1","title":"库存管理","icon":"fa fa-folder-open-o","id":"b"},"b1":{"pid":"b","title":"采购入库单","icon":"fa fa-file-o","url":"Admin\/EntryOrder\/purchaseEntryOrder","id":"b1"},"b2":{"pid":"b","title":"产品入库单","icon":"fa fa-file-o","url":"Admin\/EntryOrder\/productEntryOrder","id":"b2"},"b3":{"pid":"b","title":"材料出库单","icon":"fa fa-files-o","url":"Admin\/OutOrder\/materialOutOrder","id":"b3"},"b4":{"pid":"b","title":"销售出库单","icon":"fa fa-files-o","url":"Admin\/OutOrder\/salesOutOrder","id":"b4"},"b5":{"pid":"b","title":"付款单","icon":"fa fa-list-alt","url":"Admin\/PaymentOrder\/index","id":"b5"},"b6":{"pid":"b","title":"收款单","icon":"fa fa-floppy-o","url":"Admin\/GatheringOrder\/index","id":"b6"},"b7":{"pid":"b","title":"盘点列表","icon":"fa fa-list-ol","url":"Admin\/GoodsCheck\/index","id":"b7"},"b8":{"pid":"b","title":"销售订单","icon":"fa fa-bookmark-o","url":"Admin\/SalesOrder\/index","id":"b8"},"b9":{"pid":"b","title":"成本计算表","icon":"fa fa-bookmark","url":"Admin\/public\/demo","id":"b9"},"b10":{"pid":"b","title":"财务结账","icon":"fa fa-bookmark","url":"Admin\/CloseAccounts\/index","id":"b10"},"c":{"pid":"1","title":"报表管理","icon":"fa fa-bar-chart-o","id":"c"},"c1":{"pid":"c","title":"库房即时查询","icon":"fa fa-eye","url":"Admin\/InstantInventory\/index","id":"c1"},"c2":{"pid":"c","title":"采购报表","icon":"fa fa-table","url":"Admin\/SummaryPurchase\/index","id":"c2"},"c3":{"pid":"c","title":"销售报表","icon":"fa fa-building-o","url":"Admin\/SummarySales\/index","id":"c3"},"c4":{"pid":"c","title":"库存商品明细账","icon":"fa fa-building-o","url":"Admin\/BaoBiao\/kuCunMingXiZhang","id":"c4"},"c5":{"pid":"c","title":"采购入库单序时簿","icon":"fa fa-file-o","url":"Admin\/BaoBiao\/purchaceEntryOrder","id":"c5"},"c6":{"pid":"c","title":"产品入库单序时簿","icon":"fa fa-file-o","url":"Admin\/BaoBiao\/productEntryOrder","id":"c6"},"c7":{"pid":"c","title":"材料出库单序时簿","icon":"fa fa-files-o","url":"Admin\/BaoBiao\/materialOutOrder","id":"c7"},"c8":{"pid":"c","title":"销售出库单序时簿","icon":"fa fa-files-o","url":"Admin\/BaoBiao\/productOutOrder","id":"c8"},"c9":{"pid":"c","title":"收款单序时簿","icon":"fa fa-floppy-o","url":"Admin\/BaoBiao\/gatheringOrder","id":"c9"},"c10":{"pid":"c","title":"付款单序时簿","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/paymentOrder","id":"c10"},"c11":{"pid":"c","title":"供应商对账单","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/supplierBill","id":"c11"},"c12":{"pid":"c","title":"客户对账单","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/customerBill","id":"c12"},"d":{"pid":"1","title":"基础信息管理","icon":"fa fa-folder-open-o","id":"d"},"d1":{"pid":"d","title":"仓库信息","icon":"fa fa-info-circle","url":"Admin\/StoreHouseInfo\/index","id":"d1"},"d2":{"pid":"d","title":"商品信息","icon":"fa fa-info","url":"Admin\/goods\/index","id":"d2"},"d3":{"pid":"d","title":"商品类型","icon":"fa fa-wrench","url":"Admin\/goodsType\/index","id":"d3"},"d4":{"pid":"d","title":"客户列表","icon":"fa fa-user-md","url":"Admin\/customer\/index","id":"d4"},"d5":{"pid":"d","title":"业务员列表","icon":"fa fa-user","url":"Admin\/clerk\/index","id":"d5"}}', '1', '1438651748', '1506434980', '0', '1');
+INSERT INTO `oc_admin_module` VALUES ('1', 'Admin', '系统', '', 'fa fa-cog', '#3CA6F1', '核心系统', '南京科斯克网络科技有限公司', '1.3.0', '', '', '{"1":{"pid":"0","title":"系统","icon":"fa fa-cog","level":"system","id":"1"},"a":{"pid":"1","title":"系统功能","icon":"fa fa-folder-open-o","id":"a"},"a1":{"pid":"a","title":"系统设置","icon":"fa fa-wrench","url":"Admin\/Config\/group","id":"a1"},"a11":{"pid":"a1","title":"修改设置","url":"Admin\/Config\/groupSave","id":"a11"},"a2":{"pid":"a","title":"用户列表","icon":"fa fa-user","url":"Admin\/User\/index","id":"a2"},"a21":{"pid":"a2","title":"新增","url":"Admin\/User\/add","id":"a21"},"a22":{"pid":"a2","title":"编辑","url":"Admin\/User\/edit","id":"a22"},"a23":{"pid":"a2","title":"设置状态","url":"Admin\/User\/setStatus","id":"a23"},"a3":{"pid":"a","title":"用户分组","icon":"fa fa-lock","url":"Admin\/Access\/index","id":"a3"},"a31":{"pid":"a3","title":"新增","url":"Admin\/Access\/add","id":"a31"},"a32":{"pid":"a3","title":"编辑","url":"Admin\/Access\/edit","id":"a32"},"a33":{"pid":"a3","title":"设置状态","url":"Admin\/Access\/setStatus","id":"a33"},"a4":{"pid":"a","title":"角色管理","icon":"fa fa-sitemap","url":"Admin\/Group\/index","id":"a4"},"a41":{"pid":"a4","title":"新增","url":"Admin\/Group\/add","id":"a41"},"a42":{"pid":"a4","title":"编辑","url":"Admin\/Group\/edit","id":"a42"},"a43":{"pid":"a4","title":"设置状态","url":"Admin\/Group\/setStatus","id":"a43"},"a5":{"pid":"a","title":"功能模块","icon":"fa fa-th-large","url":"Admin\/Module\/index","id":"a5"},"a51":{"pid":"a5","title":"安装","url":"Admin\/Module\/install","id":"a51"},"a52":{"pid":"a5","title":"卸载","url":"Admin\/Module\/uninstall","id":"a52"},"a53":{"pid":"a5","title":"更新信息","url":"Admin\/Module\/updateInfo","id":"a53"},"a54":{"pid":"a5","title":"设置状态","url":"Admin\/Module\/setStatus","id":"a54"},"a6":{"pid":"a","title":"数据备份","icon":"fa fa-book","url":"admin\/database\/index","id":"a6"},"b":{"pid":"1","title":"库存管理","icon":"fa fa-folder-open-o","id":"b"},"b1":{"pid":"b","title":"采购入库单","icon":"fa fa-file-o","url":"Admin\/EntryOrder\/purchaseEntryOrder","id":"b1"},"b2":{"pid":"b","title":"产品入库单","icon":"fa fa-file-o","url":"Admin\/EntryOrder\/productEntryOrder","id":"b2"},"b3":{"pid":"b","title":"材料出库单","icon":"fa fa-files-o","url":"Admin\/OutOrder\/materialOutOrder","id":"b3"},"b4":{"pid":"b","title":"销售出库单","icon":"fa fa-files-o","url":"Admin\/OutOrder\/salesOutOrder","id":"b4"},"b5":{"pid":"b","title":"付款单","icon":"fa fa-list-alt","url":"Admin\/PaymentOrder\/index","id":"b5"},"b6":{"pid":"b","title":"收款单","icon":"fa fa-floppy-o","url":"Admin\/GatheringOrder\/index","id":"b6"},"b7":{"pid":"b","title":"盘点列表","icon":"fa fa-list-ol","url":"Admin\/GoodsCheck\/index","id":"b7"},"b8":{"pid":"b","title":"销售订单","icon":"fa fa-bookmark-o","url":"Admin\/SalesOrder\/index","id":"b8"},"b9":{"pid":"b","title":"成本计算表","icon":"fa fa-bookmark","url":"Admin\/public\/demo","id":"b9"},"b10":{"pid":"b","title":"财务结账","icon":"fa fa-bookmark","url":"Admin\/CloseAccounts\/index","id":"b10"},"c":{"pid":"1","title":"报表管理","icon":"fa fa-bar-chart-o","id":"c"},"c1":{"pid":"c","title":"库房即时查询","icon":"fa fa-eye","url":"Admin\/InstantInventory\/index","id":"c1"},"c2":{"pid":"c","title":"采购报表","icon":"fa fa-table","url":"Admin\/SummaryPurchase\/index","id":"c2"},"c3":{"pid":"c","title":"销售报表","icon":"fa fa-building-o","url":"Admin\/SummarySales\/index","id":"c3"},"c4":{"pid":"c","title":"商品库存业务汇总表","icon":"fa fa-columns","url":"Admin\/BaoBiao\/shangPinKuCunHuiZongBiao","id":"c4"},"c5":{"pid":"c","title":"采购入库单序时簿","icon":"fa fa-file-o","url":"Admin\/BaoBiao\/purchaceEntryOrder","id":"c5"},"c6":{"pid":"c","title":"产品入库单序时簿","icon":"fa fa-file-o","url":"Admin\/BaoBiao\/productEntryOrder","id":"c6"},"c7":{"pid":"c","title":"材料出库单序时簿","icon":"fa fa-files-o","url":"Admin\/BaoBiao\/materialOutOrder","id":"c7"},"c8":{"pid":"c","title":"销售出库单序时簿","icon":"fa fa-files-o","url":"Admin\/BaoBiao\/productOutOrder","id":"c8"},"c9":{"pid":"c","title":"收款单序时簿","icon":"fa fa-floppy-o","url":"Admin\/BaoBiao\/gatheringOrder","id":"c9"},"c10":{"pid":"c","title":"付款单序时簿","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/paymentOrder","id":"c10"},"c11":{"pid":"c","title":"供应商对账单","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/supplierBill","id":"c11"},"c12":{"pid":"c","title":"客户对账单","icon":"fa fa-list-alt","url":"Admin\/BaoBiao\/customerBill","id":"c12"},"c13":{"pid":"c","title":"库存商品明细账","icon":"fa fa-columns","url":"Admin\/BaoBiao\/kuCunMingXiZhang","id":"c13"},"c14":{"pid":"c","title":"应付账款明细表","icon":"fa fa-columns","url":"Admin\/BaoBiao\/yingFuMingXiZhang","id":"c14"},"c15":{"pid":"c","title":"应收账款明细表","icon":"fa fa-columns","url":"Admin\/BaoBiao\/yingShouMingXiZhang","id":"c15"},"d":{"pid":"1","title":"基础信息管理","icon":"fa fa-folder-open-o","id":"d"},"d1":{"pid":"d","title":"仓库信息","icon":"fa fa-info-circle","url":"Admin\/StoreHouseInfo\/index","id":"d1"},"d2":{"pid":"d","title":"商品信息","icon":"fa fa-info","url":"Admin\/goods\/index","id":"d2"},"d3":{"pid":"d","title":"商品类型","icon":"fa fa-wrench","url":"Admin\/goodsType\/index","id":"d3"},"d4":{"pid":"d","title":"客户列表","icon":"fa fa-user-md","url":"Admin\/customer\/index","id":"d4"},"d5":{"pid":"d","title":"业务员列表","icon":"fa fa-user","url":"Admin\/clerk\/index","id":"d5"},"d6":{"pid":"d","title":"支付方式列表","icon":"fa fa-strikethrough","url":"Admin\/PaymentWay\/index","id":"d6"}}', '1', '1438651748', '1506650238', '0', '1');
 
 
 
@@ -323,7 +323,7 @@ CREATE TABLE `oc_ids` (
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(2) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 INSERT INTO `oc_ids` VALUES ('1', 'CGRKD', '1', '2017-09-24 22:52:11', '0000-00-00 00:00:00', '1');
 INSERT INTO `oc_ids` VALUES ('2', 'XSCKD', '1', '2017-09-26 20:26:37', '0000-00-00 00:00:00', '1');
@@ -333,6 +333,36 @@ INSERT INTO `oc_ids` VALUES ('5', 'SKD', '1', '2017-09-26 20:55:34', '0000-00-00
 INSERT INTO `oc_ids` VALUES ('6', 'FKD', '1', '2017-09-26 21:34:43', '0000-00-00 00:00:00', '1');
 INSERT INTO `oc_ids` VALUES ('7', 'CGRKD', '1', '2017-09-26 21:34:58', '0000-00-00 00:00:00', '1');
 INSERT INTO `oc_ids` VALUES ('8', 'CGRKD', '1', '2017-09-26 21:46:25', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('9', 'CGRKD', '1', '2017-09-29 08:53:37', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('10', 'CGRKD', '1', '2017-09-29 09:32:22', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('11', 'CGRKD', '1', '2017-09-29 09:53:47', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('12', 'CGRKD', '1', '2017-09-29 09:59:38', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('13', 'CGRKD', '1', '2017-09-29 09:59:59', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('14', 'CGRKD', '1', '2017-09-29 10:19:40', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('15', 'CGRKD', '1', '2017-09-29 10:22:44', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('16', 'CGRKD', '1', '2017-09-29 10:27:50', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('17', 'XSCKD', '1', '2017-09-29 10:28:00', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('18', 'XSCKD', '1', '2017-09-29 10:30:57', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('19', 'XSCKD', '1', '2017-09-29 10:31:15', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('20', 'XSCKD', '1', '2017-09-29 10:31:45', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_ids` VALUES ('21', 'XSCKD', '2', '2017-09-29 10:52:32', '0000-00-00 00:00:00', '1');
+
+
+
+DROP TABLE IF EXISTS `oc_order_payment_way`;
+CREATE TABLE `oc_order_payment_way` (
+  `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `payment_way` varchar(50) DEFAULT '' COMMENT '支付方式',
+  `payment_account` varchar(50) DEFAULT '' COMMENT '支付账户',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(2) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+INSERT INTO `oc_order_payment_way` VALUES ('1', '微信', 'jsmh1357911', '2017-09-29 09:58:20', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_order_payment_way` VALUES ('2', '银行转账', '53254652564568425', '2017-09-29 09:58:52', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_order_payment_way` VALUES ('3', '支付宝转账', '876736257@163.com', '2017-09-29 09:59:26', '0000-00-00 00:00:00', '1');
 
 
 
@@ -552,7 +582,7 @@ CREATE TABLE `oc_storehouse_goods` (
   UNIQUE KEY `UNIQUE` (`goods_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-INSERT INTO `oc_storehouse_goods` VALUES ('1', '产品', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '3500.00', '5.00', '10.00', '产品仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
+INSERT INTO `oc_storehouse_goods` VALUES ('1', '产品', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', '3410.00', '5.00', '10.00', '产品仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
 INSERT INTO `oc_storehouse_goods` VALUES ('2', '原材料', 'YCL0001', '铸铁', '500*500 B125', 'kg', '300/件,500/箱,3000/吨', '1997.00', '3.00', '0.00', '原料仓', '', '', '2017-09-14 17:26:08', '0000-00-00 00:00:00', '1');
 
 
@@ -669,8 +699,9 @@ CREATE TABLE `oc_storehouse_out_order` (
   `update_time` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `status` tinyint(3) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+INSERT INTO `oc_storehouse_out_order` VALUES ('1', '销售出库单', 'XSCKD00000001', '', '45000.00', '银行转账', '', '53254652564568425', '0.00', '4.00', '0.00', '1800.00', '46800.00', '40000.00', '0000-00-00', '1', '2017-09-20', 'KH0001', 'XXX市政局', '', '13265656565', '解放路', '产品仓', '普通发票', 'admin', '超级管理员', '李思静', '财务部', '2017-09-29', 'CP0001', '井盖', 'JQ-300*300', 'kg', '500/箱,1000/吨', 'kg', '90.00', '0.00', '0.00', '0.00', '0.00', '0', '500.00', '90.00', '45000.00', '0.00', '0.00', '0.00', '', '2017-09-29 10:33:05', '0000-00-00 00:00:00', '1');
 
 
 

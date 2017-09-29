@@ -418,5 +418,14 @@ class ModuleModel extends Model
         exit;
     }
 
-
+    /**
+     * 获取发票类型
+     */
+    public function getInvoiceTypeList(){
+        $list = array(
+            "普通发票"=>"普通发票",
+            "专用发票"=>"专用发票",
+        );
+        return $list?$list:[];
+    }
 }
