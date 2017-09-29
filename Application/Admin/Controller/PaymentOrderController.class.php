@@ -32,6 +32,7 @@ class PaymentOrderController extends AdminController
         $field = 'id,
                    payment_order_id,
                    payment_order_type_name,
+                   payment_order_date,
                    payment_order_price,
                    payment_order_deposit_rate,
                    payment_order_deposit_after_price,
@@ -73,7 +74,8 @@ class PaymentOrderController extends AdminController
 
         ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('payment_order_id', '单据编号')
-            ->addTableColumn('payment_order_type_name', '日期')
+            ->addTableColumn('payment_order_type_name', '单据类型')
+            ->addTableColumn('payment_order_date', '日期')
             ->addTableColumn('payment_order_price', '单据金额')
             ->addTableColumn('payment_order_deposit_rate', '折扣率')
             ->addTableColumn('payment_order_deposit_after_price', '折扣额')

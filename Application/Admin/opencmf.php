@@ -229,18 +229,18 @@ return array(
             'icon'  => 'fa fa-eye',
             'url'   => 'Admin/InstantInventory/index',
         ),
-        'c2'  => array(
-            'pid'   => 'c',
-            'title' => '采购报表',
-            'icon'  => 'fa fa-table',
-            'url'   => 'Admin/SummaryPurchase/index',
-        ),
-        'c3'  => array(
-            'pid'   => 'c',
-            'title' => '销售报表',
-            'icon'  => 'fa fa-building-o',
-            'url'   => 'Admin/SummarySales/index',
-        ),
+//        'c2'  => array(
+//            'pid'   => 'c',
+//            'title' => '采购报表',
+//            'icon'  => 'fa fa-table',
+//            'url'   => 'Admin/SummaryPurchase/index',
+//        ),
+//        'c3'  => array(
+//            'pid'   => 'c',
+//            'title' => '销售报表',
+//            'icon'  => 'fa fa-building-o',
+//            'url'   => 'Admin/SummarySales/index',
+//        ),
         'c4'  => array(
             'pid'   => 'c',
             'title' => '商品库存业务汇总表',

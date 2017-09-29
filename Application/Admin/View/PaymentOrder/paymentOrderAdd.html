@@ -133,7 +133,7 @@
                 <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="" v-model="headInfo.payment_order_payment_date"/>
+                        <input type="date" id="date" style="" v-model="headInfo.payment_order_date"/>
                     </div>
                 </div>
             </div>
@@ -474,7 +474,7 @@
                 <div class="form-item " style="">
                     <span class="title" style="">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</span>
                     <div class="input-content ">
-                        {{headInfo.payment_order_payment_date}}
+                        {{headInfo.payment_order_date}}
                     </div>
                 </div>
 
@@ -689,7 +689,7 @@
 
             customer_id: '',
             customer_name: '',
-            payment_order_payment_date: '',
+            payment_order_date: '',
             payment_order_id: '{$_order_id}',
 
             department:'',
@@ -999,7 +999,7 @@
                         if (self.headInfo.customer_name == '') {
                             layer.msg('请选择供应商');
                             flag = false;
-                        } else if (self.headInfo.payment_order_payment_date == '') {
+                        } else if (self.headInfo.payment_order_date == '') {
                             layer.msg('请选择日期');
                             flag = false;
                         } else if (self.headInfo.payment_order_id == '') {

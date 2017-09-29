@@ -65,7 +65,8 @@
         tr th div, tr td div {
             position: relative;
             display: inline-block;
-            height: 25px;
+            height: auto;
+            min-height:25px;
             line-height: 25px;
             width: 100%;
             margin: 0;
@@ -163,8 +164,8 @@
                     <tbody>
                     <tr v-for="(list_item, index) in list">
                         <td v-for="(thead_item, index) in thead">
-                            <div :style="{ width: thead_item.width }">
-                                {{list_item[thead_item.key]}}
+                            <div :style="{ width: thead_item.width ,minHeight: '30px',height: '30px',lineHeight: '30px'}"  >
+                                {{list_item[thead_item.key]}}&nbsp;
                             </div>
                         </td>
                     </tr>
@@ -195,14 +196,14 @@
                     <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
                         <tbody>
                         <tr v-for="(list_item, index) in list">
-                            <td>
-                                <div style=" width: 100px">
-                                    {{list_item['order_date']}}
+                            <td   >
+                                <div style=" width: 100px;min-height: 30px;height: 30px;line-height: 30px">
+                                    {{list_item['order_date']}}&nbsp;
                                 </div>
                             </td>
-                            <td>
-                                <div style=" width: 150px">
-                                    {{list_item['order_id']}}
+                            <td  >
+                                <div style="height: 30px;min-height: 30px; width: 150px;line-height: 30px">
+                                    {{list_item['order_id']}}&nbsp;
                                 </div>
                             </td>
 
@@ -214,6 +215,7 @@
                 </div>
             </div>
 
+
         </div>
     </div>
 
@@ -224,12 +226,12 @@
                    bordercolor="#333333">
                 <thead>
                 <tr>
-                    <th colspan="14" style="text-align: center;">
+                    <th colspan="15" style="text-align: center;">
                         <span style="display: inline-block;font-size: 24px;border-bottom: 2px solid #000;margin: 10px auto;text-decoration:underline">收&nbsp;&nbsp;款&nbsp;&nbsp;单&nbsp;&nbsp;时&nbsp;&nbsp;序&nbsp;&nbsp;薄</span>
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="14" style="text-align: center;">
+                    <th colspan="15" style="text-align: center;">
                         <div   style="">
                             日期:
                             {{headInfo.start_date}}
@@ -297,12 +299,13 @@
         thead: [
             {key: "order_date", title: "单据日期", width: "100px"},
             {key: "order_id", title: "单据编号", width: "150px"},
+            {key: "gathering_order_type_name", title: "单据类型", width: "150px"},
             {key: "customer_name", title: "客户", width: "100px"},
             {key: "gathering_order_receivable_price", title: "应收金额", width: "100px"},
             {key: "gathering_order_deposit_after_price", title: "折扣额", width: "100px"},
             {key: "gathering_order_deposit_rate", title: "整单折扣", width: "100px"},
             {key: "gathering_order_is_audited", title: "审核状态", width: "100px"},
-            {key: "gathering_order_price", title: "单据金额", width: "100px"},
+            {key: "out_order_price", title: "单据金额", width: "100px"},
             {key: "already_clear_price", title: "已核销", width: "100px"},
             {key: "no_clear_price", title: "未核销", width: "100px"},
             {key: "now_clear_price", title: "本次核销", width: "100px"},
@@ -310,24 +313,7 @@
             {key: "nickname", title: "制单人", width: "100px"},
 
         ],
-        list: [
-            {
-                order_date: '2017-09-05',
-                order_id: '333333',
-                customer_name: 'sdfsdf',
-                gathering_order_receivable_price: 'e3rer',
-                gathering_order_deposit_after_price: 'hrg',
-                gathering_order_deposit_rate: 'sfd',
-                gathering_order_is_audited: 'sfdsd',
-                gathering_order_price: 'sdf',
-                already_clear_price: '23',
-                no_clear_price: 'sdf',
-                now_clear_price: 'sdf',
-                gathering_order_actual_payment: 'sdf',
-                nickname: 'sdf'
-            },
-
-        ]
+        list: []
     };
 
 
@@ -383,12 +369,13 @@
                     this.list.push({
                         order_date: '',
                         order_id: '',
+                        gathering_order_type_name:'',
                         customer_name: '',
                         gathering_order_receivable_price: '',
                         gathering_order_deposit_after_price: '',
                         gathering_order_deposit_rate: '',
                         gathering_order_is_audited: '',
-                        gathering_order_price: '',
+                        out_order_price: '',
                         already_clear_price: '',
                         no_clear_price: '',
                         now_clear_price: '',
@@ -402,6 +389,39 @@
                 location.reload();
             },
             query: function () {
+                var self = this;
+                var start_date = self.headInfo.start_date ? self.headInfo.start_date : '0000-00-00';
+                var end_date = self.headInfo.end_date ? self.headInfo.end_date : '9999-99-99'
+                console.log(start_date + end_date)
+                $.ajax({
+                    url: '/corethink/admin.php?s=/admin/BaoBiao/gatheringOrder',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date
+                    },
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data)
+                        var data = eval('(' + data + ')');
+                        if (data.error == '0000') {
+                            self.list = data.list;
+                            self.deleteItem(-1)
+                        } else {
+                            layer.msg('未查到数据');
+                            console.log(data.error)
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                    complete: function () {
+                        console.log('结束')
+                    }
+                })
 
             },
             print: function () { //打印
@@ -416,7 +436,7 @@
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
 //                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
-                LODOP.ADD_PRINT_TABLE( 60, 30, 750, 600, strAllStyle +   $("#print-table").html());
+                LODOP.ADD_PRINT_TABLE(20, 5, 750, 600, strAllStyle + $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 3);
 
