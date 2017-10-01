@@ -119,18 +119,25 @@ class PaymentOrderController extends AdminController
             $dataList = [];
 
 
-            for ($i = 0, $leng = count($tableInfo); $i < $leng; $i++) {
+            if(count($tableInfo)>0){
+                for ($i = 0, $leng = count($tableInfo); $i < $leng; $i++) {
 
+                    foreach ($headInfo as $key => $value) {
+                        $arr[$key] = $value;
+
+                    }
+                    foreach ($tableInfo[$i] as $key => $value) {
+                        $arr[$key] = $value;
+                    }
+                    $arr["username"] = session('user_auth')["username"];
+                    $arr["nickname"] = session('user_auth')["nickname"];
+
+                    $dataList[] = $arr;
+                }
+            }else{
                 foreach ($headInfo as $key => $value) {
                     $arr[$key] = $value;
-
                 }
-                foreach ($tableInfo[$i] as $key => $value) {
-                    $arr[$key] = $value;
-                }
-                $arr["username"] = session('user_auth')["username"];
-                $arr["nickname"] = session('user_auth')["nickname"];
-
                 $dataList[] = $arr;
             }
 

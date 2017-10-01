@@ -31,6 +31,7 @@ class GatheringOrderController extends AdminController
         $field = 'id,
                    gathering_order_id,
                    gathering_order_type_name,
+                   gathering_order_date,
                    gathering_order_price,
                    gathering_order_deposit_rate,
                    gathering_order_deposit_after_price,
@@ -72,7 +73,10 @@ class GatheringOrderController extends AdminController
 
         ->addTableColumn('id', 'ID', '', '', '50%')
             ->addTableColumn('gathering_order_id', '单据编号')
-            ->addTableColumn('gathering_order_type_name', '日期')
+            
+            
+            ->addTableColumn('gathering_order_type_name', '单据类型')
+            ->addTableColumn('gathering_order_date', '日期')
             ->addTableColumn('gathering_order_price', '单据金额')
             ->addTableColumn('gathering_order_deposit_rate', '折扣率')
             ->addTableColumn('gathering_order_deposit_after_price', '折扣额')
@@ -114,23 +118,30 @@ class GatheringOrderController extends AdminController
             
             $dataList = [];
 
+            if(count($tableInfo)>0){
+                for ($i = 0, $leng = count($tableInfo); $i < $leng; $i++) {
 
-            for ($i = 0, $leng = count($tableInfo); $i < $leng; $i++) {
+                    foreach ($headInfo as $key => $value) {
+                        $arr[$key] = $value;
 
+                    }
+                    foreach ($tableInfo[$i] as $key => $value) {
+                        $arr[$key] = $value;
+                    }
+                    $arr["username"] = session('user_auth')["username"];
+                    $arr["nickname"] = session('user_auth')["nickname"];
+
+                    $dataList[] = $arr;
+                }
+            }else{
                 foreach ($headInfo as $key => $value) {
                     $arr[$key] = $value;
-
                 }
-                foreach ($tableInfo[$i] as $key => $value) {
-                    $arr[$key] = $value;
-                }
-                $arr["username"] = session('user_auth')["username"];
-                $arr["nickname"] = session('user_auth')["nickname"];
-
                 $dataList[] = $arr;
             }
 
 
+//            echo json_encode($dataList,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);exit;
 
             if (count($dataList)>0) {
                 $d_object = D('GatheringOrder');

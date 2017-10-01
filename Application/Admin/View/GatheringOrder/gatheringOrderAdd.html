@@ -1008,10 +1008,10 @@
                         } else if (self.headInfo.gathering_order_id == '') {
                             layer.msg('请填写单据编号');
                             flag = false;
-                        } else if (self.headInfo.gathering_order_price == '') {
+                        } else if (self.headInfo.gathering_order_price == ''||self.headInfo.gathering_order_price == 0) {
                             layer.msg('请填写单据金额');
                             flag = false;
-                        } else if (self.headInfo.gathering_order_actual_payment == '') {
+                        } else if (self.headInfo.gathering_order_actual_payment == ''||self.headInfo.gathering_order_actual_payment == 0) {
                             layer.msg('请填写本次支付');
                             flag = false;
                         } else if (self.headInfo.department == '') {

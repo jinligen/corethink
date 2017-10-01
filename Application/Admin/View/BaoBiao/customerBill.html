@@ -10,9 +10,7 @@
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
     <link rel="stylesheet" href="__ADMIN_CSS__/common.css">
     <style id="style1">
-        body{
-            width: 100%;
-        }
+
 
         .nav-btn {
             display: flex;
@@ -56,8 +54,8 @@
             width: 100%;
         }
 
-        #table thead tr th, #table tr td {
-            /*padding: 0 !important;*/
+        thead tr th,   tr td {
+            padding: 0 !important;
             border: solid 2px black;
             text-align: center;
             font-size: 14px;
@@ -67,7 +65,8 @@
         tr th div, tr td div {
             position: relative;
             display: inline-block;
-            height: 25px;
+            height: auto;
+            min-height:25px;
             line-height: 25px;
             width: 100%;
             margin: 0;
@@ -103,10 +102,10 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 auto;">
+<div class=" " id="page" style="width: 60%;margin: 0 auto;">
 
     <div class=" demoTable nav-btn ">
-        <button class="layui-btn layui-btn-small  " onclick="exporExcel('收款单时序薄','#print-table')">导出</button>
+        <button class="layui-btn layui-btn-small  " onclick="exporExcel('客户对账单','#print-table')">导出</button>
         &nbsp;
         <button class="layui-btn layui-btn-small  layui-btn-warm " @click="query()">查询</button>
         &nbsp;
@@ -123,7 +122,7 @@
 
         <div class="form-head-row">
             <div class="form-item ">
-                <span class="title" style="">客户:</span>
+                <span class="title" style="">客&nbsp;&nbsp;户:</span>
                 <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
                     <div class="data-show" style="">&nbsp;{{headInfo.customer_name}}</div>
                     <div class="data-select" style="display: none;width: 100%;">
@@ -174,15 +173,14 @@
                     <tbody>
                     <tr v-for="(list_item, index) in list">
                         <td v-for="(thead_item, index) in thead">
-                            <div :style="{ width: thead_item.width }">
-                                {{list_item[thead_item.key]}}
+                            <div :style="{ width: thead_item.width,height:'31px',minHeight:'31px' }" >
+                                {{list_item[thead_item.key]}}&nbsp;
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-
             <div class="layui-table-fixed layui-table-fixed-l">
                 <div class="layui-table-header">
                     <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
@@ -198,7 +196,6 @@
                                     单据日期
                                 </div>
                             </th>
-
                         </tr>
                         </thead>
                     </table>
@@ -208,8 +205,8 @@
                         <tbody>
                         <tr v-for="(list_item, index) in list">
                             <td>
-                                <div style=" width: 150px">
-                                    {{list_item['order_type_name']}}
+                                <div style=" width: 150px;height: 31px;min-height: 31px">
+                                    {{list_item['order_type_name']}}&nbsp;
                                 </div>
                             </td>
                             <td>
@@ -255,14 +252,19 @@
                     </th>
 
                 </tr>
-                <tr>
-                    <th >
-                        <div style="width: 40px">
+
+                <tr style="height: auto">
+                    <th>
+                        <div style="width: 40px;font-size: 12px">
                             序号
                         </div>
                     </th>
                     <th v-for="(item, index) in thead">
-                        <div style="width: 70px">
+
+                        <div v-if="index === 0||index === 2" style="width: 150px;font-size: 12px">
+                            {{item.title}}
+                        </div>
+                        <div v-else style="width: 80px;font-size: 12px">
                             {{item.title}}
                         </div>
                     </th>
@@ -271,13 +273,13 @@
                 </thead>
                 <tbody>
                 <tr v-for="(list_item, index) in list">
-                    <td >
-                        <div>
+                    <td>
+                        <div style="font-size: 12px">
                             {{index+1}}
                         </div>
                     </td>
                     <td v-for="(thead_item, index) in thead">
-                        <div>
+                        <div style="font-size: 12px">
                             {{list_item[thead_item.key]}}
                         </div>
                     </td>
@@ -317,29 +319,15 @@
             {key: "order_date", title: "单据日期", width: "100px"},
             {key: "order_id", title: "单据编号", width: "150px"},
             {key: "order_remark", title: "摘要", width: "100px"},
-            {key: "order_should_gathering_price", title: "应收金额", width: "100px"},
-            {key: "order_actual_gathering", title: "实收金额", width: "100px"},
-            {key: "order_deposit_after_price", title: "折扣金额", width: "100px"},
-            {key: "order_exam_should_gathering_price", title: "期末应收", width: "100px"},
+            {key: "order_should_payment", title: "应收金额", width: "100px"},
+            {key: "order_actual_payment", title: "实收金额", width: "100px"},
+            {key: "order_deposit_price", title: "折扣额/税额", width: "100px"},
+            {key: "end_should_payment", title: "期末应收", width: "100px"},
             {key: "department", title: "部门名称", width: "100px"},
             {key: "clerk_name", title: "业务员", width: "100px"},
 
         ],
-        list: [
-            {
-                order_type_name: '销售出库单',
-                order_date: '2017-09-05',
-                order_id: '333333',
-                order_remark: 'e3rer',
-                order_should_gathering_price: 'hrg',
-                order_actual_gathering: 'sfd',
-                order_deposit_after_price: 'sfdsd',
-                order_exam_should_gathering_price: 'sdf',
-                department: '23',
-                clerk_name: 'sdf',
-            },
-
-        ]
+        list: []
     };
 
 
@@ -397,10 +385,10 @@
                         order_date: '',
                         order_id: '',
                         order_remark: '',
-                        order_should_gathering_price: '',
-                        order_actual_gathering: '',
-                        order_deposit_after_price: '',
-                        order_exam_should_gathering_price: '',
+                        order_should_payment: '',
+                        order_actual_payment: '',
+                        order_deposit_price: '',
+                        end_should_payment: '',
                         department: '',
                         clerk_name: '',
                     })
@@ -411,6 +399,41 @@
                 location.reload();
             },
             query: function () {
+                var self = this;
+                var start_date = self.headInfo.start_date ? self.headInfo.start_date : '0000-00-00';
+                var end_date = self.headInfo.end_date ? self.headInfo.end_date : '9999-99-99'
+                console.log(start_date + end_date)
+                $.ajax({
+                    url: '/corethink/admin.php?s=/admin/BaoBiao/customerBill',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date,
+                        customer_id:self.headInfo.customer_id
+                    },
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data)
+                        var data = eval('(' + data + ')');
+                        if (data.error == '0000') {
+                            self.list = data.list;
+                            self.deleteItem(-1)
+                        } else {
+                            layer.msg('未查到数据');
+                            console.log(data.error)
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                    complete: function () {
+                        console.log('结束')
+                    }
+                })
+
 
             },
             print: function () { //打印
@@ -425,13 +448,14 @@
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
 //                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
-                LODOP.ADD_PRINT_TABLE( 60, 30, 750, 600, strAllStyle +   $("#print-table").html());
+                LODOP.ADD_PRINT_TABLE(20, 5, 750, 600, strAllStyle + $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 3);
 
                 $('.print-content').hide()
                 LODOP.PREVIEW();
             },
+
             selectCustomerList: function () {
                 var self = this;
                 var childPageBody;
