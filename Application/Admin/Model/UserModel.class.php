@@ -119,7 +119,9 @@ class UserModel extends Model
             $this->error = '用户不存在或被禁用！';
         } else {
             if (user_md5($password) !== $user_info['password']) {
-                $this->error = '密码错误！'.user_md5($password).'!=='.$user_info['password'];
+//                $this->error = '密码错误！'.user_md5($password).'!=='.$user_info['password'];
+                $this->error = '密码错误！';
+
             } else {
                 return $user_info;
             }
