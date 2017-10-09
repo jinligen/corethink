@@ -292,8 +292,8 @@
         scrollTop: 0,
         scrollLeft: 0,
         headInfo: {
-            start_date: '',
-            end_date:''
+            start_date: getFirstAndEndDate().firstDay,
+            end_date: getFirstAndEndDate().lastDay,
         },
         thead: [
             {key: "order_date", title: "单据日期", width: "100px"},

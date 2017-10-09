@@ -268,8 +268,8 @@
         headInfo: {
             customer_id:'',
             customer_name:'',
-            start_date: '',
-            end_date:''
+            start_date: getFirstAndEndDate().firstDay,
+            end_date: getFirstAndEndDate().lastDay,
         },
         thead: [
             {key: "order_type_name", title: "单据类型", width: "150px"},

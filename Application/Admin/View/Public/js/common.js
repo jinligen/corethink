@@ -9,6 +9,44 @@ setTimeout(function () {
 },1100);
 
 
+function returnFloat(value){ 
+    return parseFloat(value!=''&& !isNaN(value)?parseFloat(value).toFixed(2):0);
+}
+
+
+function getFirstAndEndDate(value) {
+    var nowdays = !value||value==''?new Date():new Date(value.replace(/\-/g, "\/"));
+    var year = nowdays.getFullYear();
+    var month = nowdays.getMonth()+1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    console.log(month)
+    var firstDay = year + "-" + month + "-" + "01";//上个月的第一天
+    var myDate = new Date(year, month, 0);
+    var lastDay = year + "-" + month + "-" + myDate.getDate();//上个月的最后一天
+
+    return {firstDay:firstDay,lastDay:lastDay};
+}
+
+function unitRate(rates,nuit){
+
+    var goods_rates = (rates).split(',');
+    var unit_quantity = 1;
+    for(var i =0 ;i<goods_rates.length;i++){
+        console.log(goods_rates[i]);
+        if (goods_rates[i].split('/')[1] == nuit) {
+            unit_quantity =  goods_rates[i].split('/')[0];
+            
+
+
+            break;
+        }
+    }
+    return parseFloat(unit_quantity);
+}
+
+
 function getDate(_closeDate) {
     var _closeDate = new Date(_closeDate.replace(/\-/g, "\/"));
     var nowDate = new Date(new Date().toLocaleDateString());

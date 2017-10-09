@@ -184,7 +184,7 @@
     </div>
 
     <div id="div2">
-        <div class="layui-form layui-border-box layui-table-view" style="width:100%; height: 650px !important;">
+        <div class="layui-form layui-border-box layui-table-view" style="width:100%; height: 550px !important;">
             <div class="layui-table-header" id="fixed-header">
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
                     <thead>
@@ -207,7 +207,7 @@
                 </table>
             </div>
 
-            <div class="layui-table-body layui-table-main" style=" height: 585px !important;" id="scroll">
+            <div class="layui-table-body layui-table-main" style=" height: 485px !important;" id="scroll">
 
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
 
@@ -239,11 +239,21 @@
                                     单据类型
                                 </div>
                             </th>
+                            <th>
+                                <div style=" width: 200px;height: 51px;line-height: 51px">
+                                    单据编号
+                                </div>
+                            </th>
+                            <th>
+                                <div style=" width: 100px;height: 51px;line-height: 51px">
+                                    单位
+                                </div>
+                            </th>
                         </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="layui-table-body" style="height: 570px !important;; ">
+                <div class="layui-table-body" style="height: 470px !important;; ">
                     <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
                         <tbody>
                         <tr v-for="(list_item, index) in list">
@@ -255,6 +265,16 @@
                             <td>
                                 <div style=" width: 150px">
                                     {{list_item['order_type_name']}}
+                                </div>
+                            </td>
+                            <td>
+                                <div style=" width: 200px">
+                                    {{list_item['order_id']}}
+                                </div>
+                            </td>
+                            <td>
+                                <div style=" width: 100px">
+                                    {{list_item['goods_actual_unit']}}
                                 </div>
                             </td>
 
@@ -543,15 +563,6 @@
     var LODOP; //声明为全局变量
     var riqi = new Date();
 
-    var nowdays = new Date();
-    var year = nowdays.getFullYear();
-    var month = nowdays.getMonth()+1;
-    if (month < 10) {
-        month = "0" + month;
-    }
-    var firstDay = year + "-" + month + "-" + "01";//上个月的第一天
-    var myDate = new Date(year, month, 0);
-    var lastDay = year + "-" + month + "-" + myDate.getDate();//上个月的最后一天
 
     var _data = {
         scrollTop:0,
@@ -563,8 +574,8 @@
             goods_id:'',
             goods_name:'',
             goods_spec:'',
-            start_date: '0000-00-00',
-            end_date: '9999-99-99',
+            start_date: getFirstAndEndDate().firstDay,
+            end_date: getFirstAndEndDate().lastDay,
             goods_rates:'',
         },
         thead1: [
@@ -597,22 +608,23 @@
             {key: "order_id", title: "", width: "200px"},
             {key: "goods_actual_unit", title: "", width: "100px"},
 
-            {key: "goods_entry_unit_price", title: "", width: "100px"},
-            {key: "goods_entry_weight", title: "", width: "100px"},
             {key: "goods_entry_total_quantity", title: "", width: "100px"},
+            {key: "goods_entry_weight", title: "", width: "100px"},
+            {key: "goods_entry_unit_price", title: "", width: "100px"},
             {key: "goods_entry_total_price", title: "", width: "100px"},
 
-            {key: "goods_out_unit_price", title: "", width: "100px"},
-            {key: "goods_out_weight", title: "", width: "100px"},
             {key: "goods_out_total_quantity", title: "", width: "100px"},
+            {key: "goods_out_weight", title: "", width: "100px"},
+            {key: "goods_out_unit_price", title: "", width: "100px"},
             {key: "goods_out_total_price", title: "", width: "100px"},
 
-            {key: "goods_end_unit_price", title: "", width: "100px"},
-            {key: "goods_end_weight", title: "", width: "100px"},
             {key: "goods_end_total_quantity", title: "", width: "100px"},
+            {key: "goods_end_weight", title: "", width: "100px"},
+            {key: "goods_end_unit_price", title: "", width: "100px"},
             {key: "goods_end_total_price", title: "", width: "100px"},
 
         ],
+
         list:[]
     };
 
@@ -650,25 +662,46 @@
                 $(ele).children('.data-show').css('display', 'inline-block');
             },
             deleteItem: function (index) {
-
+                var self = this;
                 if (index >= 0) {
                     this.list.splice(index, 1);
                 }
 
-                for (var i = 0; i < this.list.length; i++) {
-                    if (this.list[i].item === '') {
-                        this.list.splice(i, 1)
-                    }
+
+
+                for (var i = 1; i < this.list.length; i++) {
+                    var unit_quantity = unitRate(self.headInfo.goods_rates,this.list[i].goods_actual_unit);
+
+                    this.list[i].goods_end_weight = (
+                    returnFloat(this.list[i-1].goods_end_weight) +
+                    returnFloat(this.list[i].goods_entry_weight) -
+                    returnFloat(this.list[i].goods_out_weight)).toFixed(2);
+
+                    this.list[i].goods_end_total_price = (
+                    returnFloat(this.list[i-1].goods_end_total_price) +
+                    returnFloat(this.list[i].goods_entry_total_price) -
+                    returnFloat(this.list[i].goods_out_total_price)).toFixed(2);
+
+                    this.list[i].goods_end_total_quantity = (returnFloat(this.list[i].goods_end_weight)/unit_quantity).toFixed(2);
+
+                    this.list[i].goods_end_unit_price = (returnFloat(this.list[i].goods_end_total_price)/returnFloat(this.list[i].goods_end_total_quantity)).toFixed(2);
+
+                }
+                if(i>1){
+                    this.list[0].order_date = getFirstAndEndDate(this.headInfo.start_date).firstDay;
+
+                    this.list[0].order_type_name = '期初结存';
                 }
 
 
                 var leng = this.list.length % 10 === 0 ? (this.list.length  === 0 ?10:0) : 10 - this.list.length % 10;
 
 
-                for (var i = 0; i < leng +15; i++) {
+                for (var i = 0; i < leng +5; i++) {
                     this.list.push({
-                        item:'222'
+
                     })
+
                 }
 
             },
@@ -676,15 +709,31 @@
                 location.reload();
             },
             query:function () {
+                if(!this.headInfo.goods_id || this.headInfo.goods_id==''){
+                    layer.msg('请选择商品！');
+                    return;
+                }
                 var self = this;
                 var start_date = self.headInfo.start_date ? self.headInfo.start_date : '0000-00-00';
                 var end_date = self.headInfo.end_date ? self.headInfo.end_date : '9999-99-99'
-                console.log(start_date + end_date)
+
+                var _closeDate = new Date(start_date.replace(/\-/g, "\/"));
+                var year = _closeDate.getFullYear() ;
+                var month = _closeDate.getMonth() + 1;
+                if(month==1){
+                    close_date = (year-1) + '-12';
+                }else{
+                    close_date = year + '-' +month;
+                }
+
+//                console.log(start_date + end_date)
                 $.ajax({
                     url: '/corethink/admin.php?s=/admin/BaoBiao/kuCunMingXiZhang',
                     type: 'POST', //GET
                     async: true,    //或false,是否异步
                     data: {
+                        goods_id: self.headInfo.goods_id,
+                        close_date:close_date,
                         start_date: start_date,
                         end_date: end_date
                     },
@@ -753,7 +802,10 @@
                             self.headInfo.goods_id = retInfo.goods_id;
                             self.headInfo.goods_name = retInfo.goods_name;
                             self.headInfo.goods_spec = retInfo.goods_spec;
-                            self.goods_rates = retInfo.goods_rates;
+                            self.headInfo.goods_min_unit = retInfo.goods_min_unit;
+
+
+                            self.headInfo.goods_rates = retInfo.goods_rates;
                         }
 
                         console.log(retInfo)

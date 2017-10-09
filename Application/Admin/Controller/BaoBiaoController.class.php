@@ -202,9 +202,9 @@ class BaoBiaoController extends CommonController
                 \'\' AS goods_end_total_price 
             ';
 
-            $where1 = "goods_id LIKE '%YCL0001%' and entry_order_date >='".$_POST['start_date']."' and entry_order_date <= '".$_POST['end_date']."'";
+            $where1 = "goods_id LIKE '%".$_POST['goods_id']."%' and entry_order_date >='".$_POST['start_date']."' and entry_order_date <= '".$_POST['end_date']."'";
 
-            $where2 = " goods_id LIKE '%YCL0001%' and out_order_date >='".$_POST['start_date']."' and out_order_date <= '".$_POST['end_date']."'";
+            $where2 = " goods_id LIKE '%".$_POST['goods_id']."%' and out_order_date >='".$_POST['start_date']."' and out_order_date <= '".$_POST['end_date']."'";
 
             $list = D('storehouse_entry_order ')
                 ->field($field1)
@@ -236,25 +236,29 @@ class BaoBiaoController extends CommonController
                       goods_stock_balance AS goods_end_total_quantity,
                       goods_cost_price * goods_stock_balance  AS goods_end_total_price ";
 
-            $where3 = " goods_id LIKE '%YCL0001%' AND close_date ='2017-10' ";
+            
+            
+            $where3 = " goods_id LIKE '%".$_POST['goods_id']."%' AND close_date ='".$_POST['close_date']."' ";
 
             $end_list = D('storehouse_start_stock_balance ')
                 ->field($field3)
                 ->where($where3)
-                ->fetchSql(true)
+//                ->fetchSql(true)
                 ->select() ;
+//            $_list  = json_encode($end_list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
 //            echo $end_list;
 //            exit;
 
             $temp = array(
                 'order_type_name'=>'','order_date'=>'', 'order_id'=>'', 'goods_actual_unit'=>'', 'goods_entry_weight'=>'', 'goods_entry_unit_price'=>'',
                 'goods_entry_total_quantity'=>'', 'goods_entry_total_price'=>'', 'goods_out_weight'=>'', 'goods_out_unit_price'=>'', 'goods_out_total_quantity'=>'',
-                'goods_out_total_price'=>'', 'goods_end_weight'=>'', 'goods_end_unit_price'=>'', 'goods_end_total_quantity'=>'', 'goods_end_total_price'=>''
+                'goods_out_total_price'=>'', 'goods_end_weight'=>0, 'goods_end_unit_price'=>0, 'goods_end_total_quantity'=>0, 'goods_end_total_price'=>0
 
             );
 
             if(count($list)>0){
-                array_unshift($list,count($end_list)>0?$end_list:$temp);
+                array_unshift($list,count($end_list)>0?$end_list[0]:$temp);
+                 
                 $_list  = json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
                 $ret = json_encode( '{error:"0000",msg:"查询成功！",list:'.$_list.'}',JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
 
