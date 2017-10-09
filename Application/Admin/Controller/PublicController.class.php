@@ -107,10 +107,14 @@ class PublicController extends CommonController
         $map['goods_type_name'] = array('like','%'.$goods_type_name.'%');
         $map['storehouse_name'] = array('like','%'.$storehouse_name.'%');
         $list = D('storehouse_goods')->where($map)->select();
+        $type = $_GET['type'];
+        $this->assign('_type',  json_encode($type?$type:'checkbox',JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
+//
         $this->assign('_list',  json_encode($list,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE));
 //        echo  var_dump(json_encode($list));exit;
         $this->display();
     }
+
     /**
      * 获取客户列表
      * @param  integer $id 验证码ID

@@ -466,6 +466,52 @@ class ListBuilder extends CommonController
                 // 这个按钮定义好了把它丢进按钮池里
                 $this->_right_button_list[] = $my_attribute;
                 break;
+            case 'jiezhang':
+                // 预定义按钮属性以简化使用
+                $my_attribute['name']  = 'jiezhang';
+                $my_attribute['title'] = '结账';
+                $my_attribute['class'] = 'label label-success ajax-get confirm';
+                $my_attribute['model'] = $attribute['model'] ?: CONTROLLER_NAME;
+                $my_attribute['href']  = U(
+                    MODULE_NAME . '/' . CONTROLLER_NAME . '/setStatus',
+                    array(
+                        'status' => 'jiezhang',
+                        'ids'    => '__data_id__',
+                        'model'  => $my_attribute['model'],
+                    )
+                );
+
+                // 如果定义了属性数组则与默认的进行合并，详细使用方法参考上面的顶部按钮
+                if ($attribute && is_array($attribute)) {
+                    $my_attribute = array_merge($my_attribute, $attribute);
+                }
+
+                // 这个按钮定义好了把它丢进按钮池里
+                $this->_right_button_list[] = $my_attribute;
+                break;
+            case 'nojiezhang':
+                // 预定义按钮属性以简化使用
+                $my_attribute['name']  = 'nojiezhang';
+                $my_attribute['title'] = '反结账';
+                $my_attribute['class'] = 'label label-danger ajax-get confirm';
+                $my_attribute['model'] = $attribute['model'] ?: CONTROLLER_NAME;
+                $my_attribute['href']  = U(
+                    MODULE_NAME . '/' . CONTROLLER_NAME . '/setStatus',
+                    array(
+                        'status' => 'nojiezhang',
+                        'ids'    => '__data_id__',
+                        'model'  => $my_attribute['model'],
+                    )
+                );
+
+                // 如果定义了属性数组则与默认的进行合并，详细使用方法参考上面的顶部按钮
+                if ($attribute && is_array($attribute)) {
+                    $my_attribute = array_merge($my_attribute, $attribute);
+                }
+
+                // 这个按钮定义好了把它丢进按钮池里
+                $this->_right_button_list[] = $my_attribute;
+                break;
             case 'delete':
                 // 预定义按钮属性以简化使用
                 $my_attribute['name']  = 'delete';

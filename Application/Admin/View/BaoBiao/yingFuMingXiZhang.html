@@ -103,7 +103,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 auto;">
+<div class=" " id="page" style="max-width: 1100px;width: 70%;margin: 0 auto;">
 
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small  " onclick="exporExcel('应付账款明细表','#print-table')">导出</button>
@@ -183,48 +183,7 @@
                 </table>
             </div>
 
-            <div class="layui-table-fixed layui-table-fixed-l">
-                <div class="layui-table-header">
-                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
-                        <thead>
-                        <tr>
-                            <th>
-                                <div style=" width: 150px">
-                                    单据类型
-                                </div>
-                            </th>
-                            <th>
-                                <div style=" width: 100px">
-                                    单据日期
-                                </div>
-                            </th>
 
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-                <div class="layui-table-body" style="height: 570px !important;; ">
-                    <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
-                        <tbody>
-                        <tr v-for="(list_item, index) in list">
-                            <td>
-                                <div style=" width: 150px">
-                                    {{list_item['order_type_name']}}
-                                </div>
-                            </td>
-                            <td>
-                                <div style=" width: 100px">
-                                    {{list_item['order_date']}}
-                                </div>
-                            </td>
-
-                        </tr>
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -319,28 +278,14 @@
             {key: "order_remark", title: "摘要", width: "100px"},
 
             {key: "order_before_payment", title: "预付金额", width: "100px"},
-            {key: "order_should_payment_price", title: "应付金额", width: "100px"},
+            {key: "order_should_payment", title: "应付金额", width: "100px"},
             {key: "order_actual_payment", title: "核销金额", width: "100px"},
-            {key: "order_exam_should_payment_price", title: "期末应付", width: "100px"},
+            {key: "end_should_payment", title: "期末应付", width: "100px"},
             {key: "department", title: "部门名称", width: "100px"},
             {key: "clerk_name", title: "业务员", width: "100px"},
 
         ],
-        list: [
-            {
-                order_type_name: '采购入库单',
-                order_date: '2017-09-05',
-                order_id: '333333',
-                order_remark: 'e3rer',
-                order_before_payment: 'sfdsd',
-                order_should_payment_price: 'hrg',
-                order_actual_payment: 'sfd',
-                order_exam_should_payment_price: 'sdf',
-                department: '23',
-                clerk_name: 'sdf',
-            },
-
-        ]
+        list: []
     };
 
 
@@ -412,8 +357,44 @@
                 location.reload();
             },
             query: function () {
+                var self = this;
+                var start_date = self.headInfo.start_date ? self.headInfo.start_date : '0000-00-00';
+                var end_date = self.headInfo.end_date ? self.headInfo.end_date : '9999-99-99'
+                console.log(start_date + end_date)
+                $.ajax({
+                    url: '/corethink/admin.php?s=/admin/BaoBiao/yingFuMingXiZhang',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date,
+                        customer_id:self.headInfo.customer_id
+                    },
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data)
+                        var data = eval('(' + data + ')');
+                        if (data.error == '0000') {
+                            self.list = data.list;
+                            self.deleteItem(-1)
+                        } else {
+                            layer.msg('未查到数据');
+                            console.log(data.error)
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                    complete: function () {
+                        console.log('结束')
+                    }
+                })
+
 
             },
+
             print: function () { //打印
                 LODOP = getLodop();
                 LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_分页打印综合表格");

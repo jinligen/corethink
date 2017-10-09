@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>WEB打印控件LODOP的样例四十三:演示综合表格分页打印</title>
+    <title>库存商品明细账</title>
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
     <link rel="stylesheet" href="__ADMIN_CSS__/common.css"  >
@@ -104,7 +104,7 @@
 
 
     <div class=" demoTable nav-btn ">
-        <button class="layui-btn layui-btn-small   " onclick="exporExcel('材料出库单时序薄','#print-table')">导出</button>
+        <button class="layui-btn layui-btn-small   " onclick="exporExcel('库存商品明细账','#print-table')">导出</button>
         &nbsp;
         <button class="layui-btn layui-btn-small  layui-btn-warm " @click="query()">查询</button>
         &nbsp;
@@ -123,9 +123,9 @@
             <div class="form-item " style="">
                 <span class="title" style="">商品代码:</span>
                 <div class="input-content " @click="dataInputShow($event)" @mouseleave="dataInputHide($event)">
-                    <div class="data-show" style="">&nbsp;{{headInfo.order_id}}</div>
+                    <div class="data-show" style="">&nbsp;{{headInfo.goods_id}}</div>
                     <div class="data-select" style="display: none;width: 100%;">
-                        <input type="text" style="" v-model="headInfo.order_id"/>
+                        <input type="text" style="" v-model="headInfo.goods_id"/>
                         <i class="layui-icon" style="font-size: 12px; color: #1E9FFF;" @click="selectGoodsList()">&#xe615;</i>
                     </div>
                 </div>
@@ -135,9 +135,9 @@
                 <span class="title" style="">日期:</span>
                 <div class="input-content ">
                     <div class="data-select" style="width: 100%;">
-                        <input type="date" id="date" style="display: inline-block;width: 130px ;text-align: right;" v-model="headInfo.order_date"/>
+                        <input type="date" id="date" style="display: inline-block;width: 130px ;text-align: right;" v-model="headInfo.start_date"/>
                         <span style="margin-right: 30px">-</span>
-                        <input type="date" id="date1" style="display: inline-block;width: 130px;text-align: center" v-model="headInfo.order_date"/>
+                        <input type="date" id="date1" style="display: inline-block;width: 130px;text-align: center" v-model="headInfo.end_date"/>
                     </div>
                 </div>
             </div>
@@ -167,10 +167,12 @@
                 </div>
             </div>
 
-            <div class="form-item " style="flex: 2">
+            <div class="form-item " style="flex:2">
                 <span class="title" style="">规格型号:</span>
-                <div class="input-content ">
-                    <div class="data-select" v-model="headInfo.goods_spec"/>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="headInfo.goods_spec"/>
+                    </div>
                 </div>
             </div>
 
@@ -187,105 +189,19 @@
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table">
                     <thead>
                     <tr>
-                        <th rowspan="2">
-                            <div style=" width: 100px">
-                                单据日期
+                        <th v-for="(item, index) in thead1" :rowspan="item.rowspan" :colspan="item.colspan">
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
                             </div>
                         </th>
-                        <th  rowspan="2">
-                            <div style=" width: 150px">
-                                单据类型
-                            </div>
-                        </th>
-                        <th  rowspan="2">
-                            <div style=" width: 200px">
-                                单据编号
-                            </div>
-                        </th>
-                        <th  rowspan="2">
-                            <div style=" width: 50px">
-                                单位
-                            </div>
-                        </th>
-                        <th  colspan="4">
-                            <div style=" width: 100px">
-                                本期收到
-                            </div>
-                        </th>
-                        <th  colspan="4" >
-                            <div style=" width: 100px">
-                                本期发出
-                            </div>
-                        </th>
-                        <th  colspan="4" >
-                            <div style=" width: 100px">
-                                本期结存
-                            </div>
-                        </th>
-
                     </tr>
-                    <tr>
-                        <th >
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                重量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                单价
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                金额
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                重量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                单价
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                金额
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                重量
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                单价
-                            </div>
-                        </th>
-                        <th >
-                            <div style=" width: 100px">
-                                金额
-                            </div>
-                        </th>
 
+                    <tr>
+                        <th v-for="(item, index) in thead2" >
+                            <div :style="{ width: item.width }">
+                                {{item.title}}
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                 </table>
@@ -296,112 +212,31 @@
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
 
                     <tbody>
-                    <tr v-for="(item, index) in list">
-                        <td>
-                            <div style=" width: 100px">
-                                {{index+1}}
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 150px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 200px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 50px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
 
-                        <td>
-                            <div style=" width: 100px">
-                                数量
-                            </div>
-                        </td>
-                        <td>
-                            <div style=" width: 100px">
-                                数量
+                    <tr v-for="(list_item, index) in list">
+                        <td v-for="(thead_item, index) in thead">
+                            <div :style="{ width: thead_item.width }">
+                                {{list_item[thead_item.key]}}
                             </div>
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
 
-            <div class="layui-table-fixed layui-table-fixed-l"  >
+            <div class="layui-table-fixed layui-table-fixed-l">
                 <div class="layui-table-header">
                     <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
                         <thead>
                         <tr>
-                            <th rowspan="2">
+                            <th>
                                 <div style=" width: 100px;height: 51px;line-height: 51px">
                                     单据日期
                                 </div>
                             </th>
-                            <th  rowspan="2">
-                                <div style=" width: 150px">
+                            <th>
+                                <div style=" width: 150px;height: 51px;line-height: 51px">
                                     单据类型
-                                </div>
-                            </th>
-                            <th  rowspan="2">
-                                <div style=" width: 200px">
-                                    单据编号
                                 </div>
                             </th>
                         </tr>
@@ -411,20 +246,15 @@
                 <div class="layui-table-body" style="height: 570px !important;; ">
                     <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-size="sm">
                         <tbody>
-                        <tr v-for="(item, index) in list">
+                        <tr v-for="(list_item, index) in list">
                             <td>
                                 <div style=" width: 100px">
-                                    {{index+1}}
+                                    {{list_item['order_date']}}
                                 </div>
                             </td>
                             <td>
                                 <div style=" width: 150px">
-                                    数量
-                                </div>
-                            </td>
-                            <td>
-                                <div style=" width: 200px">
-                                    数量
+                                    {{list_item['order_type_name']}}
                                 </div>
                             </td>
 
@@ -711,7 +541,17 @@
 
 <script>
     var LODOP; //声明为全局变量
+    var riqi = new Date();
 
+    var nowdays = new Date();
+    var year = nowdays.getFullYear();
+    var month = nowdays.getMonth()+1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var firstDay = year + "-" + month + "-" + "01";//上个月的第一天
+    var myDate = new Date(year, month, 0);
+    var lastDay = year + "-" + month + "-" + myDate.getDate();//上个月的最后一天
 
     var _data = {
         scrollTop:0,
@@ -720,13 +560,60 @@
             order_id:'',
             order_date:'',
             goods_min_unit:'',
+            goods_id:'',
             goods_name:'',
             goods_spec:'',
+            start_date: '0000-00-00',
+            end_date: '9999-99-99',
+            goods_rates:'',
         },
-        list:[
-            {order_date:'2017-09-05',order_type:'销售出库单'},
-            {item:'222'},
-        ]
+        thead1: [
+            { title: "单据日期", width: "100px",rowspan:2,colspan:1},
+            { title: "单据类型", width: "150px",rowspan:2,colspan:1},
+            { title: "单据编号", width: "200px",rowspan:2,colspan:1},
+            { title: "单位", width: "100px",rowspan:2,colspan:1},
+            { title: "本期收到", width: "400px",rowspan:1,colspan:4},
+            { title: "本期发出", width: "400px",rowspan:1,colspan:4},
+            { title: "期末结存", width: "400px",rowspan:1,colspan:4},
+
+        ],
+        thead2: [
+            {title: "数量", width: "100px"},
+            {title: "重量", width: "100px"},
+            {title: "单价", width: "100px"},
+            {title: "金额", width: "100px"},
+            {title: "数量", width: "100px"},
+            {title: "重量", width: "100px"},
+            {title: "单价", width: "100px"},
+            {title: "金额", width: "100px"},
+            {title: "数量", width: "100px"},
+            {title: "重量", width: "100px"},
+            {title: "单价", width: "100px"},
+            {title: "金额", width: "100px"},
+        ],
+        thead: [
+            {key: "order_date", title: "", width: "100px"},
+            {key: "order_type_name", title: "", width: "150px"},
+            {key: "order_id", title: "", width: "200px"},
+            {key: "goods_actual_unit", title: "", width: "100px"},
+
+            {key: "goods_entry_unit_price", title: "", width: "100px"},
+            {key: "goods_entry_weight", title: "", width: "100px"},
+            {key: "goods_entry_total_quantity", title: "", width: "100px"},
+            {key: "goods_entry_total_price", title: "", width: "100px"},
+
+            {key: "goods_out_unit_price", title: "", width: "100px"},
+            {key: "goods_out_weight", title: "", width: "100px"},
+            {key: "goods_out_total_quantity", title: "", width: "100px"},
+            {key: "goods_out_total_price", title: "", width: "100px"},
+
+            {key: "goods_end_unit_price", title: "", width: "100px"},
+            {key: "goods_end_weight", title: "", width: "100px"},
+            {key: "goods_end_total_quantity", title: "", width: "100px"},
+            {key: "goods_end_total_price", title: "", width: "100px"},
+
+        ],
+        list:[]
     };
 
 
@@ -789,7 +676,39 @@
                 location.reload();
             },
             query:function () {
-
+                var self = this;
+                var start_date = self.headInfo.start_date ? self.headInfo.start_date : '0000-00-00';
+                var end_date = self.headInfo.end_date ? self.headInfo.end_date : '9999-99-99'
+                console.log(start_date + end_date)
+                $.ajax({
+                    url: '/corethink/admin.php?s=/admin/BaoBiao/kuCunMingXiZhang',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        start_date: start_date,
+                        end_date: end_date
+                    },
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data)
+                        var data = eval('(' + data + ')');
+                        if (data.error == '0000') {
+                            self.list = data.list;
+                            self.deleteItem(-1)
+                        } else {
+                            layer.msg('未查到数据');
+                            console.log(data.error)
+                        }
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                    complete: function () {
+                        console.log('结束')
+                    }
+                })
             },
             print: function () { //打印
                 LODOP = getLodop();
@@ -822,7 +741,7 @@
                     skin: 'CLYM-style',
                     area: ['800px', '560px'],
                     title: '商品列表',
-                    content: '/corethink/admin.php?s=/admin/public/goodsList/goods_type_name/产品',
+                    content: '/corethink/admin.php?s=/admin/public/goodsList/type/radio',
                     success: function (layero, index) {
                         childPageBody = layer.getChildFrame('body', index);//建立父子联系
                     },
@@ -831,48 +750,13 @@
                         var retInfo = ret.val()
                         if (retInfo != '') {
                             retInfo = JSON.parse(retInfo)
-                            var tableData = [];
-
-                            for (var i = 0; i < self.tableInfo.length; i++) {
-                                if (self.tableInfo[i].goods_id != '') {
-                                    tableData.push(self.tableInfo[i])
-                                }
-                            }
-
-                            for (var i = 0, leng = retInfo.length; i < leng; i++) {
-                                var j = 0;
-                                var l = self.tableInfo.length;
-
-                                for (; j < l; j++) {
-
-                                    if (self.tableInfo[j].goods_id == retInfo[i].goods_id) {
-                                        break;
-                                    }
-                                }
-                                console.log(j)
-                                if (j == l) {
-                                    tableData.push({
-                                        goods_id: retInfo[i].goods_id,
-                                        goods_name: retInfo[i].goods_name,
-                                        goods_spec: retInfo[i].goods_spec,
-                                        goods_actual_unit: retInfo[i].goods_min_unit,
-                                        goods_entry_unit_price: retInfo[i].goods_cost_price,
-                                        goods_entry_total_quantity: 0,
-                                        goods_entry_total_price: 0,
-                                        goods_rates: retInfo[i].goods_rates,
-                                        goods_min_unit: retInfo[i].goods_min_unit,
-                                        goods_weight: 0,
-                                        goods_remark: '',
-
-                                    });
-                                }
-                            }
-                            console.log(tableData);
-                            self.tableInfo = tableData;
-                            self.deleteItem(-1);
+                            self.headInfo.goods_id = retInfo.goods_id;
+                            self.headInfo.goods_name = retInfo.goods_name;
+                            self.headInfo.goods_spec = retInfo.goods_spec;
+                            self.goods_rates = retInfo.goods_rates;
                         }
 
-
+                        console.log(retInfo)
                     }
                 });
             },

@@ -28,7 +28,7 @@ class CloseAccountsController extends AdminController
         $map['status'] = array('egt', '1'); // 禁用和正常状态
         $p             = !empty($_GET["p"]) ? $_GET['p'] : 1;
         $user_object   = D('storehouse_close_accounts');
-        $data_list     = $user_object->page($p, C('ADMIN_PAGE_ROWS'))->where($map)->order('id desc')->select();
+        $data_list     = $user_object->page($p, C('ADMIN_PAGE_ROWS'))->where($map)->order('close_date desc')->select();
         $page          = new Page($user_object->where($map)->count(), C('ADMIN_PAGE_ROWS') );
 
         // 使用Builder快速建立列表页面。
@@ -41,10 +41,12 @@ class CloseAccountsController extends AdminController
             ->addTableColumn('nickname', '操作人')
 //
 //            ->addTableColumn('create_time', '创建时间')
-//            ->addTableColumn('status', '状态', 'status')
+            ->addTableColumn('is_audited', '状态', 'callback', array(D('CloseAccounts'), 'getIsAudite'))
             ->addTableColumn('right_button', '操作', 'btn')
             ->setTableDataList($data_list) // 数据列表
             ->setTableDataPage($page->show()) // 数据列表分页
+            ->addRightButton('jiezhang')
+            ->addRightButton('nojiezhang')
             ->addRightButton('edit') // 添加编辑按钮
 //            ->addRightButton('recycle') // 添加删除按钮
             ->display();
@@ -73,6 +75,7 @@ class CloseAccountsController extends AdminController
                 $this->error($user_object->getError());
             }
         } else {
+
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('新增') //设置页面标题
@@ -112,13 +115,18 @@ class CloseAccountsController extends AdminController
         } else {
 
             $info = D('storehouse_close_accounts')->find($id);
-
+            if($info['is_audited'] == 1){
+                $extra_attr = 'disabled';
+            }else{
+                $extra_attr = '';
+            }
+//            echo var_dump($info);
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('编辑') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
-                ->addFormItem('close_date', 'yearmonth', '结账月份', '','','','')
+                ->addFormItem('close_date', 'yearmonth', '结账月份', '','','',$extra_attr)
 
                 ->setFormData($info)
                 ->display();
@@ -132,7 +140,40 @@ class CloseAccountsController extends AdminController
     public function setStatus($model = CONTROLLER_NAME)
     {
 
-        parent::setStatus($model);
+        $ids    = I('request.ids');
+        $status = I('request.status');
+        if (empty($ids)) {
+            $this->error('请选择要操作的数据');
+        }
+        $map['id'] = array('in',$ids);
+
+        $d_object = D('storehouse_close_accounts');
+        switch ($status) {
+            case 'jiezhang' :  // 审核条目
+
+                $data['is_audited'] = 1;
+                $count = $d_object->where($map)->save($data);
+//                $this->error($count);
+                if ($count > 0) {
+                    $this->success('操作成功');
+                } else {
+                    $this->error('操作失败');
+                }
+                break;
+            case 'nojiezhang' :  // 反审核条目
+
+                $data['is_audited'] = 0;
+                $count = $d_object->where($map)->save($data);
+                if ($count > 0) {
+                    $this->success('操作成功');
+                } else {
+                    $this->error('操作失败');
+                }
+                break;
+            default :
+                parent::setStatus($model);
+                break;
+        }
     }
 
 }

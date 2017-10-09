@@ -25,6 +25,7 @@
 <script>
 
     var _data =   JSON.parse('{$_list}');
+    var _type =   JSON.parse('{$_type}');
 
     for (var i = 0;i<_data.length ;i++){
         _data[i].id = i + 1;
@@ -57,14 +58,40 @@
             ,id:'table'
             ,limit: 5000 //每页默认显示的数量
         });
+        if(_type=='radio'){
+            $('.layui-table thead tr th .layui-table-cell input').attr('disabled','true')
+
+        }
         table.on('checkbox(table)', function(obj,i){
-            var checkStatus = table.checkStatus('table')
+
+            if(_type=='radio'){
+                var table_index = obj.data.LAY_TABLE_INDEX
+
+                for(var i= 0 ,leng = table.cache.table.length;i<leng;i++){
+                    delete table.cache.table[i].LAY_CHECKED;
+                }
+                $('.layui-table-main  .layui-table thead tr .layui-unselect.layui-form-checkbox').hide()
+                $('.layui-table-main .layui-table tbody tr').each(function (index) {
+                    var ele = $(this).children('td').children('.laytable-cell-checkbox').children(' .layui-form-checkbox')
+                    if(index != table_index){
+                        ele.removeClass('layui-form-checked')
+                    }else{
+                        ele.addClass('layui-form-checked')
+                        var retData =  JSON.stringify(table.cache.table[index])
+                        $('#retData').val(retData)
+//                        console.log(retData)
+                    }
+//                    console.log(index)
+                })
+
+            }else{
+                var checkStatus = table.checkStatus('table')
                     ,data = checkStatus.data;
 //            layer.alert(JSON.stringify(data));
 
-            $('#retData').val(JSON.stringify(data))
+                $('#retData').val(JSON.stringify(data))
 
-
+            }
         });
 
     });
