@@ -300,7 +300,26 @@
 
                 </div>
             </div>
-            <div class="form-item " style="flex: 2.05">
+            <div class="form-item " style="flex: 1">
+                <span class="title" style="flex: 1">&nbsp;</span>
+                <div class="input-content " style=" flex: 9">
+                    <div class="data-select" style=" width: 100%;">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="form-item " style="flex: 1">
+                <span class="title" style="flex: 1">过磅重量:</span>
+                <div class="input-content " >
+                    <div class="data-select" style=" width: 100%;">
+                        <input type="text" style="" v-model="weight"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-head-row">
+
+            <div class="form-item " style="flex: 1">
                 <span class="title" style="flex: 1">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</span>
                 <div class="input-content " style=" flex: 9">
 
@@ -809,21 +828,21 @@
                     </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td ><b>合计</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>&nbsp;</b></td>
-                    <td ><b>{{headInfo.out_order_price}}</b></td>
-                    <td ><b>&nbsp;</b></td>
+                <!--<tfoot>-->
+                <!--<tr>-->
+                    <!--<td ><b>合计</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
+                    <!--<td ><b>{{headInfo.out_order_price}}</b></td>-->
+                    <!--<td ><b>&nbsp;</b></td>-->
 
-                </tr>
-                </tfoot>
+                <!--</tr>-->
+                <!--</tfoot>-->
             </table>
         </div>
         <div   id="table-foot">
@@ -894,6 +913,7 @@
         scrollLeft: 0,
         isSave: true,
         thead: thead,
+        weight:0,
         headInfo: {
             out_order_type_name: '{$out_order_type_name}',
             customer_id: '',
@@ -922,11 +942,24 @@
         tableData: []
     };
 
-
+    var _sum_weight = 0;
+    var _sum_weight_standard = 0;
     var vm = new Vue({
         el: '#page',
         data: _data,
         watch: {
+            weight:{
+                handler: function (val, oldVal) {
+                    if(val != _sum_weight){
+                        layer.msg('过磅重量与合计重量不相等,将进行平摊！')
+                        var temp = returnFloat(val)-returnFloat(oldVal);
+
+                        for (var i = 0, leng = this.tableData.length; i < leng; i++) {
+                            this.tableData[i].goods_weight  = (returnFloat(this.tableData[i].goods_weight)+ returnFloat(this.tableData[i].goods_weight_standard)/returnFloat(_sum_weight_standard)*temp).toFixed(2);
+                        }
+                    }
+                }
+            },
             headInfo: {
                 handler: function (val, oldVal) {
                     this.isSave = false;
@@ -938,12 +971,17 @@
                     this.isSave = false;
                     this.tableData = [];
                     var out_order_price = 0;
+                    _sum_weight = 0;
+                    _sum_weight_standard = 0;
                     for (var i = 0, leng = val.length; i < leng; i++) {
                         if (val[i].goods_id != '') {
                             this.tableData.push(val[i]);
-                            out_order_price += parseFloat(val[i].goods_out_total_price);
+                            out_order_price += returnFloat(val[i].goods_out_total_price);
+                            _sum_weight +=  returnFloat(val[i].goods_weight);
+                            _sum_weight_standard +=  returnFloat(val[i].goods_weight_standard);
                         }
                     }
+                    this.weight = _sum_weight;
                     this.headInfo.out_order_price = out_order_price;
                 },
                 deep: true
@@ -1446,6 +1484,7 @@
 
                 var goods_weight = goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity * item.goods_out_total_quantity;
                 this.tableInfo[index].goods_weight = item.goods_out_total_quantity > 0 ? goods_weight : 0;
+                this.tableInfo[index].goods_weight_standard = this.tableInfo[index].goods_weight
 
             },
             quantityChang: function (index) {
@@ -1470,6 +1509,7 @@
                     }
                 }
                 this.tableInfo[index].goods_weight = item.goods_actual_unit == item.goods_min_unit ? item.goods_out_total_quantity : unit_quantity  * item.goods_out_total_quantity;
+                this.tableInfo[index].goods_weight_standard = this.tableInfo[index].goods_weight
 
             },
             unitPriceChang: function (index) {
@@ -1543,6 +1583,7 @@
                                         goods_rates: retInfo[i].goods_rates,
                                         goods_min_unit: retInfo[i].goods_min_unit,
                                         goods_weight: retInfo[i].goods_weight,
+                                        goods_weight_standard: retInfo[i].goods_weight,
                                         goods_remark: retInfo[i].goods_remark,
 
                                     });
