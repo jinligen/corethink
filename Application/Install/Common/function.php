@@ -201,7 +201,7 @@ function check_func_and_ext()
 function create_tables($db, $prefix = '')
 {
     //读取SQL文件
-    $sql = file_get_contents(MODULE_PATH . 'Data/install.sql');
+    $sql = file_get_contents( './install.sql');
     $sql = str_replace("\r", "\n", $sql);
     $sql = explode(";\n", $sql);
 
@@ -222,6 +222,47 @@ IF old.entry_order_is_audited = '0' AND new.entry_order_is_audited = '1' THEN
     $trigger3= "CREATE TRIGGER oc_storehouse_out_order_trigger BEFORE UPDATE ON `oc_storehouse_out_order` FOR EACH ROW 
 IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
          UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
+         IF new.goods_weight <> new.goods_weight_standard THEN
+		INSERT INTO opencmf_corethink.oc_storehouse_entry_order ( 
+		  entry_order_type_name,
+		  entry_order_id, 
+		  entry_order_remark, 
+		  entry_order_is_audited,
+		  entry_order_date,  
+		  storehouse_name, 
+		  username,
+		  nickname,  
+		  audited_date, 
+		  goods_id,
+		  goods_name,
+		  goods_spec,
+		  goods_min_unit,
+		  goods_rates,
+		  goods_actual_unit,
+		  goods_weight, 
+		  goods_remark  
+		) 
+		VALUES
+		  (
+		     '产品入库单(补差)',
+		  CONCAT('CPRKD-',new.out_order_id), 
+		  new.out_order_remark, 
+		  '1',   
+		  new.out_order_date, 
+		  new.storehouse_name, 
+		  new.username,
+		  new.nickname,  
+		  new.audited_date, 
+		  new.goods_id,
+		  new.goods_name,
+		  new.goods_spec,
+		  new.goods_min_unit,
+		  new.goods_rates,
+		  new.goods_actual_unit,
+		  new.goods_weight-new.goods_weight_standard, 
+		  new.goods_remark 
+		  ) ;
+	 END IF;
     END IF";
 
     $trigger4= "CREATE TRIGGER oc_storehouse_payment_order_trigger BEFORE UPDATE ON `oc_storehouse_payment_order` FOR EACH ROW 
@@ -233,6 +274,111 @@ IF old.payment_order_is_audited = '0' AND new.payment_order_is_audited = '1' THE
 IF old.gathering_order_is_audited = '0' AND new.gathering_order_is_audited = '1' THEN
          UPDATE oc_storehouse_out_order SET out_order_actual_payment = out_order_actual_payment + new.now_clear_price WHERE out_order_id =  new.out_order_id;
     END IF";
+
+    $trigger6= "CREATE TRIGGER `oc_storehouse_close_accounts_trigger` AFTER UPDATE ON `oc_storehouse_close_accounts` 
+    FOR EACH ROW    
+BEGIN
+DELETE  FROM `oc_storehouse_start_stock_balance` WHERE `close_date` = new.close_date;
+INSERT INTO `oc_storehouse_start_stock_balance` (
+  `close_date`,
+  `goods_type_name`,
+  `goods_id`,
+  `goods_name`,
+  `goods_spec`,
+  `goods_min_unit`,
+  `goods_rates`,
+  `goods_stock_balance`,
+  `goods_cost_price`,
+  `goods_market_price`,
+  `storehouse_name`,
+  `username`,
+  `nickname`
+) 
+SELECT 
+  '9999-99' AS close_date,
+  `goods_type_name`,
+  `goods_id`,
+  `goods_name`,
+  `goods_spec`,
+  `goods_min_unit`,
+  `goods_rates`,
+  `goods_stock_balance`,
+  `goods_cost_price`,
+  `goods_market_price`,
+  `storehouse_name`,
+  `username`,
+  `nickname`
+FROM `oc_storehouse_goods` ;
+UPDATE  `oc_storehouse_start_stock_balance` SET `close_date` = new.close_date WHERE `close_date` = '9999-99';
+END";
+
+    $trigger7= "CREATE TRIGGER `oc_storehouse_goods_add_trigger` AFTER INSERT ON `oc_storehouse_goods` 
+    FOR EACH ROW    
+BEGIN
+DELETE  FROM `opencmf_corethink`.`oc_storehouse_start_stock_balance` WHERE `goods_id` = new.`goods_id`; 
+INSERT INTO `opencmf_corethink`.`oc_storehouse_start_stock_balance` (
+  `close_date`,
+  `goods_type_name`,
+  `goods_id`,
+  `goods_name`,
+  `goods_spec`,
+  `goods_min_unit`,
+  `goods_rates`,
+  `goods_stock_balance`,
+  `goods_cost_price`,
+  `goods_market_price`,
+  `storehouse_name`,
+  `username`,
+  `nickname`,
+  `create_time`,
+  `update_time`,
+  `status`
+) 
+VALUES
+  (
+   '0000-00',
+   new.`goods_type_name`,
+  new.`goods_id`,
+  new.`goods_name`,
+  new.`goods_spec`,
+  new.`goods_min_unit`,
+  new.`goods_rates`,
+  new.`goods_stock_balance`,
+  new.`goods_cost_price`,
+  new.`goods_market_price`,
+  new.`storehouse_name`,
+  new.`username`,
+  new.`nickname`,
+  new.`create_time`,
+  new.`update_time`,
+  new.`status`
+  ) ;
+END";
+
+
+    $trigger8= "CREATE TRIGGER `oc_storehouse_goods_update_trigger` AFTER UPDATE ON `oc_storehouse_goods` 
+    FOR EACH ROW    
+BEGIN 
+UPDATE 
+  `opencmf_corethink`.`oc_storehouse_start_stock_balance` 
+SET
+  `goods_type_name` = new.goods_type_name,
+  `goods_id` = new.goods_id,
+  `goods_name` = new.goods_name,
+  `goods_spec` = new.goods_spec,
+  `goods_min_unit` = new.goods_min_unit,
+  `goods_rates` = new.goods_rates,
+  `goods_stock_balance` = new.goods_stock_balance,
+  `goods_cost_price` = new.goods_cost_price,
+  `goods_market_price` = new.goods_market_price,
+  `storehouse_name` = new.storehouse_name,
+  `username` = new.username,
+  `nickname` = new.nickname,
+  `create_time` = new.create_time,
+  `update_time` = new.update_time,
+  `status` = new.status
+WHERE `goods_id` = new.goods_id;
+END";
 
     //开始安装
     show_msg('开始安装数据库...');
@@ -265,11 +411,18 @@ IF old.gathering_order_is_audited = '0' AND new.gathering_order_is_audited = '1'
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_payment_order_trigger");
     $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_gathering_order_trigger");
 
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_close_accounts_trigger");
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_goods_add_trigger");
+    $Model->execute("DROP TRIGGER IF EXISTS oc_storehouse_goods_update_trigger");
+
     $execute_trigger1 = $Model->execute($trigger1);
     $execute_trigger2 = $Model->execute($trigger2);
     $execute_trigger3 = $Model->execute($trigger3);
     $execute_trigger4 = $Model->execute($trigger4);
     $execute_trigger5 = $Model->execute($trigger5);
+    $execute_trigger6 = $Model->execute($trigger6);
+    $execute_trigger7 = $Model->execute($trigger7);
+    $execute_trigger8 = $Model->execute($trigger8);
     $temp = '';
     if($execute_trigger1!=0){
         $temp .= 'oc_storehouse_goods_check_trigger';
@@ -286,6 +439,19 @@ IF old.gathering_order_is_audited = '0' AND new.gathering_order_is_audited = '1'
     if($execute_trigger5!=0){
         $temp .= 'oc_storehouse_gathering_order_trigger';
     }
+
+    if($execute_trigger6!=0){
+        $temp .= 'oc_storehouse_close_accounts_trigger';
+    }
+
+    if($execute_trigger7!=0){
+        $temp .= 'oc_storehouse_goods_add_trigger';
+    }
+
+    if($execute_trigger8!=0){
+        $temp .= 'oc_storehouse_goods_update_trigger';
+    }
+
     if($temp==''){
         show_msg( '所有触发器创建成功...');
     }else{

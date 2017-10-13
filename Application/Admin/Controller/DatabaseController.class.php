@@ -73,7 +73,8 @@ class DatabaseController extends AdminController
      */
     public function export()
     {
-        $path = MODULE_PATH . 'Data/' . date('Y-m-d', NOW_TIME) . '/';
+        $d = date('Y-m-d', NOW_TIME);
+        $path = MODULE_PATH . 'Data/' . $d . '/';
         $path = str_replace('/', '\\\\', $path);
         if (!file_exists($path)) {
             mkdir($path);
@@ -93,169 +94,21 @@ class DatabaseController extends AdminController
 
             $ret = $this->backup($path.'install.sql');
 
-            $this->echoRetrun("备份结束！");
-        }
+            $this->echoRetrun("备份结束！",__ROOT__.'/Application/Admin/Data/' . $d . '/'.'install.sql');
 
-    }
-
-    /**
-     * 备份数据库
-     */
-    public function export1()
-    {
-        $path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/' . date('Y-m-d', NOW_TIME) . '/';
-        $path = str_replace('/', '\\\\', $path);
-        if (!file_exists($path)) {
-            mkdir($path);
-        }else{
-            $this->deldir($path);
-        }
-        //读取备份配置
-        $config = array(
-            'path' => $path,
-            'part' => '',
-            'compress' => C('DATA_BACKUP_COMPRESS'),
-            'level' => C('DATA_BACKUP_COMPRESS_LEVEL'),
-        );
-
-        if (IS_POST) { //初始化
-
-            //检查是否有正在执行的任务
-            $lock = "{$config['path']}backup.lock";
-            if (is_file($lock)) {
-                echo json_encode('{error:"0001",msg:"备份任务已存在，请稍后！"}');
-                exit;
-            } else {
-                //创建锁文件
-                file_put_contents($lock, NOW_TIME);
-                echo json_encode('{error:"0000",msg:"备份可以开始了！"}');
-                exit;
-            }
-
-
-        } elseif (IS_GET) { //备份数据
-            $this->echoRetrun("备份开始！");
-
-
-
-            $Db = Db::getInstance();
-            $list = $Db->query('SHOW TABLE STATUS');
-            $list = array_map('array_change_key_case', $list);
-            $count = 0;
-
-            $file_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/sd.text';
-            $file_path = str_replace('/', '\\\\', $file_path);
-            $date_path = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/date.text';
-            $date_path = str_replace('/', '\\\\', $date_path);
-
-
-            if(file_exists($file_path)){    //如果存在  就读取文件内容
-
-                $json_string = file_get_contents($file_path);
-                $data = json_decode($json_string, true);
-            }else{
-                $data = $list;
-                foreach ($data as $key=> $value){
-                    $data[$key]['backup_time'] = $data[$key]['create_time'];
-                }
-                $json_string = json_encode($data,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
-                file_put_contents($file_path, $json_string);
-
-            }
-
-            foreach ($list as $key=>$item) {
-
-                $file = array(
-                    'name' => $item['name'],
-                    'part' => 1,
-                );
-
-                $Database = new Database($file, $config);
-
-                $backup = $Database->backup($item['name']);
-
-                if ($backup) {
-                    $this->echoRetrun($item['name'] . "备份完成！");
-                    $data[$count]['backup_time'] = date('Y-m-d H:i:s', NOW_TIME);
-
-                } else {
-                    $this->echoRetrun($item['name'] . "备份失败！");
-                }
-                $count++;
-            }
-
-
-            unlink(session('backup_config.path') . 'backup.lock');
-            session('backup_tables', null);
-            session('backup_file', null);
-            session('backup_config', null);
-
-            $this->deldir($file_path);
-            $json_string = json_encode($data,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
-            file_put_contents($file_path, $json_string);
-            file_put_contents($date_path, json_encode(date('Y-m-d', NOW_TIME)));
-
-            $this->echoRetrun("备份结束！");
         }
 
     }
 
 
-
-    /**
-     * 还原数据库
-     * @author 麦当苗儿 <zuojiazi@vip.qq.com>
-     */
-    public function import()
-    {
-
-
-        if (IS_POST) {
-            echo json_encode('{error:"0000",msg:"备份可以开始了！"}');
-            exit;
-        } else {
-            $this->echoRetrun( "还原开始！");
-            $prama = urldecode($_GET['prama']) ;
-            $prama = json_decode($prama,true);
-
-            $tables = $prama['tables'];
-            $date = $prama['date'];
-
-
-            $path       = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') + 1) . 'BackUp/sd/' . $date . '/';
-
-            $sql_object = new Sql();
-
-            foreach ($tables as $value){
-
-                $table = $value;
-                $file_path = $path . "{$table}.sql";
-                if (file_exists($file_path)) {
-                    
-                    $sql_status = $sql_object->execute_sql_from_file($file_path);
-                    
-                    if ($sql_status) {
-                        $this->echoRetrun($table . '还原成功！');
-                    } else {
-                        $this->echoRetrun($table . '还原失败！');
-                    }
-
-                } else {
-                    $this->echoRetrun($table . "文件不存在！");
-                }
-            }
-            $this->echoRetrun( "还原结束！");
-        }
-
-    }
 
     /**
      *
      */
-    public function echoRetrun($msg)
+    public function echoRetrun($msg,$url="")
     {
         echo "<script type='text/javascript'> 
-                window.parent.processReturn('$msg');
+                window.parent.processReturn('$msg','$url');
                </script>";
     }
 
@@ -347,31 +200,6 @@ CREATE VIEW `oc_storehouse_out_order_view` AS (SELECT `oc_storehouse_out_order`.
         $this->echoRetrun("备份oc_storehouse_out_order_view完成！");
 
 
-       $trigger =  "
-DROP TRIGGER IF EXISTS oc_storehouse_goods_check_trigger;
-DELIMITER $$
-CREATE TRIGGER `opencmf_corethink`.`oc_storehouse_goods_check_trigger` BEFORE UPDATE ON `oc_storehouse_goods_check`
-    FOR EACH ROW BEGIN
-    IF old.goods_check_is_audited = '0' AND new.goods_check_is_audited = '1' THEN
-         UPDATE oc_storehouse_goods SET goods_stock_balance = new.goods_check_balance WHERE goods_id =  new.goods_id;
-    END IF;
-    END$$
-DELIMITER ;"."\n"."\n";
-        file_put_contents($path, $trigger."\n\n",FILE_APPEND );
-        $this->echoRetrun("备份oc_storehouse_goods_check_trigger完成！");
-        $trigger = "
-DROP TRIGGER IF EXISTS oc_storehouse_out_order_trigger;
-DELIMITER $$
-CREATE TRIGGER `oc_storehouse_out_order_trigger` BEFORE UPDATE ON `oc_storehouse_out_order`
-    FOR EACH ROW BEGIN
-    IF old.out_order_is_audited = '0' AND new.out_order_is_audited = '1' THEN
-         UPDATE oc_storehouse_goods SET goods_stock_balance = goods_stock_balance - new.goods_weight WHERE goods_id =  new.goods_id;
-    END IF;
-    END$$
-DELIMITER ;";
-
-        file_put_contents($path, $trigger."\n\n",FILE_APPEND );
-        $this->echoRetrun("备份oc_storehouse_goods_check_trigger完成！");
 
         if($flag=='1'){
             $this->echoRetrun("备份结束！");

@@ -25,7 +25,7 @@ class IndexController extends Controller
         if (in_array(ACTION_NAME, $no_verify)) {
             return true;
         }
-        if (Storage::has('./Data/install.lock')) {
+        if (Storage::has('./install.lock')) {
             $this->error('已经成功安装了本系统，请不要重复安装!', U('Admin/public/login'));
         } else if ($_SERVER[ENV_PRE . 'DEV_MODE'] === 'true') {
             $this->error('系统处于开发模式，无需安装！', U('Admin/public/login'));
@@ -148,7 +148,7 @@ class IndexController extends Controller
         create_tables($db_instance, $db_config['DB_PREFIX']);
 
         //生成加密字符串
-        $add_chars .= '`~!@#$%^&*()_+-=[]{};:"|,.<>/?';
+        $add_chars = '`~!@#$%^&*()_+-=[]{};:"|,.<>/?';
         $auth = Str::randString(64, '', $add_chars); //生成随机数
 
         //创建配置文件
@@ -180,7 +180,7 @@ SQL;
         }
 
         //写入安装锁定文件(只能在最后一步写入锁定文件，因为锁定文件写入后安装模块将无法访问)
-        Storage::put('./Data/install.lock', 'lock');
+        Storage::put('./install.lock', 'lock');
 
         session('step', null);
         session('error', null);

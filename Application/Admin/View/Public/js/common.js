@@ -6,8 +6,25 @@
 $('body').css('background','rgba(0,0,0,0)');
 setTimeout(function () {
     $('body').css('background','#fff');
-},1100);
+},2000);
+// showLoading('页面加载中');
+document.onreadystatechange = docReady;
 
+function docReady() {
+    switch (document.readyState) {
+        case 'uninitialized':
+            break;
+        case 'loading':
+            break;
+        case 'interactive':
+            break;
+        case 'complete':
+            $('body').css('background','#fff');
+            break;
+        default:
+            break;
+    }
+}
 
 function returnFloat(value){ 
     return parseFloat(value!=''&& !isNaN(value)?parseFloat(value).toFixed(2):0);

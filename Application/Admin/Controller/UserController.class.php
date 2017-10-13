@@ -96,22 +96,22 @@ class UserController extends AdminController
                 $this->error($user_object->getError());
             }
         } else {
-            $this->display('test');
-//            // 使用FormBuilder快速建立表单页面。
-//            $builder = new \Common\Builder\FormBuilder();
-//            $builder->setMetaTitle('新增用户') //设置页面标题
-//                ->setPostUrl(U('add')) //设置表单提交地址
-//                ->addFormItem('reg_type', 'hidden', '注册方式', '注册方式')
-//                ->addFormItem('nickname', 'text', '昵称', '昵称')
-//                ->addFormItem('username', 'text', '用户名', '用户名')
-//                ->addFormItem('password', 'password', '密码', '密码')
-//                ->addFormItem('email', 'text', '邮箱', '邮箱')
-//                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
-//                ->addFormItem('mobile', 'text', '手机号', '手机号')
-//                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
-//                ->addFormItem('avatar', 'picture', '头像', '头像')
-//                ->setFormData(array('reg_type' => 'admin'))
-//                ->display();
+//            $this->display('test');
+            // 使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->setMetaTitle('新增用户') //设置页面标题
+                ->setPostUrl(U('add')) //设置表单提交地址
+                ->addFormItem('reg_type', 'hidden', '注册方式', '注册方式')
+                ->addFormItem('nickname', 'text', '昵称', '昵称')
+                ->addFormItem('username', 'text', '用户名', '用户名')
+                ->addFormItem('password', 'password', '密码', '密码')
+                ->addFormItem('email', 'text', '邮箱', '邮箱')
+                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+                ->addFormItem('mobile', 'text', '手机号', '手机号')
+                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+                ->addFormItem('avatar', 'picture', '头像', '头像')
+                ->setFormData(array('reg_type' => 'admin'))
+                ->display();
         }
     }
 

@@ -203,12 +203,12 @@ return array(
             'icon'  => 'fa fa-bookmark-o',
             'url'   => 'Admin/SalesOrder/index',
         ),
-        'b9'  => array(
-            'pid'   => 'b',
-            'title' => '成本计算表',
-            'icon'  => 'fa fa-bookmark',
-            'url'   => 'Admin/public/demo',
-        ),
+//        'b9'  => array(
+//            'pid'   => 'b',
+//            'title' => '成本计算表',
+//            'icon'  => 'fa fa-bookmark',
+//            'url'   => 'Admin/public/demo',
+//        ),
         'b10'  => array(
             'pid'   => 'b',
             'title' => '财务结账',
@@ -241,12 +241,12 @@ return array(
 //            'icon'  => 'fa fa-building-o',
 //            'url'   => 'Admin/SummarySales/index',
 //        ),
-        'c4'  => array(
-            'pid'   => 'c',
-            'title' => '商品库存业务汇总表',
-            'icon'  => 'fa fa-columns',
-            'url'   => 'Admin/BaoBiao/shangPinKuCunHuiZongBiao',
-        ),
+//        'c4'  => array(
+//            'pid'   => 'c',
+//            'title' => '商品库存业务汇总表',
+//            'icon'  => 'fa fa-columns',
+//            'url'   => 'Admin/BaoBiao/shangPinKuCunHuiZongBiao',
+//        ),
         'c5'  => array(
             'pid'   => 'c',
             'title' => '采购入库单序时簿',

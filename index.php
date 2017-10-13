@@ -70,7 +70,7 @@ define('APP_DEBUG', @$_SERVER[ENV_PRE . 'APP_DEBUG'] ?: false);
 /**
  * 系统安装及开发模式检测
  */
-if (is_file('./Data/install.lock') === false && @$_SERVER[ENV_PRE . 'DEV_MODE'] !== 'true') {
+if (is_file('./install.lock') === false && @$_SERVER[ENV_PRE . 'DEV_MODE'] !== 'true') {
     define('BIND_MODULE', 'Install');
 }
 

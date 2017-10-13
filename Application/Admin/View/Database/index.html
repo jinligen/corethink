@@ -33,13 +33,13 @@
 
 
 <div class=" " id="page" style="width: 750px;margin: 0 20%;">
-
+    <a href="http://localhost/corethink/Application/Admin/Data/2017-10-13/install.sql" target="_blank" download="w3logo"> youfile.txt </a>
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small  " @click="goBack()">刷新</button>
         &nbsp;
         <button class="layui-btn layui-btn-normal layui-btn-small" @click="backup()">开始备份</button>
         &nbsp;
-        <!--<button class="layui-btn layui-btn-primary layui-btn-small" @click="backdown()">开始还原</button>-->
+        <a  id="download" href="#" target="_blank" download="install.sql" style="display: none"><p>baidu</p> </a>
         &nbsp;
     </div>
 
@@ -248,8 +248,14 @@ console.log(_date)
 
     });
 
-    function processReturn(msg){
+    function processReturn(msg,url){
         $('#msg').html($('#msg').html() + '<br/>' + msg);
+        if(url!=''){
+            $("#download").attr('href',url)
+
+            $("#download>p").trigger("click");
+            console.log(url)
+        }
     }
 </script>
 
