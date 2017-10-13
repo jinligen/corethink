@@ -6,7 +6,8 @@
 $('body').css('background','rgba(0,0,0,0)');
 setTimeout(function () {
     $('body').css('background','#fff');
-},2000);
+    $('#page').css('display','block');
+},3000);
 // showLoading('页面加载中');
 document.onreadystatechange = docReady;
 

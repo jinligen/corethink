@@ -35,7 +35,7 @@ class UpdateController extends AdminController
     public function checkVersion()
     {
         //远程更新地址
-        $url = 'https://www.lingyun.net' . C('UPDATE_URL') . '.html?action=check';
+        $url = '' . C('UPDATE_URL') . '.html?action=check';
 
         //参数设置
         $params = array(

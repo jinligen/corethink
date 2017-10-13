@@ -288,8 +288,8 @@
 
 </body>
 
-<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
 <script src="__PUBLIC__/libs/vue/vue.js"></script>
+<script src="__PUBLIC__/libs/jquery/2.x/jquery.js"></script>
 <!--<script src="__PUBLIC__/libs/layui/layui.js" charset="utf-8"></script>-->
 <script src="__PUBLIC__/libs/layer/layer.js" charset="utf-8"></script>
 <script type="text/javascript" src="__ADMIN_JS__/common.js"></script>
@@ -395,6 +395,11 @@
                         nickname: ''
                     })
                 }
+
+                this.$nextTick(function(){
+                    $('body').css('background','#fff');
+                    $('#page').css('display','block');
+                })
 
             },
             reload: function () { //刷新

@@ -60,12 +60,12 @@ class UserController extends AdminController
             ->addTopButton('delete') // 添加删除按钮
             ->setSearch('请输入ID/用户名／邮箱／手机号', U('index'))
             ->addTableColumn('id', 'UID')
-            ->addTableColumn('avatar', '头像', 'picture')
+//            ->addTableColumn('avatar', '头像', 'picture')
             ->addTableColumn('nickname', '昵称')
             ->addTableColumn('username', '用户名')
             ->addTableColumn('email', '邮箱')
             ->addTableColumn('mobile', '手机号')
-            ->addTableColumn('create_time', '注册时间', 'time')
+            ->addTableColumn('create_time', '创建时间', 'time')
             ->addTableColumn('status', '状态', 'status')
             ->addTableColumn('right_button', '操作', 'btn')
             ->setTableDataList($data_list) // 数据列表
@@ -106,10 +106,10 @@ class UserController extends AdminController
                 ->addFormItem('username', 'text', '用户名', '用户名')
                 ->addFormItem('password', 'password', '密码', '密码')
                 ->addFormItem('email', 'text', '邮箱', '邮箱')
-                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+//                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
                 ->addFormItem('mobile', 'text', '手机号', '手机号')
-                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
-                ->addFormItem('avatar', 'picture', '头像', '头像')
+//                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+//                ->addFormItem('avatar', 'picture', '头像', '头像')
                 ->setFormData(array('reg_type' => 'admin'))
                 ->display();
         }
@@ -156,10 +156,10 @@ class UserController extends AdminController
                 ->addFormItem('username', 'text', '用户名', '用户名')
                 ->addFormItem('password', 'password', '密码', '密码')
                 ->addFormItem('email', 'text', '邮箱', '邮箱')
-                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+//                ->addFormItem('email_bind', 'radio', '邮箱绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
                 ->addFormItem('mobile', 'text', '手机号', '手机号')
-                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
-                ->addFormItem('avatar', 'picture', '头像', '头像')
+//                ->addFormItem('mobile_bind', 'radio', '手机绑定', '手机绑定', array('1' => '已绑定', '0' => '未绑定'))
+//                ->addFormItem('avatar', 'picture', '头像', '头像')
                 ->setFormData($info)
                 ->display();
         }

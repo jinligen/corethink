@@ -832,6 +832,11 @@
                     })
                 }
 
+                this.$nextTick(function(){
+                    $('body').css('background','#fff');
+                    $('#page').css('display','block');
+                })
+
             },
             reload: function () { //刷新
                 location.reload();

@@ -794,6 +794,11 @@
                     })
                 }
 
+                this.$nextTick(function(){
+                    $('body').css('background','#fff');
+                    $('#page').css('display','block');
+                })
+
             },
             goBack: function () { //刷新
                 location.href = '/corethink/admin.php?s=/admin/GoodsCheck/index'

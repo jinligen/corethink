@@ -2,6 +2,10 @@ body{
     background: #fff;
 }
 
+#page{
+    display: none  ;
+}
+
 #div2{
     /*height: 100px !important;*/
 }

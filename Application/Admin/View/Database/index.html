@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="__PUBLIC__/libs/layui/css/layui.css" media="all">
     <script language="javascript" src="__PUBLIC__/libs/print/LodopFuncs.js"></script>
+
     <style id="style1">
 
         body{
@@ -32,8 +33,7 @@
 <body>
 
 
-<div class=" " id="page" style="width: 750px;margin: 0 20%;">
-    <a href="http://localhost/corethink/Application/Admin/Data/2017-10-13/install.sql" target="_blank" download="w3logo"> youfile.txt </a>
+<div class=" " id="page" style="display: none;width: 750px;margin: 0 20%;">
     <div class=" demoTable nav-btn ">
         <button class="layui-btn layui-btn-small  " @click="goBack()">刷新</button>
         &nbsp;
@@ -144,7 +144,7 @@
 
     var _list =   JSON.parse('{$_list}');
     var _date =  JSON.parse('{$_date}');
-console.log(_date)
+
     var _data = {
         scrollTop: 0,
         scrollLeft: 0,

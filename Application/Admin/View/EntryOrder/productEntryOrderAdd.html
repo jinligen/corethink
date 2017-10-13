@@ -905,6 +905,11 @@
                     })
                 }
 
+                this.$nextTick(function(){
+                    $('body').css('background','#fff');
+                    $('#page').css('display','block');
+                })
+
             },
             goBack: function () { //刷新
                 if (!this.isSave) {
