@@ -15,8 +15,8 @@ return array(
         'icon'        => 'fa fa-cog',
         'icon_color'  => '#3CA6F1',
         'description' => '核心系统',
-        'developer'   => '南京科斯克网络科技有限公司',
-        'website'     => 'http://www.lingyun.net',
+        'developer'   => '个人',
+        'website'     => '#',
         'version'     => '1.3.0',
     ),
 
@@ -211,7 +211,7 @@ return array(
 //        ),
         'b10'  => array(
             'pid'   => 'b',
-            'title' => '财务结账',
+            'title' => '业务结账',
             'icon'  => 'fa fa-bookmark',
             'url'   => 'Admin/CloseAccounts/index',
         ),

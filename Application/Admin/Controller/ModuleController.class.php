@@ -9,7 +9,7 @@
 namespace Admin\Controller;
 
 use Common\Util\Sql;
-
+use Think\Db;
 /**
  * 功能模块控制器
  * @author jry <598821125@qq.com>
@@ -40,7 +40,30 @@ class ModuleController extends AdminController
             ->addTableColumn('status_icon', '状态', 'text')
             ->addTableColumn('right_button', '操作', 'btn')
             ->setTableDataList($data_list) // 数据列表
+            ->addRightButton('delete',array('title'=>'清空数据','href'=>U('deleteData')))
             ->display();
+    }
+
+    /**
+     * 清空数据
+     */
+    public function deleteData(){
+
+        $Db = Db::getInstance();
+        $list = $Db->query('SHOW TABLE STATUS');
+        $list = array_map('array_change_key_case', $list);
+        $sql = "";
+        
+        foreach ($list as  $key => $value){
+            if(!$this->checkStr('_admin_',$value['name'])&&!$this->checkStr('_view',$value['name'])){
+                $sql .= "TRUNCATE TABLE {$value['name']};";
+            }
+        }
+//        $this->error($sql);
+        $clear=M();
+        $clear->execute($sql);
+        $this->success('数据已清空！');
+         
     }
 
     /**
@@ -316,6 +339,8 @@ class ModuleController extends AdminController
     public function setStatus($model = CONTROLLER_NAME)
     {
         $ids = I('request.ids');
+
+
         if (is_array($ids)) {
             foreach ($ids as $id) {
                 $is_system = D($model)->getFieldById($id, 'is_system');
@@ -329,6 +354,16 @@ class ModuleController extends AdminController
                 $this->error('系统模块不允许操作');
             }
         }
+
         parent::setStatus($model);
+    }
+
+
+    public function checkStr($str,$target)
+    {
+        $tmpArr = explode($str,$target);
+        //print_r($tmpArr);
+        if(count($tmpArr)>1)return true;
+        else return false;
     }
 }

@@ -65,7 +65,7 @@ class ClerkController extends AdminController
 
                 $id = $user_object->add($data);
                 if ($id) {
-                    $this->success('新增成功', U('index'));
+                    $this->success('新增成功');
                 } else {
                     $this->error('新增失败');
                 }

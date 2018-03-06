@@ -162,6 +162,11 @@ class CloseAccountsController extends AdminController
                 break;
             case 'nojiezhang' :  // 反审核条目
 
+                $_ID = $d_object->order('close_date desc')->find();
+//                $this->error($_ID['id']);
+                if($_ID['id']!=$ids){
+                    $this->error('不能反结账');
+                }
                 $data['is_audited'] = 0;
                 $count = $d_object->where($map)->save($data);
                 if ($count > 0) {
