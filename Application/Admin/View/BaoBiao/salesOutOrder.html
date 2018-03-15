@@ -449,9 +449,9 @@
 
                 $('.print-content').show()
                 LODOP.SET_PREVIEW_WINDOW(1, 2, 0, 1200, 800, "");//打印前弹出选择打印机的对话框
-//                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
+                LODOP.SET_PRINT_PAGESIZE(2, '35cm', '11cm', 'CreateCustomPage');//纵(正)向打印，固定纸张
 
-                LODOP.ADD_PRINT_TABLE( 60, 30, 750, 500, strAllStyle + $("#print-table").html());
+                LODOP.ADD_PRINT_TABLE( 60, 10, 750, 500, strAllStyle + $("#print-table").html());
                 LODOP.SET_PRINT_STYLEA(0, "VOrient", 0);
                 LODOP.SET_PRINT_STYLEA(0, "Horient", 3);
 
