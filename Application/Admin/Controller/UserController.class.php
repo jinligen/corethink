@@ -33,7 +33,7 @@ class UserController extends AdminController
             $condition,
             '_multi' => true,
         );
-  
+        $map['username'] = array('neq', 'admin');
         // 获取所有用户
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p             = !empty($_GET["p"]) ? $_GET['p'] : 1;

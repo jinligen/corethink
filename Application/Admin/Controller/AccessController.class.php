@@ -33,6 +33,7 @@ class AccessController extends AdminController
             '_multi' => true,
         );
 
+        $map['id'] = array('neq', '1');
         // 获取所有配置
         $map['status'] = array('egt', '0'); // 禁用和正常状态
         $p             = !empty($_GET["p"]) ? $_GET['p'] : 1;
