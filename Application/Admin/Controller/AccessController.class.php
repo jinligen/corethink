@@ -97,12 +97,20 @@ class AccessController extends AdminController
                 $this->error($access_object->getError());
             }
         } else {
+            $g = select_list_as_tree('Group');
+            $group = array();
+            foreach ($g as $key => $value){
+                if($key!=1){
+                    $group[$key] = $value;
+                }
+
+            }
             //使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('新增配置') //设置页面标题
                 ->setPostUrl(U('add')) //设置表单提交地址
                 ->addFormItem('uid', 'text', 'UID', '用户ID')
-                ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', select_list_as_tree('Group'))
+                ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', $group)
                 ->display();
         }
     }
@@ -126,13 +134,21 @@ class AccessController extends AdminController
                 $this->error($access_object->getError());
             }
         } else {
+            $g = select_list_as_tree('Group');
+            $group = array();
+            foreach ($g as $key => $value){
+                if($key!=1){
+                    $group[$key] = $value;
+                }
+                
+            } 
             // 使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->setMetaTitle('编辑配置') // 设置页面标题
                 ->setPostUrl(U('edit')) // 设置表单提交地址
                 ->addFormItem('id', 'hidden', 'ID', 'ID')
                 ->addFormItem('uid', 'text', 'UID', '用户ID')
-                ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', select_list_as_tree('Group'))
+                ->addFormItem('group', 'select', '用户组', '不同用户组对应相应的权限', $group)
                 ->setFormData(D('Access')->find($id))
                 ->display();
         }
